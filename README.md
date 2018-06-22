@@ -1,2 +1,2 @@
 # awx-go
-AWS SDK for the Go programming language.
+AWX SDK for the Go programming language.
