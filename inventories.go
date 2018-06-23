@@ -115,11 +115,11 @@ func (this *InventoriesService) ListInventories(params map[string]string) ([]*In
 	endpoint := "/api/v2/inventories/"
 	resp, err := this.client.Requester.GetJSON(endpoint, result, params)
 	if err != nil {
-		return result.Results, resp, err
+		return nil, resp, err
 	}
 
 	if err := CheckResponse(resp); err != nil {
-		return result.Results, resp, err
+		return nil, resp, err
 	}
 
 	return result.Results, resp, nil

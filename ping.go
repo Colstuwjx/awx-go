@@ -25,11 +25,11 @@ func (this *PingService) Ping() (*Ping, *http.Response, error) {
 	endpoint := "/api/v1/ping/"
 	resp, err := this.client.Requester.GetJSON(endpoint, result, map[string]string{})
 	if err != nil {
-		return result, resp, err
+		return nil, resp, err
 	}
 
 	if err := CheckResponse(resp); err != nil {
-		return result, resp, err
+		return nil, resp, err
 	}
 
 	return result, resp, nil
