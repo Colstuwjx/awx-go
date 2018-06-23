@@ -2,7 +2,7 @@ GO           := GO15VENDOREXPERIMENT=1 go
 FIRST_GOPATH := $(firstword $(subst :, ,$(shell $(GO) env GOPATH)))
 pkgs          = $(shell $(GO) list ./... | grep -v /vendor/ )
 
-BUILD_ENTRY             ?= ./*
+BUILD_ENTRY             ?= ./*.go
 BINARY                  ?= awx-go
 
 all: format build test
