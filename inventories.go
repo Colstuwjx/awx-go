@@ -1,5 +1,10 @@
 package awx
 
+import (
+	"net/http"
+	"time"
+)
+
 type InventoriesService struct {
 	client *Client
 }
@@ -110,12 +115,12 @@ func (this *InventoriesService) ListInventories(params map[string]string) ([]*In
 	endpoint := "/api/v2/inventories/"
 	resp, err := this.client.Requester.GetJSON(endpoint, result, params)
 	if err != nil {
-		return result, resp, err
+		return result.Results, resp, err
 	}
 
 	if err := CheckResponse(resp); err != nil {
-		return result, resp, err
+		return result.Results, resp, err
 	}
 
-	return result, resp, nil
+	return result.Results, resp, nil
 }
