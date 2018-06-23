@@ -46,6 +46,7 @@ func NewAWX(baseUrl, userName, passwd string, client *http.Client) *AWX {
 
 	return &AWX{
 		client: awxClient,
+
 		PingService: &PingService{
 			client: awxClient,
 		},
