@@ -8,7 +8,10 @@ import (
 type AWX struct {
 	client *Client
 
-	PingService *PingService
+	PingService        *PingService
+	InventoriesService *InventoriesService
+	JobService         *JobService
+	JobTemplateService *JobTemplateService
 }
 
 type Client struct {
@@ -44,6 +47,15 @@ func NewAWX(baseUrl, userName, passwd string, client *http.Client) *AWX {
 	return &AWX{
 		client: awxClient,
 		PingService: &PingService{
+			client: awxClient,
+		},
+		InventoriesService: &InventoriesService{
+			client: awxClient,
+		},
+		JobService: &JobService{
+			client: awxClient,
+		},
+		JobTemplateService: &JobTemplateService{
 			client: awxClient,
 		},
 	}
