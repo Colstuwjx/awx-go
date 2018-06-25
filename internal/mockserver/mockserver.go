@@ -52,8 +52,29 @@ func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Reque
 func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
 	var (
 		// FIXME: try another framework or implement dictionary tree, rather than using raw net/http.
-		singleJobGetRoute = "/api/v2/jobs/[0-9]+/"
+		singleJobGetHostSummariesRoute = "/api/v2/jobs/[0-9]+/job_host_summaries"
+		singleJobCancelRoute           = "/api/v2/jobs/[0-9]+/cancel"
+		singleJobRelaunchRoute         = "/api/v2/jobs/[0-9]+/relaunch"
+		singleJobGetRoute              = "/api/v2/jobs/[0-9]+/"
 	)
+
+	if matched, _ := regexp.MatchString(singleJobGetHostSummariesRoute, req.URL.String()); matched {
+		result := mockdata.MockedHostSummariesResponse
+		rw.Write(result)
+		return
+	}
+
+	if matched, _ := regexp.MatchString(singleJobCancelRoute, req.URL.String()); matched {
+		result := mockdata.MockedCancelJobResponse
+		rw.Write(result)
+		return
+	}
+
+	if matched, _ := regexp.MatchString(singleJobRelaunchRoute, req.URL.String()); matched {
+		result := mockdata.MockedaunchJobTemplateResponse
+		rw.Write(result)
+		return
+	}
 
 	if matched, _ := regexp.MatchString(singleJobGetRoute, req.URL.String()); matched {
 		result := mockdata.MockedGetJobResponse
