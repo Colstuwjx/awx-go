@@ -190,7 +190,7 @@ func TestLauchJob(t *testing.T) {
 		testJobTemplateId = 5
 		testInventoryId   = 1
 
-		expectLaunchJobTemplateResponse = &JobLauch{
+		expectLaunchJobTemplateResponse = &JobLaunch{
 			Job:           499,
 			IgnoredFields: map[string]string{},
 			ID:            499,
