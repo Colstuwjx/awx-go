@@ -3,12 +3,25 @@ package mockdata
 var (
 	MockedPingResponse = []byte(`
 {
-    "instances": {
-        "primary": "localhost",
-        "secondaries": []
-    },
+    "instance_groups": [
+        {
+            "instances": [
+                "awx"
+            ],
+            "capacity": 138,
+            "name": "tower"
+        }
+    ],
+    "instances": [
+        {
+            "node": "awx",
+            "heartbeat": "2018-06-25T03:14:34.688447Z",
+            "version": "1.0.6.5",
+            "capacity": 138
+        }
+    ],
     "ha": false,
-    "role": "primary",
-    "version": "2.2.2"
+    "version": "1.0.6.5",
+    "active_node": "awx"
 }`)
 )

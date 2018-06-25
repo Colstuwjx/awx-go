@@ -2,27 +2,37 @@ package awx
 
 import (
 	"net/http"
+	"time"
 )
 
 type PingService struct {
 	client *Client
 }
 
-type Instances struct {
-	Primary     string   `json:"primary"`
-	Secondaries []string `json:"secondaries"`
+type InstanceGroup struct {
+	Instances []string `json:"instances"`
+	Capacity  int      `json:"capacity"`
+	Name      string   `json:"name"`
+}
+
+type Instance struct {
+	Node      string    `json:"node"`
+	Heartbeat time.Time `json:"heartbeat"`
+	Version   string    `json:"version"`
+	Capacity  int       `json:"capacity"`
 }
 
 type Ping struct {
-	Instances Instances `json:"instances"`
-	Ha        bool      `json:"ha"`
-	Role      string    `json:"role"`
-	Version   string    `json:"version"`
+	Instances      []Instance      `json:"instances"`
+	InstanceGroups []InstanceGroup `json:"instance_groups"`
+	Ha             bool            `json:"ha"`
+	Version        string          `json:"version"`
+	ActiveNode     string          `json:"active_node"`
 }
 
 func (this *PingService) Ping() (*Ping, *http.Response, error) {
 	result := new(Ping)
-	endpoint := "/api/v1/ping/"
+	endpoint := "/api/v2/ping/"
 	resp, err := this.client.Requester.GetJSON(endpoint, result, map[string]string{})
 	if err != nil {
 		return nil, resp, err

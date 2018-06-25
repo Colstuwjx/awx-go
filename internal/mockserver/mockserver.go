@@ -19,6 +19,11 @@ func (s *mockServer) PingHandler(rw http.ResponseWriter, req *http.Request) {
 	rw.Write(result)
 }
 
+func (s *mockServer) ListInventoriesHandler(rw http.ResponseWriter, req *http.Request) {
+	result := mockdata.MockedListInventoriesResponse
+	rw.Write(result)
+}
+
 var server *mockServer
 
 // Run mock server
@@ -30,7 +35,8 @@ func Run() error {
 func initServer() {
 	server = &mockServer{}
 	mux := http.NewServeMux()
-	mux.Handle("/api/v1/ping/", http.HandlerFunc(server.PingHandler))
+	mux.Handle("/api/v2/ping/", http.HandlerFunc(server.PingHandler))
+	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.ListInventoriesHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
