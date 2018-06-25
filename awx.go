@@ -19,12 +19,6 @@ type Client struct {
 	Requester *Requester
 }
 
-type Pagination struct {
-	Count    int         `json:"count"`
-	Next     interface{} `json:"next"`
-	Previous interface{} `json:"previous"`
-}
-
 func CheckResponse(resp *http.Response) error {
 	if resp.StatusCode >= 200 && resp.StatusCode < 300 {
 		return nil
