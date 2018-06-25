@@ -138,4 +138,56 @@ var (
     "credential": null,
     "vault_credential": null
 }`)
+
+	MockedCancelJobResponse = []byte(`{
+    "detail": "Method \"POST\" not allowed."
+}`)
+
+	MockedHostSummariesResponse = []byte(`{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 65,
+            "type": "job_host_summary",
+            "url": "/api/v2/job_host_summaries/65/",
+            "related": {
+                "job": "/api/v2/jobs/301/",
+                "host": "/api/v2/hosts/1/"
+            },
+            "summary_fields": {
+                "job": {
+                    "id": 301,
+                    "name": "Hello-world",
+                    "description": "",
+                    "status": "canceled",
+                    "failed": true,
+                    "elapsed": 7.68,
+                    "job_template_id": 8,
+                    "job_template_name": "Hello-world"
+                },
+                "host": {
+                    "id": 1,
+                    "name": "localhost",
+                    "description": "",
+                    "has_active_failures": false,
+                    "has_inventory_sources": false
+                }
+            },
+            "created": "2018-06-05T09:13:51.619497Z",
+            "modified": "2018-06-05T09:13:51.619511Z",
+            "job": 301,
+            "host": 1,
+            "host_name": "localhost",
+            "changed": 1,
+            "dark": 0,
+            "failures": 0,
+            "ok": 1,
+            "processed": 1,
+            "skipped": 0,
+            "failed": false
+        }
+    ]
+}`)
 )
