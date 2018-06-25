@@ -44,6 +44,15 @@ type Related struct {
 	Launch                       string `json:"launch"`
 	Schedules                    string `json:"schedules"`
 	SurveySpec                   string `json:"survey_spec"`
+	UnifiedJobTemplate           string `json:"unified_job_template"`
+	Stdout                       string `json:"stdout"`
+	Notifications                string `json:"notifications"`
+	JobHostSummaries             string `json:"job_host_summaries"`
+	JobEvents                    string `json:"job_events"`
+	JobTemplate                  string `json:"job_template"`
+	Cancel                       string `json:"cancel"`
+	CreateSchedule               string `json:"create_schedule"`
+	Relaunch                     string `json:"relaunch"`
 }
 
 type OrgnizationSummary struct {
@@ -57,6 +66,12 @@ type ByUserSummary struct {
 	Username  string `json:"username"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+}
+
+type JobTemplateSummary struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 type ApplyRole struct {
@@ -89,16 +104,19 @@ type Labels struct {
 }
 
 type Summary struct {
-	Organization     *OrgnizationSummary `json:"organization"`
-	CreatedBy        *ByUserSummary      `json:"created_by"`
-	ModifiedBy       *ByUserSummary      `json:"modified_by"`
-	ObjectRoles      *ObjectRoles        `json:"object_roles"`
-	UserCapabilities *UserCapabilities   `json:"user_capabilities"`
-	Project          *Project            `json:"project"`
-	Inventory        *Inventory          `json:"inventory"`
-	RecentJobs       []interface{}       `json:"recent_jobs"`
-	Credentials      []Credential        `json:"credentials"`
-	Labels           *Labels             `json:"labels"`
+	Organization       *OrgnizationSummary `json:"organization"`
+	CreatedBy          *ByUserSummary      `json:"created_by"`
+	ModifiedBy         *ByUserSummary      `json:"modified_by"`
+	ObjectRoles        *ObjectRoles        `json:"object_roles"`
+	UserCapabilities   *UserCapabilities   `json:"user_capabilities"`
+	Project            *Project            `json:"project"`
+	Inventory          *Inventory          `json:"inventory"`
+	RecentJobs         []interface{}       `json:"recent_jobs"`
+	Credentials        []Credential        `json:"credentials"`
+	Labels             *Labels             `json:"labels"`
+	JobTemplate        *JobTemplateSummary `json:"job_template"`
+	UnifiedJobTemplate *UnifiedJobTemplate `json:"unified_job_template"`
+	ExtraCredentials   []interface{}       `json:"extra_credentials"`
 }
 
 type Project struct {
@@ -142,6 +160,12 @@ type Credential struct {
 	ID               int    `json:"id"`
 	Kind             string `json:"kind"`
 	Name             string `json:"name"`
+}
+type UnifiedJobTemplate struct {
+	ID             int    `json:"id"`
+	Name           string `json:"name"`
+	Description    string `json:"description"`
+	UnifiedJobType string `json:"unified_job_type"`
 }
 
 type InstanceGroup struct {
@@ -210,4 +234,64 @@ type JobTemplate struct {
 	CustomVirtualenv      interface{} `json:"custom_virtualenv"`
 	Credential            int         `json:"credential"`
 	VaultCredential       interface{} `json:"vault_credential"`
+}
+
+type JobLauch struct {
+	Job                     int           `json:"job"`
+	IgnoredFields           interface{}   `json:"ignored_fields"`
+	ID                      int           `json:"id"`
+	Type                    string        `json:"type"`
+	URL                     string        `json:"url"`
+	Related                 *Related      `json:"related"`
+	SummaryFields           *Summary      `json:"summary_fields"`
+	Created                 time.Time     `json:"created"`
+	Modified                time.Time     `json:"modified"`
+	Name                    string        `json:"name"`
+	Description             string        `json:"description"`
+	JobType                 string        `json:"job_type"`
+	Inventory               int           `json:"inventory"`
+	Project                 int           `json:"project"`
+	Playbook                string        `json:"playbook"`
+	Forks                   int           `json:"forks"`
+	Limit                   string        `json:"limit"`
+	Verbosity               int           `json:"verbosity"`
+	ExtraVars               string        `json:"extra_vars"`
+	JobTags                 string        `json:"job_tags"`
+	ForceHandlers           bool          `json:"force_handlers"`
+	SkipTags                string        `json:"skip_tags"`
+	StartAtTask             string        `json:"start_at_task"`
+	Timeout                 int           `json:"timeout"`
+	UseFactCache            bool          `json:"use_fact_cache"`
+	UnifiedJobTemplate      int           `json:"unified_job_template"`
+	LaunchType              string        `json:"launch_type"`
+	Status                  string        `json:"status"`
+	Failed                  bool          `json:"failed"`
+	Started                 interface{}   `json:"started"`
+	Finished                interface{}   `json:"finished"`
+	Elapsed                 int           `json:"elapsed"`
+	JobArgs                 string        `json:"job_args"`
+	JobCwd                  string        `json:"job_cwd"`
+	JobEnv                  interface{}   `json:"job_env"`
+	JobExplanation          string        `json:"job_explanation"`
+	ExecutionNode           string        `json:"execution_node"`
+	ResultTraceback         string        `json:"result_traceback"`
+	EventProcessingFinished bool          `json:"event_processing_finished"`
+	JobTemplate             int           `json:"job_template"`
+	PasswordsNeededToStart  []interface{} `json:"passwords_needed_to_start"`
+	AskDiffModeOnLaunch     bool          `json:"ask_diff_mode_on_launch"`
+	AskVariablesOnLaunch    bool          `json:"ask_variables_on_launch"`
+	AskLimitOnLaunch        bool          `json:"ask_limit_on_launch"`
+	AskTagsOnLaunch         bool          `json:"ask_tags_on_launch"`
+	AskSkipTagsOnLaunch     bool          `json:"ask_skip_tags_on_launch"`
+	AskJobTypeOnLaunch      bool          `json:"ask_job_type_on_launch"`
+	AskVerbosityOnLaunch    bool          `json:"ask_verbosity_on_launch"`
+	AskInventoryOnLaunch    bool          `json:"ask_inventory_on_launch"`
+	AskCredentialOnLaunch   bool          `json:"ask_credential_on_launch"`
+	AllowSimultaneous       bool          `json:"allow_simultaneous"`
+	Artifacts               interface{}   `json:"artifacts"`
+	ScmRevision             string        `json:"scm_revision"`
+	InstanceGroup           interface{}   `json:"instance_group"`
+	DiffMode                bool          `json:"diff_mode"`
+	Credential              int           `json:"credential"`
+	VaultCredential         interface{}   `json:"vault_credential"`
 }

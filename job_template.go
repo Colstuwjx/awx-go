@@ -31,8 +31,8 @@ func (this *JobTemplateService) ListJobTemplates(params map[string]string) ([]*J
 	return result.Results, resp, nil
 }
 
-func (this *JobTemplateService) Launch(id int, data map[string]interface{}, params map[string]string) (*Job, *http.Response, error) {
-	result := new(Job)
+func (this *JobTemplateService) Launch(id int, data map[string]interface{}, params map[string]string) (*JobLauch, *http.Response, error) {
+	result := new(JobLauch)
 	endpoint := fmt.Sprintf("/api/v2/job_templates/%d/launch/", id)
 	payload, err := json.Marshal(data)
 	if err != nil {
