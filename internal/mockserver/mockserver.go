@@ -49,6 +49,23 @@ func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Reque
 	return
 }
 
+func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
+	var (
+		// FIXME: try another framework or implement dictionary tree, rather than using raw net/http.
+		singleJobGetRoute = "/api/v2/jobs/[0-9]+/"
+	)
+
+	if matched, _ := regexp.MatchString(singleJobGetRoute, req.URL.String()); matched {
+		result := mockdata.MockedGetJobResponse
+		rw.Write(result)
+		return
+	}
+
+	rw.WriteHeader(http.StatusNotFound)
+	rw.Write([]byte("404 - router not found!"))
+	return
+}
+
 var server *mockServer
 
 // Run mock server
@@ -63,6 +80,7 @@ func initServer() {
 	mux.Handle("/api/v2/ping/", http.HandlerFunc(server.PingHandler))
 	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.ListInventoriesHandler))
 	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.JobTemplatesHandler))
+	mux.Handle("/api/v2/jobs/", http.HandlerFunc(server.JobsHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
