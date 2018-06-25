@@ -190,4 +190,56 @@ var (
         }
     ]
 }`)
+
+	MockedJobEventsResponse = []byte(`{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 682,
+            "type": "job_event",
+            "url": "/api/v2/job_events/682/",
+            "related": {
+                "job": "/api/v2/jobs/301/"
+            },
+            "summary_fields": {
+                "role": {},
+                "job": {
+                    "id": 301,
+                    "name": "Hello-world",
+                    "description": "",
+                    "status": "canceled",
+                    "failed": true,
+                    "elapsed": 7.68,
+                    "job_template_id": 8,
+                    "job_template_name": "Hello-world"
+                }
+            },
+            "created": "2018-06-05T09:13:51.249805Z",
+            "modified": "2018-06-05T09:13:51.249818Z",
+            "job": 301,
+            "event": "verbose",
+            "counter": 1,
+            "event_display": "Verbose",
+            "event_data": {},
+            "event_level": 0,
+            "failed": false,
+            "changed": false,
+            "uuid": "",
+            "parent_uuid": "",
+            "host": null,
+            "host_name": "",
+            "parent": null,
+            "playbook": "",
+            "play": "",
+            "task": "",
+            "role": "",
+            "stdout": "\u001b[0;31m [ERROR]:\u001b[0m",
+            "start_line": 0,
+            "end_line": 1,
+            "verbosity": 0
+        }
+    ]
+}`)
 )

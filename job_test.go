@@ -464,3 +464,79 @@ func TestGetHostSummaries(t *testing.T) {
 
 	log.Println("GetHostSummaries passed!")
 }
+
+func TestGetJobEvents(t *testing.T) {
+	var (
+		expectJobEventsResponse = []JobEvent{
+			JobEvent{
+				ID:   682,
+				Type: "job_event",
+				URL:  "/api/v2/job_events/682/",
+				Related: &Related{
+					Job: "/api/v2/jobs/301/",
+				},
+				SummaryFields: &HostSummaryFields{
+					Role: map[string]string{},
+					Job: &HostSummaryJob{
+						ID:              301,
+						Name:            "Hello-world",
+						Description:     "",
+						Status:          "canceled",
+						Failed:          true,
+						Elapsed:         7.68,
+						JobTemplateId:   8,
+						JobTemplateName: "Hello-world",
+					},
+				},
+
+				Created: func() time.Time {
+					t, _ := time.Parse(time.RFC3339, "2018-06-05T09:13:51.249805Z")
+					return t
+				}(),
+
+				Modified: func() time.Time {
+					t, _ := time.Parse(time.RFC3339, "2018-06-05T09:13:51.249818Z")
+					return t
+				}(),
+
+				Job:          301,
+				Event:        "verbose",
+				Counter:      1,
+				EventDisplay: "Verbose",
+				EventData:    &EventData{},
+				EventLevel:   0,
+				Failed:       false,
+				Changed:      false,
+				UUID:         "",
+				ParentUUID:   "",
+				Host:         nil,
+				HostName:     "",
+				Parent:       nil,
+				Playbook:     "",
+				Play:         "",
+				Task:         "",
+				Role:         "",
+				Stdout:       "\u001b[0;31m [ERROR]:\u001b[0m",
+				StartLine:    0,
+				EndLine:      1,
+				Verbosity:    0,
+			},
+		}
+		testJobId = 301
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, _, err := awx.JobService.GetJobEvents(testJobId, map[string]string{
+		"order_by":  "start_line",
+		"page_size": "1000000",
+	})
+	if err != nil {
+		log.Fatalf("GetJobEvents err: %s", err)
+	}
+
+	if !reflect.DeepEqual(result, expectJobEventsResponse) {
+		log.Fatalf("GetJobEvents resp not as expected, expected: %v, resp result: %v", expectJobEventsResponse, result)
+	}
+
+	log.Println("GetJobEvents passed!")
+}
