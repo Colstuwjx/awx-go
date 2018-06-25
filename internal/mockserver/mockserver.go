@@ -3,6 +3,7 @@ package mockserver
 import (
 	"context"
 	"net/http"
+	"regexp"
 	"time"
 
 	"github.com/Colstuwjx/awx-go/internal/mockserver/mockdata"
@@ -24,9 +25,28 @@ func (s *mockServer) ListInventoriesHandler(rw http.ResponseWriter, req *http.Re
 	rw.Write(result)
 }
 
-func (s *mockServer) ListJobTemplatesHandler(rw http.ResponseWriter, req *http.Request) {
-	result := mockdata.MockedListJobTemplatesResponse
-	rw.Write(result)
+func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Request) {
+	var (
+		// FIXME: try another framework or implement dictionary tree, rather than using raw net/http.
+		singleJobTemplateLaunchRoute = "/api/v2/job_templates/[0-9]+/launch/"
+		defaultListJobTemplatesRoute = "/api/v2/job_templates/"
+	)
+
+	if matched, _ := regexp.MatchString(singleJobTemplateLaunchRoute, req.URL.String()); matched {
+		result := mockdata.MockedaunchJobTemplateResponse
+		rw.Write(result)
+		return
+	}
+
+	if matched, _ := regexp.MatchString(defaultListJobTemplatesRoute, req.URL.String()); matched {
+		result := mockdata.MockedListJobTemplatesResponse
+		rw.Write(result)
+		return
+	}
+
+	rw.WriteHeader(http.StatusNotFound)
+	rw.Write([]byte("404 - router not found!"))
+	return
 }
 
 var server *mockServer
@@ -42,7 +62,7 @@ func initServer() {
 	mux := http.NewServeMux()
 	mux.Handle("/api/v2/ping/", http.HandlerFunc(server.PingHandler))
 	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.ListInventoriesHandler))
-	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.ListJobTemplatesHandler))
+	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.JobTemplatesHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
