@@ -9,82 +9,75 @@ type InventoriesService struct {
 	client *Client
 }
 
+type Related struct {
+	CreatedBy              string `json:"created_by"`
+	ModifiedBy             string `json:"modified_by"`
+	JobTemplates           string `json:"job_templates"`
+	VariableData           string `json:"variable_data"`
+	RootGroups             string `json:"root_groups"`
+	ObjectRoles            string `json:"object_roles"`
+	AdHocCommands          string `json:"ad_hoc_commands"`
+	Script                 string `json:"script"`
+	Tree                   string `json:"tree"`
+	AccessList             string `json:"access_list"`
+	ActivityStream         string `json:"activity_stream"`
+	InstanceGroups         string `json:"instance_groups"`
+	Hosts                  string `json:"hosts"`
+	Groups                 string `json:"groups"`
+	Copy                   string `json:"copy"`
+	UpdateInventorySources string `json:"update_inventory_sources"`
+	InventorySources       string `json:"inventory_sources"`
+	Organization           string `json:"organization"`
+}
+
+type OrgnizationSummary struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+type ByUserSummary struct {
+	ID        int    `json:"id"`
+	Username  string `json:"username"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+}
+
+type ApplyRole struct {
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+type ObjectRoles struct {
+	UseRole    *ApplyRole `json:"use_role"`
+	AdminRole  *ApplyRole `json:"admin_role"`
+	AdhocRole  *ApplyRole `json:"adhoc_role"`
+	UpdateRole *ApplyRole `json:"update_role"`
+	ReadRole   *ApplyRole `json:"read_role"`
+}
+
+type UserCapabilities struct {
+	Edit   bool `json:"edit"`
+	Copy   bool `json:"copy"`
+	Adhoc  bool `json:"adhoc"`
+	Delete bool `json:"delete"`
+}
+
+type Summary struct {
+	Organization     *OrgnizationSummary `json:"organization"`
+	CreatedBy        *ByUserSummary      `json:"created_by"`
+	ModifiedBy       *ByUserSummary      `json:"modified_by"`
+	ObjectRoles      *ObjectRoles        `json:"object_roles"`
+	UserCapabilities *UserCapabilities   `json:"user_capabilities"`
+}
+
 type Inventory struct {
-	ID      int    `json:"id"`
-	Type    string `json:"type"`
-	URL     string `json:"url"`
-	Related struct {
-		CreatedBy              string `json:"created_by"`
-		ModifiedBy             string `json:"modified_by"`
-		JobTemplates           string `json:"job_templates"`
-		VariableData           string `json:"variable_data"`
-		RootGroups             string `json:"root_groups"`
-		ObjectRoles            string `json:"object_roles"`
-		AdHocCommands          string `json:"ad_hoc_commands"`
-		Script                 string `json:"script"`
-		Tree                   string `json:"tree"`
-		AccessList             string `json:"access_list"`
-		ActivityStream         string `json:"activity_stream"`
-		InstanceGroups         string `json:"instance_groups"`
-		Hosts                  string `json:"hosts"`
-		Groups                 string `json:"groups"`
-		Copy                   string `json:"copy"`
-		UpdateInventorySources string `json:"update_inventory_sources"`
-		InventorySources       string `json:"inventory_sources"`
-		Organization           string `json:"organization"`
-	} `json:"related"`
-	SummaryFields struct {
-		Organization struct {
-			ID          int    `json:"id"`
-			Name        string `json:"name"`
-			Description string `json:"description"`
-		} `json:"organization"`
-		CreatedBy struct {
-			ID        int    `json:"id"`
-			Username  string `json:"username"`
-			FirstName string `json:"first_name"`
-			LastName  string `json:"last_name"`
-		} `json:"created_by"`
-		ModifiedBy struct {
-			ID        int    `json:"id"`
-			Username  string `json:"username"`
-			FirstName string `json:"first_name"`
-			LastName  string `json:"last_name"`
-		} `json:"modified_by"`
-		ObjectRoles struct {
-			UseRole struct {
-				ID          int    `json:"id"`
-				Description string `json:"description"`
-				Name        string `json:"name"`
-			} `json:"use_role"`
-			AdminRole struct {
-				ID          int    `json:"id"`
-				Description string `json:"description"`
-				Name        string `json:"name"`
-			} `json:"admin_role"`
-			AdhocRole struct {
-				ID          int    `json:"id"`
-				Description string `json:"description"`
-				Name        string `json:"name"`
-			} `json:"adhoc_role"`
-			UpdateRole struct {
-				ID          int    `json:"id"`
-				Description string `json:"description"`
-				Name        string `json:"name"`
-			} `json:"update_role"`
-			ReadRole struct {
-				ID          int    `json:"id"`
-				Description string `json:"description"`
-				Name        string `json:"name"`
-			} `json:"read_role"`
-		} `json:"object_roles"`
-		UserCapabilities struct {
-			Edit   bool `json:"edit"`
-			Copy   bool `json:"copy"`
-			Adhoc  bool `json:"adhoc"`
-			Delete bool `json:"delete"`
-		} `json:"user_capabilities"`
-	} `json:"summary_fields"`
+	ID                           int         `json:"id"`
+	Type                         string      `json:"type"`
+	URL                          string      `json:"url"`
+	Related                      *Related    `json:"related"`
+	SummaryFields                *Summary    `json:"summary_fields"`
 	Created                      time.Time   `json:"created"`
 	Modified                     time.Time   `json:"modified"`
 	Name                         string      `json:"name"`

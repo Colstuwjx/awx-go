@@ -5,46 +5,36 @@ import (
 	"reflect"
 	"testing"
 	"time"
-
-	"github.com/Colstuwjx/awx-go/internal/mockserver"
 )
-
-func TestMain(m *testing.M) {
-	setup()
-	defer teardown()
-
-	m.Run()
-}
-
-func setup() {
-	go func() {
-		if err := mockserver.Run(); err != nil {
-			log.Fatal(err)
-		}
-	}()
-
-	// wait for mock server to run
-	time.Sleep(time.Millisecond * 10)
-}
-
-func teardown() {
-	mockserver.Close()
-}
 
 func TestPing(t *testing.T) {
 	var (
 		expectPingResponse = &Ping{
-			Instances: Instances{
-				Primary:     "localhost",
-				Secondaries: []string{},
+			Instances: []Instance{
+				Instance{
+					Node: "awx",
+					Heartbeat: func() time.Time {
+						t, _ := time.Parse(time.RFC3339, "2018-06-25T03:14:34.688447Z")
+						return t
+					}(),
+					Version:  "1.0.6.5",
+					Capacity: 138,
+				},
 			},
-			Ha:      false,
-			Role:    "primary",
-			Version: "2.2.2",
+			InstanceGroups: []InstanceGroup{
+				InstanceGroup{
+					Instances: []string{"awx"},
+					Capacity:  138,
+					Name:      "tower",
+				},
+			},
+			Ha:         false,
+			Version:    "1.0.6.5",
+			ActiveNode: "awx",
 		}
 	)
 
-	awx := NewAWX("http://127.0.0.1:8080", "", "", nil)
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, _, err := awx.PingService.Ping()
 	if err != nil {
 		log.Fatalf("Ping err: %s", err)
