@@ -184,3 +184,20 @@ func TestListJobTemplates(t *testing.T) {
 
 	log.Println("ListJobTemplates passed!")
 }
+
+func TestLauchJob(t *testing.T) {
+	var (
+		testJobTemplateId = 5
+		testInventoryId   = 1
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	_, _, err := awx.JobTemplateService.Launch(testJobTemplateId, map[string]interface{}{
+		"inventory": testInventoryId,
+	}, map[string]string{})
+	if err != nil {
+		log.Fatalf("Lauch err: %s", err)
+	}
+
+	log.Println("Lauch passed!")
+}
