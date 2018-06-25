@@ -24,6 +24,11 @@ func (s *mockServer) ListInventoriesHandler(rw http.ResponseWriter, req *http.Re
 	rw.Write(result)
 }
 
+func (s *mockServer) ListJobTemplatesHandler(rw http.ResponseWriter, req *http.Request) {
+	result := mockdata.MockedListJobTemplatesResponse
+	rw.Write(result)
+}
+
 var server *mockServer
 
 // Run mock server
@@ -37,6 +42,7 @@ func initServer() {
 	mux := http.NewServeMux()
 	mux.Handle("/api/v2/ping/", http.HandlerFunc(server.PingHandler))
 	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.ListInventoriesHandler))
+	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.ListJobTemplatesHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
