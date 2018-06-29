@@ -317,9 +317,8 @@ type JobLaunch struct {
 }
 
 type Job struct {
-	ID   int    `json:"id"`
-	Type string `json:"
-	type"`
+	ID                      int               `json:"id"`
+	Type                    string            `json:"type"`
 	URL                     string            `json:"url"`
 	Related                 *Related          `json:"related"`
 	SummaryFields           *Summary          `json:"summary_fields"`
