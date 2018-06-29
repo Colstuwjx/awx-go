@@ -7,6 +7,17 @@ import (
 	"net/http"
 )
 
+const (
+	JobStatusNew        = "new"
+	JobStatusPending    = "pending"
+	JobStatusWaiting    = "waiting"
+	JobStatusRunning    = "running"
+	JobStatusSuccessful = "successful"
+	JobStatusFailed     = "failed"
+	JobStatusError      = "error"
+	JobStatusCanceled   = "canceled"
+)
+
 type JobService struct {
 	client *Client
 }
