@@ -174,7 +174,7 @@ func TestGetJob(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.JobService.GetJob(testJobId, map[string]string{})
+	result, err := awx.JobService.GetJob(testJobId, map[string]string{})
 	if err != nil {
 		log.Fatalf("GetJob err: %s", err)
 	}
@@ -196,7 +196,7 @@ func TestCancelJob(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.JobService.CancelJob(testJobId, map[string]interface{}{}, map[string]string{})
+	result, err := awx.JobService.CancelJob(testJobId, map[string]interface{}{}, map[string]string{})
 	if err != nil {
 		log.Fatalf("CancelJob err: %s", err)
 	}
@@ -383,7 +383,7 @@ func TestRelaunchJob(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.JobService.RelaunchJob(testJobId, map[string]interface{}{"hosts": "all"}, map[string]string{})
+	result, err := awx.JobService.RelaunchJob(testJobId, map[string]interface{}{"hosts": "all"}, map[string]string{})
 	if err != nil {
 		log.Fatalf("RelaunchJob err: %s", err)
 	}

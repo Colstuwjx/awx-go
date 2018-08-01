@@ -361,7 +361,7 @@ func TestLauchJob(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.JobTemplateService.Launch(testJobTemplateId, map[string]interface{}{
+	result, err := awx.JobTemplateService.Launch(testJobTemplateId, map[string]interface{}{
 		"inventory": testInventoryId,
 	}, map[string]string{})
 	if err != nil {
