@@ -35,7 +35,7 @@ func TestPing(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.PingService.Ping()
+	result, err := awx.PingService.Ping()
 	if err != nil {
 		log.Fatalf("Ping err: %s", err)
 	}
