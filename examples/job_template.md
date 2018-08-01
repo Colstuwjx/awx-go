@@ -36,7 +36,7 @@ fun main() {
     )
 
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, _, err := awx.JobTemplateService.Launch(yourJobTemplateId, map[string]interface{}{
+    result, err := awx.JobTemplateService.Launch(yourJobTemplateId, map[string]interface{}{
         "inventory": yourInventoryId,
     }, map[string]string{})
     if err != nil {

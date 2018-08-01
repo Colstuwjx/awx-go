@@ -16,7 +16,7 @@ fun main() {
     )
 
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, _, err := awx.JobService.GetJob(yourJobId, map[string]string{})
+    result, err := awx.JobService.GetJob(yourJobId, map[string]string{})
     if err != nil {
         log.Fatalf("Get Job err: %s", err)
     }
@@ -39,7 +39,7 @@ fun main() {
     )
 
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, _, err := awx.JobService.CancelJob(yourJobId, map[string]interface{}{}, map[string]string{})
+    result, err := awx.JobService.CancelJob(yourJobId, map[string]interface{}{}, map[string]string{})
     if err != nil {
         log.Fatalf("Cancel Job err: %s", err)
     }
@@ -62,7 +62,7 @@ fun main() {
     )
 
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, _, err := awx.JobService.RelaunchJob(yourJobId, map[string]interface{}{"hosts": "all"}, map[string]string{})
+    result, err := awx.JobService.RelaunchJob(yourJobId, map[string]interface{}{"hosts": "all"}, map[string]string{})
     if err != nil {
         log.Fatalf("Relaunch Job err: %s", err)
     }
