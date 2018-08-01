@@ -12,7 +12,7 @@ import (
 
 fun main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, _, err := awx.PingService.Ping()
+    result, err := awx.PingService.Ping()
     if err != nil {
         log.Fatalf("Ping awx err: %s", err)
     }
