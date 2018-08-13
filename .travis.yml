@@ -6,6 +6,15 @@ go:
 
 go_import_path: github.com/Colstuwjx/awx-go
 
+install:
+  - go get -u github.com/alecthomas/gometalinter
+  - gometalinter --install
+
 script:
+  - make lint
+  - ./codecov.sh
   - make build
   - make test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
