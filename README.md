@@ -37,6 +37,10 @@ func main() {
 
 More examples could be found at [here](https://github.com/Colstuwjx/awx-go/tree/master/examples).
 
+## Roadmap
+
+awx-go is still in developing, and it's roadmap could be found at [here](https://github.com/Colstuwjx/awx-go/blob/master/ROADMAP.md).
+
 ## Contribute
 
 There are many ways to contribute to awx-go.
