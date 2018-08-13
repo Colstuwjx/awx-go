@@ -1,6 +1,7 @@
 package mockdata
 
 var (
+	// MockedGetJobResponse mocked `GetJob` endpoint response
 	MockedGetJobResponse = []byte(`
 {
     "id": 301,
@@ -139,10 +140,12 @@ var (
     "vault_credential": null
 }`)
 
+	// MockedCancelJobResponse mocked `CancelJob` endpoint response
 	MockedCancelJobResponse = []byte(`{
     "detail": "Method \"POST\" not allowed."
 }`)
 
+	// MockedHostSummariesResponse mocked `HostSummaries` endpoint response
 	MockedHostSummariesResponse = []byte(`{
     "count": 1,
     "next": null,
@@ -191,6 +194,7 @@ var (
     ]
 }`)
 
+	// MockedJobEventsResponse mocked `JobEvents` endpoint response
 	MockedJobEventsResponse = []byte(`{
     "count": 1,
     "next": null,
