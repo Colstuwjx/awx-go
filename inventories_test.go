@@ -139,3 +139,140 @@ func TestListInventories(t *testing.T) {
 
 	log.Println("ListInventories passed!")
 }
+
+func TestCreateInventory(t *testing.T) {
+	var (
+		expectCreateInventoryResponse = &Inventory{
+			ID:   6,
+			Type: "inventory",
+			URL:  "/api/v2/inventories/6/",
+			Related: &Related{
+				NamedUrl:       "/api/v2/inventories/TestInventory++Default/",
+				CreatedBy:      "/api/v2/users/1/",
+				ModifiedBy:     "/api/v2/users/1/",
+				JobTemplates:   "/api/v2/inventories/6/job_templates/",
+				VariableData:   "/api/v2/inventories/6/variable_data/",
+				RootGroups:     "/api/v2/inventories/6/root_groups/",
+				ObjectRoles:    "/api/v2/inventories/6/object_roles/",
+				AdHocCommands:  "/api/v2/inventories/6/ad_hoc_commands/",
+				Script:         "/api/v2/inventories/6/script/",
+				Tree:           "/api/v2/inventories/6/tree/",
+				AccessList:     "/api/v2/inventories/6/access_list/",
+				ActivityStream: "/api/v2/inventories/6/activity_stream/",
+				InstanceGroups: "/api/v2/inventories/6/instance_groups/",
+				Hosts:          "/api/v2/inventories/6/hosts/",
+				Groups:         "/api/v2/inventories/6/groups/",
+				Copy:           "/api/v2/inventories/6/copy/",
+				UpdateInventorySources: "/api/v2/inventories/6/update_inventory_sources/",
+				InventorySources:       "/api/v2/inventories/6/inventory_sources/",
+				Organization:           "/api/v2/organizations/1/",
+			},
+			SummaryFields: &Summary{
+				Organization: &OrgnizationSummary{
+					ID:          1,
+					Name:        "Default",
+					Description: "",
+				},
+
+				CreatedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+
+				ModifiedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+
+				ObjectRoles: &ObjectRoles{
+					UseRole: &ApplyRole{
+						ID:          80,
+						Description: "Can use the inventory in a job template",
+						Name:        "Use",
+					},
+
+					AdminRole: &ApplyRole{
+						ID:          78,
+						Description: "Can manage all aspects of the inventory",
+						Name:        "Admin",
+					},
+
+					AdhocRole: &ApplyRole{
+						ID:          77,
+						Description: "May run ad hoc commands on an inventory",
+						Name:        "Ad Hoc",
+					},
+
+					UpdateRole: &ApplyRole{
+						ID:          81,
+						Description: "May update project or inventory or group using the configured source update system",
+						Name:        "Update",
+					},
+
+					ReadRole: &ApplyRole{
+						ID:          79,
+						Description: "May view settings for the inventory",
+						Name:        "Read",
+					},
+				},
+
+				UserCapabilities: &UserCapabilities{
+					Edit:   true,
+					Copy:   true,
+					Adhoc:  true,
+					Delete: true,
+				},
+			},
+
+			Created: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-08-13T01:59:47.160127Z")
+				return t
+			}(),
+
+			Modified: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-08-13T01:59:47.160140Z")
+				return t
+			}(),
+
+			Name:                         "TestInventory",
+			Description:                  "for testing CreateInventory api",
+			Organization:                 1,
+			Kind:                         "",
+			HostFilter:                   nil,
+			Variables:                    "",
+			HasActiveFailures:            false,
+			TotalHosts:                   0,
+			HostsWithActiveFailures:      0,
+			TotalGroups:                  0,
+			GroupsWithActiveFailures:     0,
+			HasInventorySources:          false,
+			TotalInventorySources:        0,
+			InventorySourcesWithFailures: 0,
+			InsightsCredential:           nil,
+			PendingDeletion:              false,
+		}
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.InventoriesService.CreateInventory(map[string]interface{}{
+		"name":         "TestInventory",
+		"description":  "for testing CreateInventory api",
+		"organization": 1,
+		"kind":         "",
+		"host_filter":  "",
+		"variables":    "",
+	}, map[string]string{})
+	if err != nil {
+		log.Fatalf("CreateInventory err: %s", err)
+	}
+
+	if !reflect.DeepEqual(result, expectCreateInventoryResponse) {
+		log.Fatalf("CreateInventory resp not as expected, expected: %v, resp result: %v", expectCreateInventoryResponse, result)
+	}
+
+	log.Println("CreateInventory passed!")
+}

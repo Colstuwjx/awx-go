@@ -20,7 +20,13 @@ func (s *mockServer) PingHandler(rw http.ResponseWriter, req *http.Request) {
 	rw.Write(result)
 }
 
-func (s *mockServer) ListInventoriesHandler(rw http.ResponseWriter, req *http.Request) {
+func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Request) {
+	if req.Method == "POST" {
+		result := mockdata.MockedCreateInventoryResponse
+		rw.Write(result)
+		return
+	}
+
 	result := mockdata.MockedListInventoriesResponse
 	rw.Write(result)
 }
@@ -106,7 +112,7 @@ func initServer() {
 	server = &mockServer{}
 	mux := http.NewServeMux()
 	mux.Handle("/api/v2/ping/", http.HandlerFunc(server.PingHandler))
-	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.ListInventoriesHandler))
+	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.InventoriesHandler))
 	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.JobTemplatesHandler))
 	mux.Handle("/api/v2/jobs/", http.HandlerFunc(server.JobsHandler))
 	server.server.Handler = mux
