@@ -1,6 +1,7 @@
 package mockdata
 
 var (
+	// MockedListJobTemplatesResponse mocked `ListJobTemplates` endpoint response
 	MockedListJobTemplatesResponse = []byte(`
 {
     "count": 1,
@@ -150,7 +151,8 @@ var (
     ]
 }`)
 
-	MockedaunchJobTemplateResponse = []byte(`
+	// MockedLaunchJobTemplateResponse mocked `LaunchJobTemplate` endpoint response
+	MockedLaunchJobTemplateResponse = []byte(`
 {
     "job": 499,
     "ignored_fields": {},

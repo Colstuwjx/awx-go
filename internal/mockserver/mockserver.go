@@ -39,7 +39,7 @@ func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Reque
 	)
 
 	if matched, _ := regexp.MatchString(singleJobTemplateLaunchRoute, req.URL.String()); matched {
-		result := mockdata.MockedaunchJobTemplateResponse
+		result := mockdata.MockedLaunchJobTemplateResponse
 		rw.Write(result)
 		return
 	}
@@ -52,7 +52,6 @@ func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Reque
 
 	rw.WriteHeader(http.StatusNotFound)
 	rw.Write([]byte("404 - router not found!"))
-	return
 }
 
 func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
@@ -84,7 +83,7 @@ func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	if matched, _ := regexp.MatchString(singleJobRelaunchRoute, req.URL.String()); matched {
-		result := mockdata.MockedaunchJobTemplateResponse
+		result := mockdata.MockedLaunchJobTemplateResponse
 		rw.Write(result)
 		return
 	}
@@ -97,7 +96,6 @@ func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusNotFound)
 	rw.Write([]byte("404 - router not found!"))
-	return
 }
 
 var server *mockServer

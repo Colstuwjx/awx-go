@@ -4,16 +4,20 @@ import (
 	"time"
 )
 
-// common types here
+// Common types definition here
+// For common usage, we made `Related` and `Summary` as two common field,
+// it maybe happened that some structs don't have some fields in `Related` or `Summary`.
 
+// Pagination represents the awx api pagination params.
 type Pagination struct {
 	Count    int         `json:"count"`
 	Next     interface{} `json:"next"`
 	Previous interface{} `json:"previous"`
 }
 
+// Related represents the awx api related field.
 type Related struct {
-	NamedUrl                     string `json:"named_url"`
+	NamedURL                     string `json:"named_url"`
 	CreatedBy                    string `json:"created_by"`
 	ModifiedBy                   string `json:"modified_by"`
 	JobTemplates                 string `json:"job_templates"`
@@ -59,12 +63,14 @@ type Related struct {
 	Relaunch                     string `json:"relaunch"`
 }
 
+// OrgnizationSummary represents the awx api orgnization summary fields.
 type OrgnizationSummary struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 }
 
+// ByUserSummary represents the awx api user summary fields.
 type ByUserSummary struct {
 	ID        int    `json:"id"`
 	Username  string `json:"username"`
@@ -72,24 +78,28 @@ type ByUserSummary struct {
 	LastName  string `json:"last_name"`
 }
 
+// JobTemplateSummary represents the awx api job template summary fields.
 type JobTemplateSummary struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 }
 
+// InstanceGroupSummary represents the awx api instance group summary fields.
 type InstanceGroupSummary struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 }
 
+// ApplyRole represents the awx api apply role.
 type ApplyRole struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 }
 
+// ObjectRoles represents the awx api object roles.
 type ObjectRoles struct {
 	UseRole     *ApplyRole `json:"use_role"`
 	AdminRole   *ApplyRole `json:"admin_role"`
@@ -99,6 +109,7 @@ type ObjectRoles struct {
 	ExecuteRole *ApplyRole `json:"execute_role"`
 }
 
+// UserCapabilities represents the awx api user capabilities.
 type UserCapabilities struct {
 	Edit     bool `json:"edit"`
 	Start    bool `json:"start"`
@@ -108,11 +119,13 @@ type UserCapabilities struct {
 	Delete   bool `json:"delete"`
 }
 
+// Labels represents the awx api labels.
 type Labels struct {
 	Count   int           `json:"count"`
 	Results []interface{} `json:"results"`
 }
 
+// Summary represents the awx api summary fields.
 type Summary struct {
 	InstanceGroup      *InstanceGroupSummary `json:"instance_group"`
 	Organization       *OrgnizationSummary   `json:"organization"`
@@ -132,6 +145,7 @@ type Summary struct {
 	ProjectUpdate      *ProjectUpdate        `json:"project_update"`
 }
 
+// ProjectUpdate represents the awx api project update.
 type ProjectUpdate struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
@@ -140,6 +154,7 @@ type ProjectUpdate struct {
 	Failed      bool   `json:"failed"`
 }
 
+// Project represents the awx api project.
 type Project struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
@@ -148,6 +163,7 @@ type Project struct {
 	ScmType     string `json:"scm_type"`
 }
 
+// Inventory represents the awx api inventory.
 type Inventory struct {
 	ID                           int         `json:"id"`
 	Type                         string      `json:"type"`
@@ -175,6 +191,7 @@ type Inventory struct {
 	PendingDeletion              bool        `json:"pending_deletion"`
 }
 
+// Credential represents the awx api credential.
 type Credential struct {
 	Description      string `json:"description"`
 	CredentialTypeID int    `json:"credential_type_id"`
@@ -182,6 +199,8 @@ type Credential struct {
 	Kind             string `json:"kind"`
 	Name             string `json:"name"`
 }
+
+// UnifiedJobTemplate represents the awx api unified job template.
 type UnifiedJobTemplate struct {
 	ID             int    `json:"id"`
 	Name           string `json:"name"`
@@ -189,12 +208,14 @@ type UnifiedJobTemplate struct {
 	UnifiedJobType string `json:"unified_job_type"`
 }
 
+// InstanceGroup represents the awx api instance group.
 type InstanceGroup struct {
 	Instances []string `json:"instances"`
 	Capacity  int      `json:"capacity"`
 	Name      string   `json:"name"`
 }
 
+// Instance represents the awx api instance.
 type Instance struct {
 	Node      string    `json:"node"`
 	Heartbeat time.Time `json:"heartbeat"`
@@ -202,6 +223,7 @@ type Instance struct {
 	Capacity  int       `json:"capacity"`
 }
 
+// Ping represents the awx api ping.
 type Ping struct {
 	Instances      []Instance      `json:"instances"`
 	InstanceGroups []InstanceGroup `json:"instance_groups"`
@@ -210,6 +232,7 @@ type Ping struct {
 	ActiveNode     string          `json:"active_node"`
 }
 
+// JobTemplate represents the awx api job template.
 type JobTemplate struct {
 	ID                    int         `json:"id"`
 	Type                  string      `json:"type"`
@@ -257,6 +280,7 @@ type JobTemplate struct {
 	VaultCredential       interface{} `json:"vault_credential"`
 }
 
+// JobLaunch represents the awx api job launch.
 type JobLaunch struct {
 	Job                     int               `json:"job"`
 	IgnoredFields           map[string]string `json:"ignored_fields"`
@@ -317,6 +341,7 @@ type JobLaunch struct {
 	VaultCredential         interface{}       `json:"vault_credential"`
 }
 
+// Job represents the awx api job.
 type Job struct {
 	ID                      int               `json:"id"`
 	Type                    string            `json:"type"`
@@ -375,6 +400,7 @@ type Job struct {
 	VaultCredential         interface{}       `json:"vault_credential"`
 }
 
+// HostSummaryHost represents the awx api host summary host fields.
 type HostSummaryHost struct {
 	ID                  int    `json:"id"`
 	Name                string `json:"name"`
@@ -383,6 +409,7 @@ type HostSummaryHost struct {
 	HasInventorySources bool   `json:"has_inventory_sources"`
 }
 
+// HostSummaryJob represents the awx api host summary job fields.
 type HostSummaryJob struct {
 	ID              int     `json:"id"`
 	Name            string  `json:"name"`
@@ -390,16 +417,18 @@ type HostSummaryJob struct {
 	Status          string  `json:"status"`
 	Failed          bool    `json:"failed"`
 	Elapsed         float64 `json:"elapsed"`
-	JobTemplateId   int     `json:"job_template_id"`
+	JobTemplateID   int     `json:"job_template_id"`
 	JobTemplateName string  `json:"job_template_name"`
 }
 
+// HostSummaryFields represents the awx api host summary fields.
 type HostSummaryFields struct {
 	Role map[string]string `json:"role"`
 	Host *HostSummaryHost  `json:"host"`
 	Job  *HostSummaryJob   `json:"job"`
 }
 
+// HostSummary represents the awx api host summary.
 type HostSummary struct {
 	ID            int                `json:"id"`
 	Type          string             `json:"type"`
@@ -420,6 +449,7 @@ type HostSummary struct {
 	Failed        bool               `json:"failed"`
 }
 
+// EventModuleArgs represents the awx api event module args.
 type EventModuleArgs struct {
 	Creates    interface{} `json:"creates"`
 	Executable interface{} `json:"executable"`
@@ -431,10 +461,12 @@ type EventModuleArgs struct {
 	Stdin      interface{} `json:"stdin"`
 }
 
+// EventInvocation represents the awx api event invocation.
 type EventInvocation struct {
 	ModuleArgs *EventModuleArgs `json:"module_args"`
 }
 
+// EventRes represents the awx api event response.
 type EventRes struct {
 	AnsibleParsed bool             `json:"_ansible_parsed"`
 	StderrLines   []string         `json:"stderr_lines"`
@@ -452,6 +484,7 @@ type EventRes struct {
 	Warnings      []string         `json:"warnings"`
 }
 
+// EventData represents the awx api event data.
 type EventData struct {
 	PlayPattern  string      `json:"play_pattern"`
 	Play         string      `json:"play"`
@@ -471,6 +504,7 @@ type EventData struct {
 	TaskPath     string      `json:"task_path"`
 }
 
+// JobEvent represents the awx api job event.
 type JobEvent struct {
 	ID            int                `json:"id"`
 	Type          string             `json:"type"`
