@@ -11,7 +11,7 @@ func TestPing(t *testing.T) {
 	var (
 		expectPingResponse = &Ping{
 			Instances: []Instance{
-				Instance{
+				{
 					Node: "awx",
 					Heartbeat: func() time.Time {
 						t, _ := time.Parse(time.RFC3339, "2018-06-25T03:14:34.688447Z")
@@ -22,7 +22,7 @@ func TestPing(t *testing.T) {
 				},
 			},
 			InstanceGroups: []InstanceGroup{
-				InstanceGroup{
+				{
 					Instances: []string{"awx"},
 					Capacity:  138,
 					Name:      "tower",

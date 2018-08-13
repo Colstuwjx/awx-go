@@ -10,7 +10,7 @@ import (
 func TestListInventories(t *testing.T) {
 	var (
 		expectListInventoriesResponse = []*Inventory{
-			&Inventory{
+			{
 				ID:   1,
 				Type: "inventory",
 				URL:  "/api/v2/inventories/1/",

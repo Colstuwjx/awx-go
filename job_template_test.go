@@ -10,7 +10,7 @@ import (
 func TestListJobTemplates(t *testing.T) {
 	var (
 		expectListJobTempaltesResponse = []*JobTemplate{
-			&JobTemplate{
+			{
 				ID:   5,
 				Type: "job_template",
 				URL:  "/api/v2/job_templates/5/",
@@ -111,7 +111,7 @@ func TestListJobTemplates(t *testing.T) {
 					RecentJobs: []interface{}{},
 
 					Credentials: []Credential{
-						Credential{
+						{
 							Description:      "",
 							CredentialTypeID: 1,
 							ID:               1,
@@ -289,7 +289,7 @@ func TestLauchJob(t *testing.T) {
 
 				ExtraCredentials: []interface{}{},
 				Credentials: []Credential{
-					Credential{
+					{
 						Description:      "",
 						CredentialTypeID: 1,
 						ID:               1,
