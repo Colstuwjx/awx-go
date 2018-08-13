@@ -309,7 +309,7 @@ func TestRelaunchJob(t *testing.T) {
 
 				ExtraCredentials: []interface{}{},
 				Credentials: []Credential{
-					Credential{
+					{
 						Description:      "",
 						CredentialTypeID: 1,
 						ID:               1,
@@ -398,7 +398,7 @@ func TestRelaunchJob(t *testing.T) {
 func TestGetHostSummaries(t *testing.T) {
 	var (
 		expectHostSummariesResponse = []HostSummary{
-			HostSummary{
+			{
 				ID:   65,
 				Type: "job_host_summary",
 				URL:  "/api/v2/job_host_summaries/65/",
@@ -468,7 +468,7 @@ func TestGetHostSummaries(t *testing.T) {
 func TestGetJobEvents(t *testing.T) {
 	var (
 		expectJobEventsResponse = []JobEvent{
-			JobEvent{
+			{
 				ID:   682,
 				Type: "job_event",
 				URL:  "/api/v2/job_events/682/",
