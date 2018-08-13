@@ -13,6 +13,7 @@ type Pagination struct {
 }
 
 type Related struct {
+	NamedUrl                     string `json:"named_url"`
 	CreatedBy                    string `json:"created_by"`
 	ModifiedBy                   string `json:"modified_by"`
 	JobTemplates                 string `json:"job_templates"`
