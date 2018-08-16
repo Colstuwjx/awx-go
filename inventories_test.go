@@ -147,7 +147,7 @@ func TestCreateInventory(t *testing.T) {
 			Type: "inventory",
 			URL:  "/api/v2/inventories/6/",
 			Related: &Related{
-				NamedUrl:       "/api/v2/inventories/TestInventory++Default/",
+				NamedURL:       "/api/v2/inventories/TestInventory++Default/",
 				CreatedBy:      "/api/v2/users/1/",
 				ModifiedBy:     "/api/v2/users/1/",
 				JobTemplates:   "/api/v2/inventories/6/job_templates/",

@@ -2,6 +2,7 @@ package awx
 
 import (
 	"log"
+	"os"
 	"testing"
 	"time"
 
@@ -16,9 +17,12 @@ var (
 
 func TestMain(m *testing.M) {
 	setup()
-	defer teardown()
+	code := m.Run()
 
-	m.Run()
+	// FIXME: fix codecov issue, then reopen it.
+	// teardown()
+
+	os.Exit(code)
 }
 
 func setup() {

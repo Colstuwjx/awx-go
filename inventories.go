@@ -5,19 +5,22 @@ import (
 	"encoding/json"
 )
 
+// InventoriesService implements awx inventories apis.
 type InventoriesService struct {
 	client *Client
 }
 
+// ListInventoriesResponse represents `ListInventories` endpoint response.
 type ListInventoriesResponse struct {
 	Pagination
 	Results []*Inventory `json:"results"`
 }
 
-func (this *InventoriesService) ListInventories(params map[string]string) ([]*Inventory, *ListInventoriesResponse, error) {
+// ListInventories shows list of awx inventories.
+func (i *InventoriesService) ListInventories(params map[string]string) ([]*Inventory, *ListInventoriesResponse, error) {
 	result := new(ListInventoriesResponse)
 	endpoint := "/api/v2/inventories/"
-	resp, err := this.client.Requester.GetJSON(endpoint, result, params)
+	resp, err := i.client.Requester.GetJSON(endpoint, result, params)
 	if err != nil {
 		return nil, result, err
 	}
@@ -29,7 +32,8 @@ func (this *InventoriesService) ListInventories(params map[string]string) ([]*In
 	return result.Results, result, nil
 }
 
-func (this *InventoriesService) CreateInventory(data map[string]interface{}, params map[string]string) (*Inventory, error) {
+// CreateInventory creates an awx inventory.
+func (i *InventoriesService) CreateInventory(data map[string]interface{}, params map[string]string) (*Inventory, error) {
 	result := new(Inventory)
 	endpoint := "/api/v2/inventories/"
 	payload, err := json.Marshal(data)
@@ -37,7 +41,7 @@ func (this *InventoriesService) CreateInventory(data map[string]interface{}, par
 		return nil, err
 	}
 
-	resp, err := this.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	resp, err := i.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}

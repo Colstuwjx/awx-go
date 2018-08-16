@@ -1,6 +1,7 @@
 package mockdata
 
 var (
+	// MockedListInventoriesResponse mocked `ListInventories` endpoint response
 	MockedListInventoriesResponse = []byte(`
 {
     "count": 1,
@@ -105,6 +106,7 @@ var (
     ]
 }`)
 
+	// MockedCreateInventoryResponse mocked `CreateInventory` endpoint response
 	MockedCreateInventoryResponse = []byte(`
 {
     "id": 6,

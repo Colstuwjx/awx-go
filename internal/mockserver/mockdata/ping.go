@@ -1,6 +1,7 @@
 package mockdata
 
 var (
+	// MockedPingResponse mocked `Ping` endpoint response
 	MockedPingResponse = []byte(`
 {
     "instance_groups": [
