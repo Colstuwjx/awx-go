@@ -62,7 +62,7 @@ func (i *InventoriesService) UpdateInventory(data map[string]interface{}, params
 	if err != nil {
 		return nil, err
 	}
-	resp, err := i.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	resp, err := i.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
