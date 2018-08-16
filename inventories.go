@@ -3,6 +3,7 @@ package awx
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // InventoriesService implements awx inventories apis.
@@ -55,20 +56,20 @@ func (i *InventoriesService) CreateInventory(data map[string]interface{}, params
 
 // UpdateInventory update an awx inventory
 func (this *InventoriesService) UpdateInventory(data map[string]interface{}, params map[string]string, id string) (*Inventory, error) {
-        result := new(Inventory)
-        endpoint := fmt.Sprintf("/api/v2/inventories/%s", id)
-        payload, err := json.Marshal(data)
-        if err != nil {
-                return nil, err
-        }
-        resp, err := this.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
-        if err != nil {
-                return nil, err
-        }
+	result := new(Inventory)
+	endpoint := fmt.Sprintf("/api/v2/inventories/%s", id)
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := this.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	if err != nil {
+		return nil, err
+	}
 
-        if err := CheckResponse(resp); err != nil {
-                return nil, err
-        }
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
 
-        return result, nil
+	return result, nil
 }

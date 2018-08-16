@@ -395,21 +395,21 @@ func TestUpdateInventory(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, err := awx.InventoriesService.CreateInventory(map[string]interface{}{
-		"name":         "TestInventory",
-		"description":  "for testing CreateInventory api",
+	result, err := awx.InventoriesService.UpdateInventory(map[string]interface{}{
+		"name":         "TestInventory-update1",
+		"description":  "for testing UpdateInventory api",
 		"organization": 1,
 		"kind":         "",
 		"host_filter":  "",
 		"variables":    "",
-	}, map[string]string{})
+	}, map[string]string{}, "6")
 	if err != nil {
-		log.Fatalf("CreateInventory err: %s", err)
+		log.Fatalf("UpdateInventory err: %s", err)
 	}
 
-	if !reflect.DeepEqual(result, expectCreateInventoryResponse) {
-		log.Fatalf("CreateInventory resp not as expected, expected: %v, resp result: %v", expectCreateInventoryResponse, result)
+	if !reflect.DeepEqual(result, expectUpdateInventoryResponse) {
+		log.Fatalf("UpdateInventory resp not as expected, expected: %v, resp result: %v", expectUpdateInventoryResponse, result)
 	}
 
-	log.Println("CreateInventory passed!")
+	log.Println("UpdateInventory passed!")
 }

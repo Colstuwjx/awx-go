@@ -204,4 +204,103 @@ var (
     "insights_credential": null,
     "pending_deletion": false
 }`)
+
+	// MockedCreateInventoryResponse mocked `CreateInventory` endpoint response
+	MockedUpdateInventoryResponse = []byte(`
+    {
+        "id": 6,
+        "type": "inventory",
+        "url": "/api/v2/inventories/6/",
+        "related": {
+            "named_url": "/api/v2/inventories/TestInventory++Default/",
+            "created_by": "/api/v2/users/1/",
+            "modified_by": "/api/v2/users/1/",
+            "job_templates": "/api/v2/inventories/6/job_templates/",
+            "variable_data": "/api/v2/inventories/6/variable_data/",
+            "root_groups": "/api/v2/inventories/6/root_groups/",
+            "object_roles": "/api/v2/inventories/6/object_roles/",
+            "ad_hoc_commands": "/api/v2/inventories/6/ad_hoc_commands/",
+            "script": "/api/v2/inventories/6/script/",
+            "tree": "/api/v2/inventories/6/tree/",
+            "access_list": "/api/v2/inventories/6/access_list/",
+            "activity_stream": "/api/v2/inventories/6/activity_stream/",
+            "instance_groups": "/api/v2/inventories/6/instance_groups/",
+            "hosts": "/api/v2/inventories/6/hosts/",
+            "groups": "/api/v2/inventories/6/groups/",
+            "copy": "/api/v2/inventories/6/copy/",
+            "update_inventory_sources": "/api/v2/inventories/6/update_inventory_sources/",
+            "inventory_sources": "/api/v2/inventories/6/inventory_sources/",
+            "organization": "/api/v2/organizations/1/"
+        },
+        "summary_fields": {
+            "organization": {
+                "id": 1,
+                "name": "Default",
+                "description": ""
+            },
+            "created_by": {
+                "id": 1,
+                "username": "admin",
+                "first_name": "",
+                "last_name": ""
+            },
+            "modified_by": {
+                "id": 1,
+                "username": "admin",
+                "first_name": "",
+                "last_name": ""
+            },
+            "object_roles": {
+                "use_role": {
+                    "id": 80,
+                    "description": "Can use the inventory in a job template",
+                    "name": "Use"
+                },
+                "admin_role": {
+                    "id": 78,
+                    "description": "Can manage all aspects of the inventory",
+                    "name": "Admin"
+                },
+                "adhoc_role": {
+                    "id": 77,
+                    "description": "May run ad hoc commands on an inventory",
+                    "name": "Ad Hoc"
+                },
+                "update_role": {
+                    "id": 81,
+                    "description": "May update project or inventory or group using the configured source update system",
+                    "name": "Update"
+                },
+                "read_role": {
+                    "id": 79,
+                    "description": "May view settings for the inventory",
+                    "name": "Read"
+                }
+            },
+            "user_capabilities": {
+                "edit": true,
+                "copy": true,
+                "adhoc": true,
+                "delete": true
+            }
+        },
+        "created": "2018-08-13T01:59:47.160127Z",
+        "modified": "2018-08-13T01:59:47.160140Z",
+        "name": "TestInventory",
+        "description": "for testing CreateInventory api",
+        "organization": 1,
+        "kind": "",
+        "host_filter": null,
+        "variables": "",
+        "has_active_failures": false,
+        "total_hosts": 0,
+        "hosts_with_active_failures": 0,
+        "total_groups": 0,
+        "groups_with_active_failures": 0,
+        "has_inventory_sources": false,
+        "total_inventory_sources": 0,
+        "inventory_sources_with_failures": 0,
+        "insights_credential": null,
+        "pending_deletion": false
+    }`)
 )
