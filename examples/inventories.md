@@ -62,18 +62,36 @@ fun main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
     result, err := awx.InventoriesService.UpdateInventory(map[string]interface{}{
        "name":         "TestInventory - 1",
-       "description":  "for testing CreateInventory api",
+       "description":  "for testing UpdateInventory api",
        "organization": 1,
        "kind":         "",
        "host_filter":  "",
        "variables":    "",
-    }, "1")
+    }, nil, "1")
 
     if err != nil {
         log.Fatalf("Update Inventories err: %s", err)
     }
 
     log.Printf("Update result %v", result.Name)
+
+}
+```
+> Delete Inventory
+```
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+func main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.InventoriesService.Delete("5")
+    if err != nil {
+        log.Fatalf("Delete Inventories err: %s", err)
+    }
+
+    log.Println("Inventroy 5 Deleted")
 
 }
 ```

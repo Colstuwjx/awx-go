@@ -62,7 +62,7 @@ func (i *InventoriesService) UpdateInventory(data map[string]interface{}, params
 	if err != nil {
 		return nil, err
 	}
-	resp, err := i.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
+	resp, err := i.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -74,8 +74,8 @@ func (i *InventoriesService) UpdateInventory(data map[string]interface{}, params
 	return result, nil
 }
 
-// GetById retrive the inventory information from its ID
-func (i *InventoriesService) GetByID(id string) (*Inventory, error) {
+// GetInventoryByID retrive the inventory information from its ID
+func (i *InventoriesService) GetInventoryByID(id string) (*Inventory, error) {
 	result := new(Inventory)
 	endpoint := fmt.Sprintf("/api/v2/inventories/%s", id)
 
@@ -92,18 +92,18 @@ func (i *InventoriesService) GetByID(id string) (*Inventory, error) {
 }
 
 // Delete an inventory from AWX
-func (i *InventoriesService) Delete(id string) error {
+func (i *InventoriesService) Delete(id string) (*Inventory, error) {
 	result := new(Inventory)
 	endpoint := fmt.Sprintf("/api/v2/inventories/%s", id)
 
 	resp, err := i.client.Requester.Delete(endpoint, result, nil)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if err := CheckResponse(resp); err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return result, nil
 }

@@ -21,14 +21,27 @@ func (s *mockServer) PingHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Request) {
-	if req.Method == "POST" {
+	switch {
+	case req.Method == "POST":
 		result := mockdata.MockedCreateInventoryResponse
 		rw.Write(result)
 		return
+	case req.Method == "PATCH", req.Method == "PUT":
+		result := mockdata.MockedUpdateInventoryResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteInventoryResponse
+		rw.Write(result)
+		return
+	case req.RequestURI == "/api/v2/inventories/1/":
+		result := mockdata.MockedGetInventoryByIDResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListInventoriesResponse
+		rw.Write(result)
 	}
-
-	result := mockdata.MockedListInventoriesResponse
-	rw.Write(result)
 }
 
 func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Request) {
