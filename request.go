@@ -149,7 +149,8 @@ func (r *Requester) Post(endpoint string, payload io.Reader, responseStruct inte
 	return r.Do(ar, &responseStruct, querystring)
 }
 
-func (r *Requester) Put(endpoint string, payload io.Reader, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
+// PutJSON perform http PUT request with json response
+func (r *Requester) PutJSON(endpoint string, payload io.Reader, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
 	ar := NewAPIRequest("PUT", endpoint, payload)
 	ar.SetHeader("Content-Type", "application/json")
 	ar.Suffix = ""
@@ -164,9 +165,17 @@ func (r *Requester) PostJSON(endpoint string, payload io.Reader, responseStruct 
 	return r.Do(ar, &responseStruct, querystring)
 }
 
+// PatchJSON perform http patch request with json response
 func (r *Requester) PatchJSON(endpoint string, payload io.Reader, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
 	ar := NewAPIRequest("PATCH", endpoint, payload)
 	ar.SetHeader("Content-Type", "application/json")
 	ar.Suffix = ""
 	return r.Do(ar, &responseStruct, querystring)
+}
+
+// Get performs http DELETE request.
+func (r *Requester) Delete(endpoint string, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
+	ar := NewAPIRequest("DELETE", endpoint, nil)
+	ar.Suffix = ""
+	return r.Do(ar, responseStruct, querystring)
 }

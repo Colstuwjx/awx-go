@@ -73,3 +73,37 @@ func (i *InventoriesService) UpdateInventory(data map[string]interface{}, params
 
 	return result, nil
 }
+
+// GetById retrive the inventory information from its ID
+func (i *InventoriesService) GetByID(id string) (*Inventory, error) {
+	result := new(Inventory)
+	endpoint := fmt.Sprintf("/api/v2/inventories/%s", id)
+
+	resp, err := i.client.Requester.GetJSON(endpoint, result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+// Delete an inventory from AWX
+func (i *InventoriesService) Delete(id string) error {
+	result := new(Inventory)
+	endpoint := fmt.Sprintf("/api/v2/inventories/%s", id)
+
+	resp, err := i.client.Requester.Delete(endpoint, result, nil)
+	if err != nil {
+		return err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return err
+	}
+
+	return nil
+}
