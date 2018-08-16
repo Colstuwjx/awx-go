@@ -149,9 +149,22 @@ func (r *Requester) Post(endpoint string, payload io.Reader, responseStruct inte
 	return r.Do(ar, &responseStruct, querystring)
 }
 
-// PostJSON performs http post request with json response.
+func (r *Requester) Put(endpoint string, payload io.Reader, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
+	ar := NewAPIRequest("PUT", endpoint, payload)
+	ar.SetHeader("Content-Type", "application/json")
+	ar.Suffix = ""
+	return r.Do(ar, &responseStruct, querystring)
+}
+
 func (r *Requester) PostJSON(endpoint string, payload io.Reader, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
 	ar := NewAPIRequest("POST", endpoint, payload)
+	ar.SetHeader("Content-Type", "application/json")
+	ar.Suffix = ""
+	return r.Do(ar, &responseStruct, querystring)
+}
+
+func (r *Requester) PatchJSON(endpoint string, payload io.Reader, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
+	ar := NewAPIRequest("PATCH", endpoint, payload)
 	ar.SetHeader("Content-Type", "application/json")
 	ar.Suffix = ""
 	return r.Do(ar, &responseStruct, querystring)
