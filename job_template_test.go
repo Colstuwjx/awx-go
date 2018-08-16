@@ -10,7 +10,7 @@ import (
 func TestListJobTemplates(t *testing.T) {
 	var (
 		expectListJobTempaltesResponse = []*JobTemplate{
-			&JobTemplate{
+			{
 				ID:   5,
 				Type: "job_template",
 				URL:  "/api/v2/job_templates/5/",
@@ -111,7 +111,7 @@ func TestListJobTemplates(t *testing.T) {
 					RecentJobs: []interface{}{},
 
 					Credentials: []Credential{
-						Credential{
+						{
 							Description:      "",
 							CredentialTypeID: 1,
 							ID:               1,
@@ -187,8 +187,8 @@ func TestListJobTemplates(t *testing.T) {
 
 func TestLauchJob(t *testing.T) {
 	var (
-		testJobTemplateId = 5
-		testInventoryId   = 1
+		testJobTemplateID = 5
+		testInventoryID   = 1
 
 		expectLaunchJobTemplateResponse = &JobLaunch{
 			Job:           499,
@@ -289,7 +289,7 @@ func TestLauchJob(t *testing.T) {
 
 				ExtraCredentials: []interface{}{},
 				Credentials: []Credential{
-					Credential{
+					{
 						Description:      "",
 						CredentialTypeID: 1,
 						ID:               1,
@@ -361,8 +361,8 @@ func TestLauchJob(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, err := awx.JobTemplateService.Launch(testJobTemplateId, map[string]interface{}{
-		"inventory": testInventoryId,
+	result, err := awx.JobTemplateService.Launch(testJobTemplateID, map[string]interface{}{
+		"inventory": testInventoryID,
 	}, map[string]string{})
 	if err != nil {
 		log.Fatalf("Lauch err: %s", err)

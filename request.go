@@ -10,6 +10,7 @@ import (
 	"strings"
 )
 
+// APIRequest represents the http api communication way.
 type APIRequest struct {
 	Method   string
 	Endpoint string
@@ -18,11 +19,13 @@ type APIRequest struct {
 	Suffix   string
 }
 
+// SetHeader sets http header by passing k,v.
 func (ar *APIRequest) SetHeader(key string, value string) *APIRequest {
 	ar.Headers.Set(key, value)
 	return ar
 }
 
+// NewAPIRequest news an APIRequest object.
 func NewAPIRequest(method string, endpoint string, payload io.Reader) *APIRequest {
 	var headers = http.Header{}
 	var suffix string
@@ -30,17 +33,25 @@ func NewAPIRequest(method string, endpoint string, payload io.Reader) *APIReques
 	return ar
 }
 
+// BasicAuth represents http basic auth.
 type BasicAuth struct {
 	Username string
 	Password string
 }
 
+// Requester implemented a base http client.
+// It supports do POST/GET via an human-readable way,
+// in other word, all data is in `application/json` format.
+// It also originally supports basic auth.
+// For production usage, It would be better to wrapper
+// an another rest client on this requester.
 type Requester struct {
 	Base      string
 	BasicAuth *BasicAuth
 	Client    *http.Client
 }
 
+// Do do the actual http request.
 func (r *Requester) Do(ar *APIRequest, responseStruct interface{}, options ...interface{}) (*http.Response, error) {
 	if !strings.HasSuffix(ar.Endpoint, "/") && ar.Method != "POST" {
 		ar.Endpoint += "/"
@@ -77,18 +88,20 @@ func (r *Requester) Do(ar *APIRequest, responseStruct interface{}, options ...in
 		req.Header.Add(k, ar.Headers.Get(k))
 	}
 
-	if response, err := r.Client.Do(req); err != nil {
+	response, err := r.Client.Do(req)
+	if err != nil {
 		return nil, err
-	} else {
-		switch responseStruct.(type) {
-		case *string:
-			return r.ReadRawResponse(response, responseStruct)
-		default:
-			return r.ReadJSONResponse(response, responseStruct)
-		}
+	}
+
+	switch responseStruct.(type) {
+	case *string:
+		return r.ReadRawResponse(response, responseStruct)
+	default:
+		return r.ReadJSONResponse(response, responseStruct)
 	}
 }
 
+// ReadRawResponse reads the http raw response and store it into `responseStruct`.
 func (r *Requester) ReadRawResponse(response *http.Response, responseStruct interface{}) (*http.Response, error) {
 	defer response.Body.Close()
 
@@ -105,6 +118,7 @@ func (r *Requester) ReadRawResponse(response *http.Response, responseStruct inte
 	return response, nil
 }
 
+// ReadJSONResponse reads the http raw response and decodes into json.
 func (r *Requester) ReadJSONResponse(response *http.Response, responseStruct interface{}) (*http.Response, error) {
 	defer response.Body.Close()
 
@@ -112,12 +126,14 @@ func (r *Requester) ReadJSONResponse(response *http.Response, responseStruct int
 	return response, nil
 }
 
+// Get performs http get request.
 func (r *Requester) Get(endpoint string, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
 	ar := NewAPIRequest("GET", endpoint, nil)
 	ar.Suffix = ""
 	return r.Do(ar, responseStruct, querystring)
 }
 
+// GetJSON performs http get request with json response.
 func (r *Requester) GetJSON(endpoint string, responseStruct interface{}, query map[string]string) (*http.Response, error) {
 	ar := NewAPIRequest("GET", endpoint, nil)
 	ar.SetHeader("Content-Type", "application/json")
@@ -125,6 +141,7 @@ func (r *Requester) GetJSON(endpoint string, responseStruct interface{}, query m
 	return r.Do(ar, &responseStruct, query)
 }
 
+// Post performs http post request.
 func (r *Requester) Post(endpoint string, payload io.Reader, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
 	ar := NewAPIRequest("POST", endpoint, payload)
 	ar.SetHeader("Content-Type", "application/json")

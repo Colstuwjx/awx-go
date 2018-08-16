@@ -170,11 +170,11 @@ func TestGetJob(t *testing.T) {
 			VaultCredential:         nil,
 		}
 
-		testJobId = 301
+		testJobID = 301
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, err := awx.JobService.GetJob(testJobId, map[string]string{})
+	result, err := awx.JobService.GetJob(testJobID, map[string]string{})
 	if err != nil {
 		log.Fatalf("GetJob err: %s", err)
 	}
@@ -192,11 +192,11 @@ func TestCancelJob(t *testing.T) {
 			Detail: "Method \"POST\" not allowed.",
 		}
 
-		testJobId = 301
+		testJobID = 301
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, err := awx.JobService.CancelJob(testJobId, map[string]interface{}{}, map[string]string{})
+	result, err := awx.JobService.CancelJob(testJobID, map[string]interface{}{}, map[string]string{})
 	if err != nil {
 		log.Fatalf("CancelJob err: %s", err)
 	}
@@ -309,7 +309,7 @@ func TestRelaunchJob(t *testing.T) {
 
 				ExtraCredentials: []interface{}{},
 				Credentials: []Credential{
-					Credential{
+					{
 						Description:      "",
 						CredentialTypeID: 1,
 						ID:               1,
@@ -379,11 +379,11 @@ func TestRelaunchJob(t *testing.T) {
 			VaultCredential:         nil,
 		}
 
-		testJobId = 508
+		testJobID = 508
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, err := awx.JobService.RelaunchJob(testJobId, map[string]interface{}{"hosts": "all"}, map[string]string{})
+	result, err := awx.JobService.RelaunchJob(testJobID, map[string]interface{}{"hosts": "all"}, map[string]string{})
 	if err != nil {
 		log.Fatalf("RelaunchJob err: %s", err)
 	}
@@ -398,7 +398,7 @@ func TestRelaunchJob(t *testing.T) {
 func TestGetHostSummaries(t *testing.T) {
 	var (
 		expectHostSummariesResponse = []HostSummary{
-			HostSummary{
+			{
 				ID:   65,
 				Type: "job_host_summary",
 				URL:  "/api/v2/job_host_summaries/65/",
@@ -414,7 +414,7 @@ func TestGetHostSummaries(t *testing.T) {
 						Status:          "canceled",
 						Failed:          true,
 						Elapsed:         7.68,
-						JobTemplateId:   8,
+						JobTemplateID:   8,
 						JobTemplateName: "Hello-world",
 					},
 					Host: &HostSummaryHost{
@@ -449,11 +449,11 @@ func TestGetHostSummaries(t *testing.T) {
 			},
 		}
 
-		testJobId = 301
+		testJobID = 301
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.JobService.GetHostSummaries(testJobId, map[string]string{})
+	result, _, err := awx.JobService.GetHostSummaries(testJobID, map[string]string{})
 	if err != nil {
 		log.Fatalf("GetHostSummaries err: %s", err)
 	}
@@ -468,7 +468,7 @@ func TestGetHostSummaries(t *testing.T) {
 func TestGetJobEvents(t *testing.T) {
 	var (
 		expectJobEventsResponse = []JobEvent{
-			JobEvent{
+			{
 				ID:   682,
 				Type: "job_event",
 				URL:  "/api/v2/job_events/682/",
@@ -484,7 +484,7 @@ func TestGetJobEvents(t *testing.T) {
 						Status:          "canceled",
 						Failed:          true,
 						Elapsed:         7.68,
-						JobTemplateId:   8,
+						JobTemplateID:   8,
 						JobTemplateName: "Hello-world",
 					},
 				},
@@ -522,11 +522,11 @@ func TestGetJobEvents(t *testing.T) {
 				Verbosity:    0,
 			},
 		}
-		testJobId = 301
+		testJobID = 301
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.JobService.GetJobEvents(testJobId, map[string]string{
+	result, _, err := awx.JobService.GetJobEvents(testJobID, map[string]string{
 		"order_by":  "start_line",
 		"page_size": "1000000",
 	})

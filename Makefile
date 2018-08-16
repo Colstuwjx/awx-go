@@ -19,6 +19,14 @@ test:
 	@echo ">> running all tests"
 	@$(GO) test $(pkgs)
 
+lint:
+	@gometalinter --vendor --disable-all --enable=gosimple --enable=golint --enable=vet --enable=ineffassign --enable=unconvert \
+    --exclude="by other packages, and that stutters; consider calling this" \
+    --skip=proto \
+    --skip=vendor \
+    --skip=.git \
+    --tests ./...
+
 format:
 	@echo ">> formatting code"
 	@$(GO) fmt $(pkgs)

@@ -1,6 +1,8 @@
 # awx-go
 
 [![Build Status](https://travis-ci.org/Colstuwjx/awx-go.svg?branch=master)](https://travis-ci.org/Colstuwjx/awx-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Colstuwjx/awx-go)](https://goreportcard.com/report/github.com/Colstuwjx/awx-go)
+[![codecov](https://codecov.io/gh/Colstuwjx/awx-go/branch/master/graph/badge.svg)](https://codecov.io/gh/Colstuwjx/awx-go)
 
 AWX SDK for the Go programming language.
 
@@ -34,6 +36,10 @@ func main() {
 ```
 
 More examples could be found at [here](https://github.com/Colstuwjx/awx-go/tree/master/examples).
+
+## Roadmap
+
+awx-go is still in developing, and it's roadmap could be found at [here](https://github.com/Colstuwjx/awx-go/blob/master/ROADMAP.md).
 
 ## Contribute
 
