@@ -173,7 +173,7 @@ func (r *Requester) PatchJSON(endpoint string, payload io.Reader, responseStruct
 	return r.Do(ar, &responseStruct, querystring)
 }
 
-// Get performs http DELETE request.
+// Delete performs http Delete request.
 func (r *Requester) Delete(endpoint string, responseStruct interface{}, querystring map[string]string) (*http.Response, error) {
 	ar := NewAPIRequest("DELETE", endpoint, nil)
 	ar.Suffix = ""
