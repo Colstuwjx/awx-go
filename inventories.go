@@ -55,14 +55,14 @@ func (i *InventoriesService) CreateInventory(data map[string]interface{}, params
 }
 
 // UpdateInventory update an awx inventory
-func (this *InventoriesService) UpdateInventory(data map[string]interface{}, params map[string]string, id string) (*Inventory, error) {
+func (i *InventoriesService) UpdateInventory(data map[string]interface{}, params map[string]string, id string) (*Inventory, error) {
 	result := new(Inventory)
 	endpoint := fmt.Sprintf("/api/v2/inventories/%s", id)
 	payload, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := this.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	resp, err := i.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
