@@ -95,3 +95,22 @@ func main() {
 
 }
 ```
+
+> GetInventoryByName
+```
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+func main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.InventoriesService.GetInventoryByName(map[string]string{"name": "Demo Inventory"})
+    if err != nil {
+        log.Fatalf("Get Inventory by Name err: %s", err)
+    }
+
+    log.Printf("Demo Inventory id %d\n", result.ID)
+
+}
+```
