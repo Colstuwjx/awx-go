@@ -77,45 +77,24 @@ func (i *InventoriesService) UpdateInventory(id int, data map[string]interface{}
 }
 
 // GetInventory retrives the inventory information from its ID or Name
-func (i *InventoriesService) GetInventory(params map[string]string) (*Inventory, error) {
-	endpoint := "/api/v2/inventories/"
-	if _, ok := params["id"]; ok {
-		endpoint = fmt.Sprintf("%s/%s", endpoint, params["id"])
-		result := new(Inventory)
-		resp, err := i.client.Requester.GetJSON(endpoint, result, map[string]string{})
-		if err != nil {
-			return nil, err
-		}
-
-		if err := CheckResponse(resp); err != nil {
-			return nil, err
-		}
-
-		return result, nil
-
-	} else if _, ok := params["name"]; ok {
-		result := new(ListInventoriesResponse)
-		resp, err := i.client.Requester.GetJSON(endpoint, result, params)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := CheckResponse(resp); err != nil {
-			return nil, err
-		}
-
-		if len(result.Results) >= 1 {
-			return result.Results[0], nil
-		}
-		return nil, fmt.Errorf("Inventory not found")
-	} else {
-		return nil, fmt.Errorf("params must be name or id")
+func (i *InventoriesService) GetInventory(id int, params map[string]string) (*Inventory, error) {
+	endpoint := fmt.Sprintf("/api/v2/inventories/%d", id)
+	result := new(Inventory)
+	resp, err := i.client.Requester.GetJSON(endpoint, result, map[string]string{})
+	if err != nil {
+		return nil, err
 	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
 
 }
 
-// Delete an inventory from AWX
-func (i *InventoriesService) Delete(id int) (*Inventory, error) {
+// DeleteInventory delete an inventory from AWX
+func (i *InventoriesService) DeleteInventory(id int) (*Inventory, error) {
 	result := new(Inventory)
 	endpoint := fmt.Sprintf("/api/v2/inventories/%d", id)
 

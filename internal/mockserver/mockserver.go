@@ -2,7 +2,6 @@ package mockserver
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"regexp"
 	"time"
@@ -36,12 +35,7 @@ func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Reques
 		rw.Write(result)
 		return
 	case req.RequestURI == "/api/v2/inventories/1/":
-		result := mockdata.MockedGetInventoryByIDResponse
-		rw.Write(result)
-		return
-	case req.URL.Query().Get("Name") == "Demo Inventory":
-		fmt.Println("HERE")
-		result := mockdata.MockedGetInventoryByNameResponse
+		result := mockdata.MockedGetInventoryResponse
 		rw.Write(result)
 		return
 	default:
