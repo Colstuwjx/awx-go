@@ -15,6 +15,7 @@ type AWX struct {
 	JobService         *JobService
 	JobTemplateService *JobTemplateService
 	ProjectService     *ProjectService
+	UserService        *UserService
 }
 
 // Client implement http client.
@@ -61,6 +62,9 @@ func NewAWX(baseURL, userName, passwd string, client *http.Client) *AWX {
 			client: awxClient,
 		},
 		ProjectService: &ProjectService{
+			client: awxClient,
+		},
+		UserService: &UserService{
 			client: awxClient,
 		},
 	}

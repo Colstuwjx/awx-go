@@ -553,3 +553,21 @@ type JobEvent struct {
 	EndLine   int         `json:"end_line"`
 	Verbosity int         `json:"verbosity"`
 }
+
+// User
+type CreateUser struct {
+	Username    string `json:"username"`
+	Firstname   string `json:"first_name"`
+	LastName    string `json:"last_name"`
+	Email       string `json:"email"`
+	IsSuperUser string `json:"is_superuser"`
+	Password    string `json:"password"`
+}
+
+// User
+type User struct {
+	ID        int    `json:"id"`
+	Type      int    `json:"type"`
+	Username  string `json:"username"`
+	FirstName string `json:"first_name"`
+}
