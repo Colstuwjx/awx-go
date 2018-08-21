@@ -163,7 +163,7 @@ type Project struct {
 	ScmType     string `json:"scm_type"`
 }
 
-// Project represents the awx api to create a project.
+// CreateProject represents the awx api to create a project.
 type CreateProject struct {
 	Name                  string `json:"name"`
 	Description           string `json:"description"`
@@ -554,7 +554,7 @@ type JobEvent struct {
 	Verbosity int         `json:"verbosity"`
 }
 
-// User
+// CreateUser represents the structure to create an user
 type CreateUser struct {
 	Username    string `json:"username"`
 	Firstname   string `json:"first_name"`
@@ -564,7 +564,7 @@ type CreateUser struct {
 	Password    string `json:"password"`
 }
 
-// User
+// User represents an user
 type User struct {
 	ID        int    `json:"id"`
 	Type      int    `json:"type"`
