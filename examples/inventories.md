@@ -1,4 +1,4 @@
- # Ping API
+ # Inventories API
 
 ## Usage
 
