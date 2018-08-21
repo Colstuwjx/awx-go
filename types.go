@@ -163,6 +163,21 @@ type Project struct {
 	ScmType     string `json:"scm_type"`
 }
 
+// Project represents the awx api to create a project.
+type CreateProject struct {
+	Name                  string `json:"name"`
+	Description           string `json:"description"`
+	LocalPath             string `json:"local_path"`
+	ScmType               string `json:"scm_type"`
+	ScmURL                string `json:"scm_url"`
+	ScmBranch             string `json:"scm_branch"`
+	ScmClean              string `json:"scm_clean"`
+	ScmDeleteOnUpdate     string `json:"scm_delete_on_update"`
+	Credential            string `json:"credential"`
+	ScmUpdateOnLaunch     string `json:"scm_update_on_launch"`
+	ScmUpdateCacheTimeout string `json:"scm_update_cache_timeout"`
+}
+
 // Inventory represents the awx api inventory.
 type Inventory struct {
 	ID                           int         `json:"id"`
@@ -537,4 +552,22 @@ type JobEvent struct {
 	StartLine int         `json:"start_line"`
 	EndLine   int         `json:"end_line"`
 	Verbosity int         `json:"verbosity"`
+}
+
+// User
+type CreateUser struct {
+	Username    string `json:"username"`
+	Firstname   string `json:"first_name"`
+	LastName    string `json:"last_name"`
+	Email       string `json:"email"`
+	IsSuperUser string `json:"is_superuser"`
+	Password    string `json:"password"`
+}
+
+// User
+type User struct {
+	ID        int    `json:"id"`
+	Type      int    `json:"type"`
+	Username  string `json:"username"`
+	FirstName string `json:"first_name"`
 }
