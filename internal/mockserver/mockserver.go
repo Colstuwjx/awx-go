@@ -111,6 +111,30 @@ func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
 	rw.Write([]byte("404 - router not found!"))
 }
 
+func (s *mockServer) ProjectsHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.Method == "POST":
+		result := mockdata.MockedCreateProjectResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListProjectsResponse
+		rw.Write(result)
+	}
+}
+
+func (s *mockServer) UsersHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.Method == "POST":
+		result := mockdata.MockedCreateUserResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListUsersResponse
+		rw.Write(result)
+	}
+}
+
 var server *mockServer
 
 // Run mock server
