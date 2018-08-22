@@ -11,89 +11,91 @@ func TestListProjects(t *testing.T) {
 	var (
 		expectListProjectsResponse = []*Project{
 			{
-				ID: 4,
+				ID:   4,
 				Type: "project",
-				URL: "/api/v2/projects/4/",
+				URL:  "/api/v2/projects/4/",
 				Related: &Related{
-					CreatedBy: "/api/v2/users/1/",
-					ModifiedBy: "/api/v2/users/1/",
-					ObjectRoles: "/api/v2/projects/4/object_roles/",
-					Copy: "/api/v2/projects/4/copy/",
-					ProjectUpdates: "/api/v2/projects/4/project_updates/",
-					Update: "/api/v2/projects/4/update/",
-					AccessList: "/api/v2/projects/4/access_list/",
-					Teams: "/api/v2/projects/4/teams/",
-					SCMInventorySources: "/api/v2/projects/4/scm_inventory_sources/",
-					InventoryFiles: "/api/v2/projects/4/inventories/",
-					Schedules: "/api/v2/projects/4/schedules/",
-					Playbooks: "/api/v2/projects/4/playbooks/",
-					ActivityStream: "/api/v2/projects/4/activity_stream/",
-					Organization: "/api/v2/organizations/1/"
+					CreatedBy:    "/api/v2/users/1/",
+					ModifiedBy:   "/api/v2/users/1/",
+					ObjectRoles:  "/api/v2/projects/4/object_roles/",
+					Copy:         "/api/v2/projects/4/copy/",
+					AccessList:   "/api/v2/projects/4/access_list/",
+					Schedules:    "/api/v2/projects/4/schedules/",
+					Organization: "/api/v2/organizations/1/",
+				},
+				SummaryFields: &Summary{
+					Organization: &OrgnizationSummary{
+						ID:          1,
+						Name:        "Default",
+						Description: "",
 					},
-					SummaryFields: &Summary{
-						Organization: &OrgnizationSummary{
-							ID:          1,
-							Name:        "Default",
-							Description: "",
+					CreatedBy: &ByUserSummary{
+						ID:        1,
+						Username:  "admin",
+						FirstName: "admin",
+						LastName:  "admin",
+					},
+					ModifiedBy: &ByUserSummary{
+						ID:        1,
+						Username:  "admin",
+						FirstName: "admin",
+						LastName:  "admin",
+					},
+					ObjectRoles: &ObjectRoles{
+						AdminRole: &ApplyRole{
+							ID:          14,
+							Description: "Can manage all aspects of the project",
+							Name:        "Admin",
 						},
-						CreatedBy: &ByUserSummary{
-							ID:        1,
-							Username:  "admin",
-							FirstName: "",
-							LastName:  "",
+
+						UseRole: &ApplyRole{
+							ID:          16,
+							Description: "Can manage all aspects of the project",
+							Name:        "Use",
 						},
-						ModifiedBy: &ByUserSummary{
-							ID:        1,
-							Username:  "admin",
-							FirstName: "",
-							LastName:  "",
+
+						UpdateRole: &ApplyRole{
+							ID:          17,
+							Description: "May update project or inventory or group using the configured source update system",
+							Name:        "Update",
 						},
-						ObjectRoles: &ObjectRoles{
-							UseRole: &ApplyRole{
-								ID:          23,
-								Description: "Can manage all aspects of the project",
-								Name:        "Use",
-							},
-	
-							AdminRole: &ApplyRole{
-								ID:          21,
-								Description: "Can use the project in a job template",
-								Name:        "Admin",
-							},
-	
-							UpdateRole: &ApplyRole{
-								ID:          24,
-								Description: "May update project or inventory or group using the configured source update system",
-								Name:        "Update",
-							},
-	
-							ReadRole: &ApplyRole{
-								ID:          22,
-								Description: "May view settings for the project",
-								Name:        "Read",
-							},
-						},
-						
-						UserCapabilities: &UserCapabilities{
-							Edit:   true,
-							Copy:   true,
-							Start:  true,
-							Schedule:  true,
-							Delete: true,
+
+						ReadRole: &ApplyRole{
+							ID:          15,
+							Description: "May view settings for the project",
+							Name:        "Read",
 						},
 					},
-					Created: func() time.Time {
-						t, _ := time.Parse(time.RFC3339, "2018-05-21T01:34:35.657185Z")
-						return t
-					}(),
-	
-					Modified: func() time.Time {
-						t, _ := time.Parse(time.RFC3339, "2018-05-30T09:42:22.412749Z")
-						return t
-					}(),
-					Name: "Demo Project",
-					Description: "",
-				}]
+
+					UserCapabilities: &UserCapabilities{
+						Edit:     true,
+						Start:    true,
+						Copy:     true,
+						Schedule: true,
+						Delete:   true,
+					},
+				},
+				Created: func() time.Time {
+					t, _ := time.Parse(time.RFC3339, "2018-06-28T16:31:15.809617Z")
+					return t
+				}(),
+
+				Modified: func() time.Time {
+					t, _ := time.Parse(time.RFC3339, "2018-06-28T16:31:15.923732Z")
+					return t
+				}(),
+				Name:                  "Demo Project",
+				Description:           "",
+				LocalPath:             "",
+				ScmType:               "git",
+				ScmURL:                "https://github.com/ansible/ansible-tower-samples",
+				ScmClean:              false,
+				ScmDeleteOnUpdate:     false,
+				Status:                "never updated",
+				ScmDeleteOnNextUpdate: false,
+				ScmUpdateOnLaunch:     true,
+				ScmUpdateCacheTimeout: 0,
+				LastUpdateFailed:      false,
 			},
 		}
 	)
@@ -106,8 +108,8 @@ func TestListProjects(t *testing.T) {
 		log.Fatalf("ListProjects err: %s", err)
 	}
 
-	if !reflect.DeepEqual(result, expectListProjectsResponse) {
-		log.Fatalf("ListProjects resp not as expected, expected: %v, resp result: %v", expectListProjectsResponse[0], result[0])
+	if !reflect.DeepEqual(result[0], expectListProjectsResponse[0]) {
+		log.Fatalf("ListProjects response is not as expected, expected: %v, responded result: %v", expectListProjectsResponse[0], result[0])
 	}
 
 	log.Println("ListProjects passed!")
@@ -115,96 +117,99 @@ func TestListProjects(t *testing.T) {
 
 func TestCreateProject(t *testing.T) {
 	var (
-		expectCreateProjectResponse = &CreateProject{
-			ID: 4,
+		expectCreateProjectResponse = &Project{
+			ID:   4,
 			Type: "project",
-			URL: "/api/v2/projects/4/",
+			URL:  "/api/v2/projects/4/",
 			Related: &Related{
-				CreatedBy: "/api/v2/users/1/",
-				ModifiedBy: "/api/v2/users/1/",
-				ObjectRoles: "/api/v2/projects/4/object_roles/",
-				Copy: "/api/v2/projects/4/copy/",
-				ProjectUpdates: "/api/v2/projects/4/project_updates/",
-				Update: "/api/v2/projects/4/update/",
-				AccessList: "/api/v2/projects/4/access_list/",
-				Teams: "/api/v2/projects/4/teams/",
-				SCMInventorySources: "/api/v2/projects/4/scm_inventory_sources/",
-				InventoryFiles: "/api/v2/projects/4/inventories/",
-				Schedules: "/api/v2/projects/4/schedules/",
-				Playbooks: "/api/v2/projects/4/playbooks/",
-				ActivityStream: "/api/v2/projects/4/activity_stream/",
-				Organization: "/api/v2/organizations/1/"
+				CreatedBy:    "/api/v2/users/1/",
+				ModifiedBy:   "/api/v2/users/1/",
+				ObjectRoles:  "/api/v2/projects/4/object_roles/",
+				Copy:         "/api/v2/projects/4/copy/",
+				AccessList:   "/api/v2/projects/4/access_list/",
+				Schedules:    "/api/v2/projects/4/schedules/",
+				Organization: "/api/v2/organizations/1/",
+			},
+			SummaryFields: &Summary{
+				Organization: &OrgnizationSummary{
+					ID:          1,
+					Name:        "Default",
+					Description: "",
 				},
-				SummaryFields: &Summary{
-					Organization: &OrgnizationSummary{
-						ID:          1,
-						Name:        "Default",
-						Description: "",
+				CreatedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "admin",
+					LastName:  "admin",
+				},
+				ModifiedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "admin",
+					LastName:  "admin",
+				},
+				ObjectRoles: &ObjectRoles{
+					AdminRole: &ApplyRole{
+						ID:          14,
+						Description: "Can manage all aspects of the project",
+						Name:        "Admin",
 					},
-					CreatedBy: &ByUserSummary{
-						ID:        1,
-						Username:  "admin",
-						FirstName: "",
-						LastName:  "",
-					},
-					ModifiedBy: &ByUserSummary{
-						ID:        1,
-						Username:  "admin",
-						FirstName: "",
-						LastName:  "",
-					},
-					ObjectRoles: &ObjectRoles{
-						UseRole: &ApplyRole{
-							ID:          23,
-							Description: "Can manage all aspects of the project",
-							Name:        "Use",
-						},
 
-						AdminRole: &ApplyRole{
-							ID:          21,
-							Description: "Can use the project in a job template",
-							Name:        "Admin",
-						},
-
-						UpdateRole: &ApplyRole{
-							ID:          24,
-							Description: "May update project or inventory or group using the configured source update system",
-							Name:        "Update",
-						},
-
-						ReadRole: &ApplyRole{
-							ID:          22,
-							Description: "May view settings for the project",
-							Name:        "Read",
-						},
+					UseRole: &ApplyRole{
+						ID:          16,
+						Description: "Can manage all aspects of the project",
+						Name:        "Use",
 					},
-					
-					UserCapabilities: &UserCapabilities{
-						Edit:   true,
-						Copy:   true,
-						Start:  true,
-						Schedule:  true,
-						Delete: true,
+
+					UpdateRole: &ApplyRole{
+						ID:          17,
+						Description: "May update project or inventory or group using the configured source update system",
+						Name:        "Update",
+					},
+
+					ReadRole: &ApplyRole{
+						ID:          15,
+						Description: "May view settings for the project",
+						Name:        "Read",
 					},
 				},
-				Created: func() time.Time {
-					t, _ := time.Parse(time.RFC3339, "2018-05-21T01:34:35.657185Z")
-					return t
-				}(),
 
-				Modified: func() time.Time {
-					t, _ := time.Parse(time.RFC3339, "2018-05-30T09:42:22.412749Z")
-					return t
-				}(),
-				Name: "Demo Project",
-				Description: "",
+				UserCapabilities: &UserCapabilities{
+					Edit:     true,
+					Start:    true,
+					Copy:     true,
+					Schedule: true,
+					Delete:   true,
+				},
+			},
+			Created: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-06-28T16:31:15.809617Z")
+				return t
+			}(),
+
+			Modified: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-06-28T16:31:15.923732Z")
+				return t
+			}(),
+			Name:                  "Demo Project",
+			Description:           "",
+			LocalPath:             "",
+			ScmType:               "git",
+			ScmURL:                "https://github.com/ansible/ansible-tower-samples",
+			ScmClean:              false,
+			ScmDeleteOnUpdate:     false,
+			Status:                "never updated",
+			ScmDeleteOnNextUpdate: false,
+			ScmUpdateOnLaunch:     true,
+			ScmUpdateCacheTimeout: 0,
+			LastUpdateFailed:      false,
 		}
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, err := awx.ProjectsService.CreateProject(map[string]interface{}{
-		"name":         "TestProject",
-		"description":  "Test project",
+	result, err := awx.ProjectService.CreateProject(map[string]interface{}{
+		"name":        "TestProject",
+		"description": "Test project",
 	}, map[string]string{})
 	if err != nil {
 		log.Fatalf("CreateInventory err: %s", err)

@@ -156,26 +156,26 @@ type ProjectUpdate struct {
 
 // Project represents the awx api project.
 type Project struct {
-	ID          int    `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Status      string `json:"status"`
-	ScmType     string `json:"scm_type"`
-}
-
-// CreateProject represents the awx api to create a project.
-type CreateProject struct {
-	Name                  string `json:"name"`
-	Description           string `json:"description"`
-	LocalPath             string `json:"local_path"`
-	ScmType               string `json:"scm_type"`
-	ScmURL                string `json:"scm_url"`
-	ScmBranch             string `json:"scm_branch"`
-	ScmClean              string `json:"scm_clean"`
-	ScmDeleteOnUpdate     string `json:"scm_delete_on_update"`
-	Credential            string `json:"credential"`
-	ScmUpdateOnLaunch     string `json:"scm_update_on_launch"`
-	ScmUpdateCacheTimeout string `json:"scm_update_cache_timeout"`
+	ID                    int       `json:"id"`
+	Type                  string    `json:"type"`
+	URL                   string    `json:"url"`
+	Related               *Related  `json:"related"`
+	SummaryFields         *Summary  `json:"summary_fields"`
+	Created               time.Time `json:"created"`
+	Modified              time.Time `json:"modified"`
+	Name                  string    `json:"name"`
+	Description           string    `json:"description"`
+	LocalPath             string    `json:"local_path"`
+	ScmType               string    `json:"scm_type"`
+	ScmURL                string    `json:"scm_url"`
+	ScmClean              bool      `json:"scm_clean"`
+	ScmDeleteOnUpdate     bool      `json:"scm_delete_on_update"`
+	Credential            string    `json:"credential"`
+	Status                string    `json:"status"`
+	ScmDeleteOnNextUpdate bool      `json:"scm_delete_on_next_update"`
+	ScmUpdateOnLaunch     bool      `json:"scm_update_on_launch"`
+	ScmUpdateCacheTimeout int       `json:"scm_update_cache_timeout"`
+	LastUpdateFailed      bool      `json:"last_update_failed"`
 }
 
 // Inventory represents the awx api inventory.
@@ -554,20 +554,19 @@ type JobEvent struct {
 	Verbosity int         `json:"verbosity"`
 }
 
-// CreateUser represents the structure to create an user
-type CreateUser struct {
-	Username    string `json:"username"`
-	Firstname   string `json:"first_name"`
-	LastName    string `json:"last_name"`
-	Email       string `json:"email"`
-	IsSuperUser string `json:"is_superuser"`
-	Password    string `json:"password"`
-}
-
 // User represents an user
 type User struct {
-	ID        int    `json:"id"`
-	Type      int    `json:"type"`
-	Username  string `json:"username"`
-	FirstName string `json:"first_name"`
+	ID          int       `json:"id"`
+	Type        int       `json:"type"`
+	User        string    `json:"user"`
+	URL         string    `json:"url"`
+	Related     *Related  `json:"related"`
+	Created     time.Time `json:"created"`
+	Username    string    `json:"username"`
+	FirstName   string    `json:"first_name"`
+	LastName    string    `json:"last_name"`
+	Email       string    `json:"email"`
+	IsSuperUser bool      `json:"is_superuser"`
+	Password    string    `json:"password"`
+	Ldap        string    `json:"ldap_dn"`
 }

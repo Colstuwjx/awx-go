@@ -174,15 +174,14 @@ func TestListJobTemplates(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, _, err := awx.JobTemplateService.ListJobTemplates(map[string]string{})
+
 	if err != nil {
-		log.Fatalf("ListJobTemplates err: %s", err)
+		t.Fatalf("ListJobTemplates err: %s", err)
+	} else if !reflect.DeepEqual(result, expectListJobTempaltesResponse) {
+		t.Fatalf("ListJobTemplates resp not as expected, expected: %v, resp result: %v", expectListJobTempaltesResponse, result)
+	} else {
+		log.Println("ListJobTemplates passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectListJobTempaltesResponse) {
-		log.Fatalf("ListJobTemplates resp not as expected, expected: %v, resp result: %v", expectListJobTempaltesResponse, result)
-	}
-
-	log.Println("ListJobTemplates passed!")
 }
 
 func TestLauchJob(t *testing.T) {
@@ -364,13 +363,12 @@ func TestLauchJob(t *testing.T) {
 	result, err := awx.JobTemplateService.Launch(testJobTemplateID, map[string]interface{}{
 		"inventory": testInventoryID,
 	}, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("Lauch err: %s", err)
+		t.Fatalf("Lauch err: %s", err)
+	} else if !reflect.DeepEqual(*result, *expectLaunchJobTemplateResponse) {
+		t.Fatalf("LaunchJobTemplate resp not as expected, expected: %v, resp result: %v", *expectLaunchJobTemplateResponse, *result)
+	} else {
+		log.Println("Lauch passed!")
 	}
-
-	if !reflect.DeepEqual(*result, *expectLaunchJobTemplateResponse) {
-		log.Fatalf("LaunchJobTemplate resp not as expected, expected: %v, resp result: %v", *expectLaunchJobTemplateResponse, *result)
-	}
-
-	log.Println("Lauch passed!")
 }

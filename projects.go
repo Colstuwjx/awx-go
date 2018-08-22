@@ -33,8 +33,8 @@ func (i *ProjectService) ListProjects(params map[string]string) ([]*Project, *Li
 }
 
 // CreateProject creates an awx project.
-func (i *ProjectService) CreateProject(data map[string]interface{}, params map[string]string) (*CreateProject, error) {
-	result := new(CreateProject)
+func (i *ProjectService) CreateProject(data map[string]interface{}, params map[string]string) (*Project, error) {
+	result := new(Project)
 	endpoint := "/api/v2/projects/"
 	payload, err := json.Marshal(data)
 	if err != nil {

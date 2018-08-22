@@ -129,15 +129,16 @@ func TestListInventories(t *testing.T) {
 	result, _, err := awx.InventoriesService.ListInventories(map[string]string{
 		"name": "Demo Inventory",
 	})
+
 	if err != nil {
-		log.Fatalf("ListInventories err: %s", err)
+		t.Fatalf("ListInventories err: %s", err)
+	} else if !reflect.DeepEqual(result, expectListInventoriesResponse) {
+		t.Logf("expected: %v", expectListInventoriesResponse[0])
+		t.Logf("result: %v", result[0])
+		t.Fatal("ListInventories resp not as expected")
+	} else {
+		t.Log("ListInventories passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectListInventoriesResponse) {
-		log.Fatalf("ListInventories resp not as expected, expected: %v, resp result: %v", expectListInventoriesResponse[0], result[0])
-	}
-
-	log.Println("ListInventories passed!")
 }
 
 func TestCreateInventory(t *testing.T) {
@@ -266,15 +267,16 @@ func TestCreateInventory(t *testing.T) {
 		"host_filter":  "",
 		"variables":    "",
 	}, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("CreateInventory err: %s", err)
+		t.Fatalf("CreateInventory err: %s", err)
+	} else if !reflect.DeepEqual(result, expectCreateInventoryResponse) {
+		t.Logf("expected: %v", expectCreateInventoryResponse)
+		t.Logf("expected: %v", result)
+		t.Fatal("CreateInventory response not as expected")
+	} else {
+		t.Log("CreateInventory passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectCreateInventoryResponse) {
-		log.Fatalf("CreateInventory resp not as expected, expected: %v, resp result: %v", expectCreateInventoryResponse, result)
-	}
-
-	log.Println("CreateInventory passed!")
 }
 
 func TestUpdateInventory(t *testing.T) {
@@ -403,15 +405,16 @@ func TestUpdateInventory(t *testing.T) {
 		"host_filter":  "",
 		"variables":    "",
 	}, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("UpdateInventory err: %s", err)
+		t.Fatalf("UpdateInventory err: %s", err)
+	} else if !reflect.DeepEqual(result, expectUpdateInventoryResponse) {
+		t.Logf("expected: %v", expectUpdateInventoryResponse)
+		t.Logf("result: %v", result)
+		t.Fatalf("UpdateInventory resp not as expected, expected: %v, resp result: %v", expectUpdateInventoryResponse, result)
+	} else {
+		t.Log("UpdateInventory passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectUpdateInventoryResponse) {
-		log.Fatalf("UpdateInventory resp not as expected, expected: %v, resp result: %v", expectUpdateInventoryResponse, result)
-	}
-
-	log.Println("UpdateInventory passed!")
 }
 
 func TestGetInventory(t *testing.T) {
@@ -531,15 +534,14 @@ func TestGetInventory(t *testing.T) {
 	)
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.InventoriesService.GetInventory(1, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("GetInventory by ID err: %s", err)
+		t.Fatalf("GetInventory by ID err: %s", err)
+	} else if !reflect.DeepEqual(result, expectGetInventoryResponse) {
+		t.Fatalf("GetInventory by ID resp not as expected, expected: %v, resp result: %v", expectGetInventoryResponse, result)
+	} else {
+		log.Println("GetInventory by ID passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectGetInventoryResponse) {
-		log.Fatalf("GetInventory by ID resp not as expected, expected: %v, resp result: %v", expectGetInventoryResponse, result)
-	}
-
-	log.Println("GetInventory by ID passed!")
 }
 
 func TestDeleteInventory(t *testing.T) {
@@ -550,12 +552,10 @@ func TestDeleteInventory(t *testing.T) {
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.InventoriesService.DeleteInventory(1)
 	if err != nil {
-		log.Fatalf("DeleteInventory by ID err: %s", err)
+		t.Fatalf("DeleteInventory by ID err: %s", err)
+	} else if !reflect.DeepEqual(result, expectDeleteInventoryResponse) {
+		t.Fatalf("DeleteInventory resp not as expected, expected: %v, resp result: %v", expectDeleteInventoryResponse, result)
+	} else {
+		log.Println("DeleteInventory passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectDeleteInventoryResponse) {
-		log.Fatalf("DeleteInventory resp not as expected, expected: %v, resp result: %v", expectDeleteInventoryResponse, result)
-	}
-
-	log.Println("DeleteInventory passed!")
 }
