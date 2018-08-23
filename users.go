@@ -17,10 +17,10 @@ type ListUsersResponse struct {
 }
 
 // ListUsers shows list of awx Users.
-func (i *UserService) ListUsers(params map[string]string) ([]*User, *ListUsersResponse, error) {
+func (u *UserService) ListUsers(params map[string]string) ([]*User, *ListUsersResponse, error) {
 	result := new(ListUsersResponse)
 	endpoint := "/api/v2/users/"
-	resp, err := i.client.Requester.GetJSON(endpoint, result, params)
+	resp, err := u.client.Requester.GetJSON(endpoint, result, params)
 	if err != nil {
 		return nil, result, err
 	}
@@ -33,7 +33,7 @@ func (i *UserService) ListUsers(params map[string]string) ([]*User, *ListUsersRe
 }
 
 // CreateUser creates an awx User.
-func (i *UserService) CreateUser(data map[string]interface{}, params map[string]string) (*User, error) {
+func (u *UserService) CreateUser(data map[string]interface{}, params map[string]string) (*User, error) {
 	result := new(User)
 	endpoint := "/api/v2/users/"
 	payload, err := json.Marshal(data)
@@ -43,7 +43,7 @@ func (i *UserService) CreateUser(data map[string]interface{}, params map[string]
 
 	// Add check if User exists and return proper error
 
-	resp, err := i.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	resp, err := u.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}

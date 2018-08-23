@@ -42,6 +42,6 @@ fun main() {
         log.Fatalf("Create User err: %s", err)
     }
 
-    log.Printf("User created. User ID: %d", result.User.Username")
+    log.Printf("User created. Username: %s", result.User.Username")
 }
 ```
