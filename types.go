@@ -62,10 +62,7 @@ type Related struct {
 	CreateSchedule               string `json:"create_schedule"`
 	Relaunch                     string `json:"relaunch"`
 	AdminOfOrganizations         string `json:"admin_of_organizations"`
-<<<<<<< HEAD
 	Organizations                string `json:"organizations"`
-=======
->>>>>>> upstream/master
 	Roles                        string `json:"roles"`
 	Teams                        string `json:"teams"`
 	Projects                     string `json:"projects"`
