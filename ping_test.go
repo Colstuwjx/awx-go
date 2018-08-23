@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"log"
 	"reflect"
 	"testing"
 	"time"
@@ -36,13 +35,14 @@ func TestPing(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.PingService.Ping()
+
 	if err != nil {
-		log.Fatalf("Ping err: %s", err)
+		t.Fatalf("Ping err: %s", err)
+	} else if !reflect.DeepEqual(*result, *expectPingResponse) {
+		t.Logf("expected: %v", *expectPingResponse)
+		t.Logf("result: %v", *result)
+		t.Fatal("Ping resp not as expected")
+	} else {
+		t.Log("Ping passed!")
 	}
-
-	if !reflect.DeepEqual(*result, *expectPingResponse) {
-		log.Fatalf("Ping resp not as expected, expected: %v, resp result: %v", *expectPingResponse, *result)
-	}
-
-	log.Println("Ping passed!")
 }

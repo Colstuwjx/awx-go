@@ -61,6 +61,10 @@ type Related struct {
 	ProjectUpdate                string `json:"project_update"`
 	CreateSchedule               string `json:"create_schedule"`
 	Relaunch                     string `json:"relaunch"`
+	AdminOfOrganizations         string `json:"admin_of_organizations"`
+	Roles                        string `json:"roles"`
+	Teams                        string `json:"teams"`
+	Projects                     string `json:"projects"`
 }
 
 // OrgnizationSummary represents the awx api orgnization summary fields.
@@ -156,11 +160,34 @@ type ProjectUpdate struct {
 
 // Project represents the awx api project.
 type Project struct {
-	ID          int    `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Status      string `json:"status"`
-	ScmType     string `json:"scm_type"`
+	ID                    int       `json:"id"`
+	Type                  string    `json:"type"`
+	URL                   string    `json:"url"`
+	Related               *Related  `json:"related"`
+	SummaryFields         *Summary  `json:"summary_fields"`
+	Created               time.Time `json:"created"`
+	Modified              time.Time `json:"modified"`
+	Name                  string    `json:"name"`
+	Description           string    `json:"description"`
+	LocalPath             string    `json:"local_path"`
+	ScmType               string    `json:"scm_type"`
+	ScmURL                string    `json:"scm_url"`
+	ScmBranch             string    `json:"scm_branch"`
+	ScmClean              bool      `json:"scm_clean"`
+	ScmDeleteOnUpdate     bool      `json:"scm_delete_on_update"`
+	Credential            string    `json:"credential"`
+	Timeout               int       `json:"timeout"`
+	LastJobRun            time.Time `json:"last_job_run"`
+	LastJobFailed         bool      `json:"last_job_failed"`
+	NextJobRun            time.Time `json:"next_job_run"`
+	Status                string    `json:"status"`
+	Organization          string    `json:"organization"`
+	ScmDeleteOnNextUpdate bool      `json:"scm_delete_on_next_update"`
+	ScmUpdateOnLaunch     bool      `json:"scm_update_on_launch"`
+	ScmUpdateCacheTimeout int       `json:"scm_update_cache_timeout"`
+	ScmRevision           string    `json:"scm_revision"`
+	LastUpdateFailed      bool      `json:"last_update_failed"`
+	LastUpdated           time.Time `json:"last_updated"`
 }
 
 // Inventory represents the awx api inventory.
@@ -537,4 +564,22 @@ type JobEvent struct {
 	StartLine int         `json:"start_line"`
 	EndLine   int         `json:"end_line"`
 	Verbosity int         `json:"verbosity"`
+}
+
+// User represents an user
+type User struct {
+	ID              int       `json:"id"`
+	Type            int       `json:"type"`
+	URL             string    `json:"url"`
+	Related         *Related  `json:"related"`
+	Created         time.Time `json:"created"`
+	Username        string    `json:"username"`
+	FirstName       string    `json:"first_name"`
+	LastName        string    `json:"last_name"`
+	Email           string    `json:"email"`
+	IsSuperUser     bool      `json:"is_superuser"`
+	IsSystemAuditor bool      `json:"is_system_auditor"`
+	Password        string    `json:"password"`
+	LdapDn          string    `json:"ldap_dn"`
+	ExternalAccount string    `json:"external_account"`
 }
