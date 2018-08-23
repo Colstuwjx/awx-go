@@ -539,7 +539,7 @@ func TestGetJobEvents(t *testing.T) {
 	} else if !reflect.DeepEqual(result, expectJobEventsResponse) {
 		t.Logf("expected: %v", expectJobEventsResponse)
 		t.Logf("result: %v", result)
-		t.Fatal("GetJobEvents resp	 not as expected")
+		t.Fatal("GetJobEvents resp not as expected")
 	} else {
 		t.Log("GetJobEvents passed!")
 	}
