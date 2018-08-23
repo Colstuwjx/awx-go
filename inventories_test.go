@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"log"
 	"reflect"
 	"testing"
 	"time"
@@ -272,7 +271,7 @@ func TestCreateInventory(t *testing.T) {
 		t.Fatalf("CreateInventory err: %s", err)
 	} else if !reflect.DeepEqual(result, expectCreateInventoryResponse) {
 		t.Logf("expected: %v", expectCreateInventoryResponse)
-		t.Logf("expected: %v", result)
+		t.Logf("result: %v", result)
 		t.Fatal("CreateInventory response not as expected")
 	} else {
 		t.Log("CreateInventory passed!")
@@ -411,7 +410,7 @@ func TestUpdateInventory(t *testing.T) {
 	} else if !reflect.DeepEqual(result, expectUpdateInventoryResponse) {
 		t.Logf("expected: %v", expectUpdateInventoryResponse)
 		t.Logf("result: %v", result)
-		t.Fatalf("UpdateInventory resp not as expected, expected: %v, resp result: %v", expectUpdateInventoryResponse, result)
+		t.Fatal("UpdateInventory resp not as expected")
 	} else {
 		t.Log("UpdateInventory passed!")
 	}
@@ -538,9 +537,11 @@ func TestGetInventory(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GetInventory by ID err: %s", err)
 	} else if !reflect.DeepEqual(result, expectGetInventoryResponse) {
-		t.Fatalf("GetInventory by ID resp not as expected, expected: %v, resp result: %v", expectGetInventoryResponse, result)
+		t.Logf("expected: %v", expectGetInventoryResponse)
+		t.Logf("result: %v", result)
+		t.Fatal("GetInventory by ID resp not as expected")
 	} else {
-		log.Println("GetInventory by ID passed!")
+		t.Log("GetInventory by ID passed!")
 	}
 }
 
@@ -554,8 +555,10 @@ func TestDeleteInventory(t *testing.T) {
 	if err != nil {
 		t.Fatalf("DeleteInventory by ID err: %s", err)
 	} else if !reflect.DeepEqual(result, expectDeleteInventoryResponse) {
-		t.Fatalf("DeleteInventory resp not as expected, expected: %v, resp result: %v", expectDeleteInventoryResponse, result)
+		t.Logf("expected: %v", expectDeleteInventoryResponse)
+		t.Logf("result: %v", result)
+		t.Fatal("DeleteInventory resp not as expected")
 	} else {
-		log.Println("DeleteInventory passed!")
+		t.Log("DeleteInventory passed!")
 	}
 }

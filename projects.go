@@ -17,10 +17,10 @@ type ListProjectsResponse struct {
 }
 
 // ListProjects shows list of awx projects.
-func (i *ProjectService) ListProjects(params map[string]string) ([]*Project, *ListProjectsResponse, error) {
+func (p *ProjectService) ListProjects(params map[string]string) ([]*Project, *ListProjectsResponse, error) {
 	result := new(ListProjectsResponse)
 	endpoint := "/api/v2/projects/"
-	resp, err := i.client.Requester.GetJSON(endpoint, result, params)
+	resp, err := p.client.Requester.GetJSON(endpoint, result, params)
 	if err != nil {
 		return nil, result, err
 	}
@@ -33,7 +33,7 @@ func (i *ProjectService) ListProjects(params map[string]string) ([]*Project, *Li
 }
 
 // CreateProject creates an awx project.
-func (i *ProjectService) CreateProject(data map[string]interface{}, params map[string]string) (*Project, error) {
+func (p *ProjectService) CreateProject(data map[string]interface{}, params map[string]string) (*Project, error) {
 	result := new(Project)
 	endpoint := "/api/v2/projects/"
 	payload, err := json.Marshal(data)
@@ -43,7 +43,7 @@ func (i *ProjectService) CreateProject(data map[string]interface{}, params map[s
 
 	// Add check if project exists and return proper error
 
-	resp, err := i.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	resp, err := p.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}

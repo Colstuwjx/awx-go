@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"log"
 	"reflect"
 	"testing"
 	"time"
@@ -178,9 +177,11 @@ func TestListJobTemplates(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ListJobTemplates err: %s", err)
 	} else if !reflect.DeepEqual(result, expectListJobTempaltesResponse) {
-		t.Fatalf("ListJobTemplates resp not as expected, expected: %v, resp result: %v", expectListJobTempaltesResponse, result)
+		t.Logf("expected: %v", expectListJobTempaltesResponse)
+		t.Logf("result: %v", result)
+		t.Fatal("ListJobTemplates resp not as expected")
 	} else {
-		log.Println("ListJobTemplates passed!")
+		t.Log("ListJobTemplates passed!")
 	}
 }
 
@@ -367,8 +368,10 @@ func TestLauchJob(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Lauch err: %s", err)
 	} else if !reflect.DeepEqual(*result, *expectLaunchJobTemplateResponse) {
-		t.Fatalf("LaunchJobTemplate resp not as expected, expected: %v, resp result: %v", *expectLaunchJobTemplateResponse, *result)
+		t.Logf("expected: %v", *expectLaunchJobTemplateResponse)
+		t.Logf("result: %v", *result)
+		t.Fatalf("LaunchJobTemplate resp not as expected")
 	} else {
-		log.Println("Lauch passed!")
+		t.Log("Lauch passed!")
 	}
 }

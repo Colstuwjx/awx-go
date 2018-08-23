@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"log"
 	"reflect"
 	"testing"
 	"time"
@@ -175,15 +174,16 @@ func TestGetJob(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.JobService.GetJob(testJobID, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("GetJob err: %s", err)
+		t.Fatalf("GetJob err: %s", err)
+	} else if !reflect.DeepEqual(*result, *expectGetJobResponse) {
+		t.Logf("expected: %v", *expectGetJobResponse)
+		t.Logf("result: %v", *result)
+		t.Fatal("GetJob resp not as expected")
+	} else {
+		t.Log("GetJob passed!")
 	}
-
-	if !reflect.DeepEqual(*result, *expectGetJobResponse) {
-		log.Fatalf("GetJob resp not as expected, expected: %v, resp result: %v", *expectGetJobResponse, *result)
-	}
-
-	log.Println("GetJob passed!")
 }
 
 func TestCancelJob(t *testing.T) {
@@ -197,15 +197,16 @@ func TestCancelJob(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.JobService.CancelJob(testJobID, map[string]interface{}{}, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("CancelJob err: %s", err)
+		t.Fatalf("CancelJob err: %s", err)
+	} else if !reflect.DeepEqual(*result, *expectCancelJobResponse) {
+		t.Logf("expected: %v", *expectCancelJobResponse)
+		t.Logf("result: %v", *result)
+		t.Fatal("CancelJob resp not as expected")
+	} else {
+		t.Log("CancelJob passed!")
 	}
-
-	if !reflect.DeepEqual(*result, *expectCancelJobResponse) {
-		log.Fatalf("CancelJob resp not as expected, expected: %v, resp result: %v", *expectCancelJobResponse, *result)
-	}
-
-	log.Println("CancelJob passed!")
 }
 
 func TestRelaunchJob(t *testing.T) {
@@ -384,15 +385,16 @@ func TestRelaunchJob(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.JobService.RelaunchJob(testJobID, map[string]interface{}{"hosts": "all"}, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("RelaunchJob err: %s", err)
+		t.Fatalf("RelaunchJob err: %s", err)
+	} else if !reflect.DeepEqual(*result, *expectLaunchJobResponse) {
+		t.Logf("expected: %v", *expectLaunchJobResponse)
+		t.Logf("result: %v", *result)
+		t.Fatal("RelaunchJob resp not as expected")
+	} else {
+		t.Log("RelaunchJob passed!")
 	}
-
-	if !reflect.DeepEqual(*result, *expectLaunchJobResponse) {
-		log.Fatalf("RelaunchJob resp not as expected, expected: %v, resp result: %v", *expectLaunchJobResponse, *result)
-	}
-
-	log.Println("RelaunchJob passed!")
 }
 
 func TestGetHostSummaries(t *testing.T) {
@@ -454,15 +456,16 @@ func TestGetHostSummaries(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, _, err := awx.JobService.GetHostSummaries(testJobID, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("GetHostSummaries err: %s", err)
+		t.Fatalf("GetHostSummaries err: %s", err)
+	} else if !reflect.DeepEqual(result, expectHostSummariesResponse) {
+		t.Logf("expected: %v", expectHostSummariesResponse)
+		t.Logf("result: %v", result)
+		t.Fatal("GetHostSummaries resp not as expected, expected")
+	} else {
+		t.Log("GetHostSummaries passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectHostSummariesResponse) {
-		log.Fatalf("GetHostSummaries resp not as expected, expected: %v, resp result: %v", expectHostSummariesResponse, result)
-	}
-
-	log.Println("GetHostSummaries passed!")
 }
 
 func TestGetJobEvents(t *testing.T) {
@@ -530,13 +533,14 @@ func TestGetJobEvents(t *testing.T) {
 		"order_by":  "start_line",
 		"page_size": "1000000",
 	})
+
 	if err != nil {
-		log.Fatalf("GetJobEvents err: %s", err)
+		t.Fatalf("GetJobEvents err: %s", err)
+	} else if !reflect.DeepEqual(result, expectJobEventsResponse) {
+		t.Logf("expected: %v", expectJobEventsResponse)
+		t.Logf("result: %v", result)
+		t.Fatal("GetJobEvents resp not as expected, expected")
+	} else {
+		t.Log("GetJobEvents passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectJobEventsResponse) {
-		log.Fatalf("GetJobEvents resp not as expected, expected: %v, resp result: %v", expectJobEventsResponse, result)
-	}
-
-	log.Println("GetJobEvents passed!")
 }

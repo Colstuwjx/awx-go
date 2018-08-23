@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"log"
 	"reflect"
 	"testing"
 	"time"
@@ -104,15 +103,16 @@ func TestListProjects(t *testing.T) {
 	result, _, err := awx.ProjectService.ListProjects(map[string]string{
 		"name": "Demo Project",
 	})
+
 	if err != nil {
-		log.Fatalf("ListProjects err: %s", err)
+		t.Fatalf("ListProjects err: %s", err)
+	} else if !reflect.DeepEqual(result[0], expectListProjectsResponse[0]) {
+		t.Logf("expected: %v", expectListProjectsResponse[0])
+		t.Logf("result: %v", result[0])
+		t.Fatal("ListProjects response is not as expected")
+	} else {
+		t.Log("ListProjects passed!")
 	}
-
-	if !reflect.DeepEqual(result[0], expectListProjectsResponse[0]) {
-		log.Fatalf("ListProjects response is not as expected, expected: %v, responded result: %v", expectListProjectsResponse[0], result[0])
-	}
-
-	log.Println("ListProjects passed!")
 }
 
 func TestCreateProject(t *testing.T) {
@@ -211,13 +211,14 @@ func TestCreateProject(t *testing.T) {
 		"name":        "TestProject",
 		"description": "Test project",
 	}, map[string]string{})
+
 	if err != nil {
-		log.Fatalf("CreateInventory err: %s", err)
+		t.Fatalf("CreateInventory err: %s", err)
+	} else if !reflect.DeepEqual(result, expectCreateProjectResponse) {
+		t.Logf("expected: %v", expectCreateProjectResponse)
+		t.Logf("result: %v", result)
+		t.Fatal("CreateProject resp not as expected")
+	} else {
+		t.Log("CreateProject passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectCreateProjectResponse) {
-		log.Fatalf("CreateProject resp not as expected, expected: %v, resp result: %v", expectCreateProjectResponse, result)
-	}
-
-	log.Println("CreateProject passed!")
 }
