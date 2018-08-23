@@ -111,6 +111,18 @@ func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
 	rw.Write([]byte("404 - router not found!"))
 }
 
+func (s *mockServer) ProjectsHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.Method == "POST":
+		result := mockdata.MockedCreateProjectResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListProjectsResponse
+		rw.Write(result)
+	}
+}
+
 var server *mockServer
 
 // Run mock server
@@ -126,6 +138,7 @@ func initServer() {
 	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.InventoriesHandler))
 	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.JobTemplatesHandler))
 	mux.Handle("/api/v2/jobs/", http.HandlerFunc(server.JobsHandler))
+	mux.Handle("/api/v2/projects/", http.HandlerFunc(server.ProjectsHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
