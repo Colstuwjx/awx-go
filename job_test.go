@@ -462,7 +462,7 @@ func TestGetHostSummaries(t *testing.T) {
 	} else if !reflect.DeepEqual(result, expectHostSummariesResponse) {
 		t.Logf("expected: %v", expectHostSummariesResponse)
 		t.Logf("result: %v", result)
-		t.Fatal("GetHostSummaries resp not as expected, expected")
+		t.Fatal("GetHostSummaries resp not as expected")
 	} else {
 		t.Log("GetHostSummaries passed!")
 	}
@@ -539,7 +539,7 @@ func TestGetJobEvents(t *testing.T) {
 	} else if !reflect.DeepEqual(result, expectJobEventsResponse) {
 		t.Logf("expected: %v", expectJobEventsResponse)
 		t.Logf("result: %v", result)
-		t.Fatal("GetJobEvents resp not as expected, expected")
+		t.Fatal("GetJobEvents resp	 not as expected")
 	} else {
 		t.Log("GetJobEvents passed!")
 	}

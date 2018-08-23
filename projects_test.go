@@ -213,7 +213,7 @@ func TestCreateProject(t *testing.T) {
 	}, map[string]string{})
 
 	if err != nil {
-		t.Fatalf("CreateInventory err: %s", err)
+		t.Fatalf("CreateProject err: %s", err)
 	} else if !reflect.DeepEqual(result, expectCreateProjectResponse) {
 		t.Logf("expected: %v", expectCreateProjectResponse)
 		t.Logf("result: %v", result)
