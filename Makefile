@@ -11,15 +11,19 @@ style:
 	@echo ">> checking code style"
 	@! gofmt -d $(shell find . -path ./vendor -prune -o -name '*.go' -print) | grep '^'
 
-test-short:
+install-test-reqs:
+	@$(GO) get -u github.com/kylelemons/godebug/pretty
+	@$(GO) get -u github.com/kylelemons/godebug/diff
+
+test-short: install-test-reqs
 	@echo ">> running short tests"
 	@$(GO) test -short $(pkgs)
 
-test:
+test: install-test-reqs
 	@echo ">> running all tests"
 	@$(GO) test $(pkgs)
 
-lint:
+lint: install-test-reqs
 	@gometalinter --vendor --disable-all --enable=gosimple --enable=golint --enable=vet --enable=ineffassign --enable=unconvert \
     --exclude="by other packages, and that stutters; consider calling this" \
     --skip=proto \
