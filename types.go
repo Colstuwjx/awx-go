@@ -66,9 +66,6 @@ type Related struct {
 	Roles                        string `json:"roles"`
 	Teams                        string `json:"teams"`
 	Projects                     string `json:"projects"`
-	PotentialChildren            string `json:"potential_children"`
-	AllHosts                     string `json:"all_hosts"`
-	Children                     string `json:"children"`
 }
 
 // OrgnizationSummary represents the awx api orgnization summary fields.
@@ -587,25 +584,4 @@ type User struct {
 	Password        string      `json:"password"`
 	LdapDn          string      `json:"ldap_dn"`
 	ExternalAccount interface{} `json:"external_account"`
-}
-
-// Group represents a group
-type Group struct {
-	ID                       int       `json:"id"`
-	Type                     int       `json:"type"`
-	URL                      string    `json:"url"`
-	Related                  *Related  `json:"related"`
-	SummaryFields            *Summary  `json:"summary_fields"`
-	Created                  time.Time `json:"created"`
-	Modified                 time.Time `json:"modified"`
-	Name                     string    `json:"name"`
-	Description              string    `json:"description"`
-	Inventory                int       `json:"inventory"`
-	Variables                string    `json:"variables"`
-	HasActiveFailures        bool      `json:"has_active_failures"`
-	TotalHosts               int       `json:"total_hosts"`
-	HostsWithActiveFailures  int       `json:"hosts_with_active_failures"`
-	TotalGroups              int       `json:"total_groups"`
-	GroupsWithActiveFailures int       `json:"groups_with_active_failures"`
-	HasInventorySources      bool      `json:"has_inventory_sources"`
 }
