@@ -62,6 +62,7 @@ type Related struct {
 	CreateSchedule               string `json:"create_schedule"`
 	Relaunch                     string `json:"relaunch"`
 	AdminOfOrganizations         string `json:"admin_of_organizations"`
+	Organizations                string `json:"organizations"`
 	Roles                        string `json:"roles"`
 	Teams                        string `json:"teams"`
 	Projects                     string `json:"projects"`
@@ -568,18 +569,19 @@ type JobEvent struct {
 
 // User represents an user
 type User struct {
-	ID              int       `json:"id"`
-	Type            int       `json:"type"`
-	URL             string    `json:"url"`
-	Related         *Related  `json:"related"`
-	Created         time.Time `json:"created"`
-	Username        string    `json:"username"`
-	FirstName       string    `json:"first_name"`
-	LastName        string    `json:"last_name"`
-	Email           string    `json:"email"`
-	IsSuperUser     bool      `json:"is_superuser"`
-	IsSystemAuditor bool      `json:"is_system_auditor"`
-	Password        string    `json:"password"`
-	LdapDn          string    `json:"ldap_dn"`
-	ExternalAccount string    `json:"external_account"`
+	ID              int         `json:"id"`
+	Type            int         `json:"type"`
+	URL             string      `json:"url"`
+	Related         *Related    `json:"related"`
+	SummaryFields   *Summary    `json:"summary_fields"`
+	Created         time.Time   `json:"created"`
+	Username        string      `json:"username"`
+	FirstName       string      `json:"first_name"`
+	LastName        string      `json:"last_name"`
+	Email           string      `json:"email"`
+	IsSuperUser     bool        `json:"is_superuser"`
+	IsSystemAuditor bool        `json:"is_system_auditor"`
+	Password        string      `json:"password"`
+	LdapDn          string      `json:"ldap_dn"`
+	ExternalAccount interface{} `json:"external_account"`
 }
