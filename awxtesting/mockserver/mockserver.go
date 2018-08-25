@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/Colstuwjx/awx-go/internal/mockserver/mockdata"
+	"github.com/Colstuwjx/awx-go/awxtesting/mockserver/mockdata"
 )
 
 type mockServer struct {
@@ -135,6 +135,18 @@ func (s *mockServer) UsersHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func (s *mockServer) GroupsHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.Method == "POST":
+		result := mockdata.MockedCreateGroupResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListGroupsResponse
+		rw.Write(result)
+	}
+}
+
 var server *mockServer
 
 // Run mock server
@@ -152,6 +164,7 @@ func initServer() {
 	mux.Handle("/api/v2/jobs/", http.HandlerFunc(server.JobsHandler))
 	mux.Handle("/api/v2/projects/", http.HandlerFunc(server.ProjectsHandler))
 	mux.Handle("/api/v2/users/", http.HandlerFunc(server.UsersHandler))
+	mux.Handle("/api/v2/groups/", http.HandlerFunc(server.GroupsHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
