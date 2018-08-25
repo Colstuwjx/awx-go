@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/Colstuwjx/awx-go/internal/mockserver/mockdata"
+	"github.com/Colstuwjx/awx-go/awxtesting/mockserver/mockdata"
 )
 
 type mockServer struct {
