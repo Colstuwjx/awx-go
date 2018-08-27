@@ -132,6 +132,6 @@ var (
         "has_inventory_sources": false
     }`)
 
-    // MockedDeleteGroupResponse mocked `Delete` endpoint response
+    // MockedDeleteGroupResponse mocked `DeleteGroup` endpoint response
     MockedDeleteGroupResponse = []byte(`{}`)
 )

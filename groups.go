@@ -56,7 +56,7 @@ func (g *GroupService) CreateGroup(data map[string]interface{}, params map[strin
 	return result, nil
 }
 
-// DeleteGroup creates an awx Group.
+// DeleteGroup delete an awx Group.
 func (g *GroupService) DeleteGroup(id int) (*Group, error) {
 	result := new(Group)
 	endpoint := fmt.Sprintf("/api/v2/groups/%d", id)

@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"log"
 	"reflect"
 	"testing"
 	"time"
@@ -191,12 +190,12 @@ func TestDeleteGroup(t *testing.T) {
 	result, err := awx.GroupService.DeleteGroup(21)
 
 	if err != nil {
-		log.Fatalf("DeleteGroup by ID err: %s", err)
+		t.Fatalf("DeleteGroup by ID err: %s", err)
 	}
 
 	if !reflect.DeepEqual(result, expectDeleteGroupResponse) {
-		log.Fatalf("DeleteGroup resp not as expected, expected: %v, resp result: %v", expectDeleteGroupResponse, result)
+		t.Fatalf("DeleteGroup resp not as expected, expected: %v, resp result: %v", expectDeleteGroupResponse, result)
 	}
 
-	log.Println("DeleteGroup passed!")
+	t.Log("DeleteGroup passed!")
 }
