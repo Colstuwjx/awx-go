@@ -131,4 +131,7 @@ var (
         "groups_with_active_failures": 0,
         "has_inventory_sources": false
     }`)
+
+    // MockedDeleteGroupResponse mocked `Delete` endpoint response
+    MockedDeleteGroupResponse = []byte(`{}`)
 )
