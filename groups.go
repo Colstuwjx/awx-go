@@ -35,6 +35,14 @@ func (g *GroupService) ListGroups(params map[string]string) ([]*Group, *ListGrou
 
 // CreateGroup creates an awx Group.
 func (g *GroupService) CreateGroup(data map[string]interface{}, params map[string]string) (*Group, error) {
+	mandatoryFields = []string{"name", "inventory"}
+	validate, status := ValidateParams(data, mandatoryFields)
+
+	if !status {
+		err := fmt.Errorf("Mandatory input arguments are absent: %s", validate)
+		return nil, err
+	}
+
 	result := new(Group)
 	endpoint := "/api/v2/groups/"
 	payload, err := json.Marshal(data)
@@ -56,7 +64,7 @@ func (g *GroupService) CreateGroup(data map[string]interface{}, params map[strin
 	return result, nil
 }
 
-// DeleteGroup creates an awx Group.
+// DeleteGroup delete an awx Group.
 func (g *GroupService) DeleteGroup(id int) (*Group, error) {
 	result := new(Group)
 	endpoint := fmt.Sprintf("/api/v2/groups/%d", id)

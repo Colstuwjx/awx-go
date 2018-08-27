@@ -35,6 +35,14 @@ func (i *InventoriesService) ListInventories(params map[string]string) ([]*Inven
 
 // CreateInventory creates an awx inventory.
 func (i *InventoriesService) CreateInventory(data map[string]interface{}, params map[string]string) (*Inventory, error) {
+	mandatoryFields = []string{"name", "organization"}
+	validate, status := ValidateParams(data, mandatoryFields)
+
+	if !status {
+		err := fmt.Errorf("Mandatory input arguments are absent: %s", validate)
+		return nil, err
+	}
+
 	result := new(Inventory)
 	endpoint := "/api/v2/inventories/"
 	payload, err := json.Marshal(data)

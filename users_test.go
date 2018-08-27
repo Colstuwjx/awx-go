@@ -100,12 +100,12 @@ func TestCreateUser(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.UserService.CreateUser(map[string]interface{}{
-		"name":         "TestUser",
-		"description":  "for testing CreateUser api",
-		"organization": 1,
-		"kind":         "",
-		"host_filter":  "",
-		"variables":    "",
+		"name":       "TestUser",
+		"username":   "test",
+		"password":   "test",
+		"first_name": "test",
+		"last_name":  "test",
+		"email":      "admin@example.com",
 	}, map[string]string{})
 
 	if err != nil {

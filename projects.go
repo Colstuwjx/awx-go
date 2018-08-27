@@ -3,6 +3,7 @@ package awx
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // ProjectService implements awx projects apis.
@@ -34,6 +35,14 @@ func (p *ProjectService) ListProjects(params map[string]string) ([]*Project, *Li
 
 // CreateProject creates an awx project.
 func (p *ProjectService) CreateProject(data map[string]interface{}, params map[string]string) (*Project, error) {
+	mandatoryFields = []string{"name", "organization", "scm_type"}
+	validate, status := ValidateParams(data, mandatoryFields)
+
+	if !status {
+		err := fmt.Errorf("Mandatory input arguments are absent: %s", validate)
+		return nil, err
+	}
+
 	result := new(Project)
 	endpoint := "/api/v2/projects/"
 	payload, err := json.Marshal(data)
