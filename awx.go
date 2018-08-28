@@ -5,6 +5,9 @@ import (
 	"net/http"
 )
 
+// This variable is to be populated for creating services
+var mandatoryFields = []string{}
+
 // AWX represents awx api endpoints with services, and using
 // client to communicate with awx server.
 type AWX struct {
@@ -32,6 +35,20 @@ func CheckResponse(resp *http.Response) error {
 	}
 
 	return fmt.Errorf("responsed with %d, resp: %v", resp.StatusCode, resp)
+}
+
+// ValidateParams is to validate the input to use the services.
+func ValidateParams(data map[string]interface{}, mandatoryFields []string) (notfound []string, status bool) {
+	status = true
+	for _, key := range mandatoryFields {
+		_, exists := data[key]
+
+		if !exists {
+			notfound = append(notfound, key)
+			status = false
+		}
+	}
+	return notfound, status
 }
 
 // NewAWX news an awx handler with basic auth support, you could customize the http
