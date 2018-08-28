@@ -265,6 +265,7 @@ func TestUpdateGroup(t *testing.T) {
 		t.Log("UpdateGroup passed!")
 	}
 }
+
 func TestDeleteGroup(t *testing.T) {
 	var (
 		expectDeleteGroupResponse = &Group{}

@@ -48,7 +48,7 @@ func (g *GroupService) CreateGroup(data map[string]interface{}, params map[strin
 	payload, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
-	}
+a	}
 
 	// Add check if Group exists and return proper error
 
