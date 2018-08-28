@@ -4,7 +4,7 @@
 
 > Ping
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
