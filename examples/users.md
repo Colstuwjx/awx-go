@@ -1,10 +1,10 @@
- # User API
+# User API
 
 ## Usage
 
 > List Users
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -23,9 +23,9 @@ func main() {
 }
 ```
 
-
 > Create User
-```
+
+```go
 import (
     "log" 
     awxGo "github.com/Colstuwjx/awx-go"
@@ -42,6 +42,6 @@ fun main() {
         log.Fatalf("Create User err: %s", err)
     }
 
-    log.Printf("User created. Username: %s", result.User.Username")
+    log.Printf("User created. Username: %s", result.User.Username)
 }
 ```

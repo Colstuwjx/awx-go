@@ -141,10 +141,14 @@ func (s *mockServer) GroupsHandler(rw http.ResponseWriter, req *http.Request) {
 		result := mockdata.MockedCreateGroupResponse
 		rw.Write(result)
 		return
+	case req.Method == "PATCH", req.Method == "PUT":
+		result := mockdata.MockedUpdateGroupResponse
+		rw.Write(result)
+		return
 	case req.Method == "DELETE":
 		result := mockdata.MockedDeleteGroupResponse
-                rw.Write(result)
-                return
+		rw.Write(result)
+		return
 	default:
 		result := mockdata.MockedListGroupsResponse
 		rw.Write(result)

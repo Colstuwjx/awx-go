@@ -4,7 +4,7 @@
 
 > Get Job
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -50,7 +50,7 @@ fun main() {
 
 > Relaunch Job
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -73,7 +73,7 @@ fun main() {
 
 > Get Host Summaries
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"

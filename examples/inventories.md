@@ -1,10 +1,10 @@
- # Inventories API
+# Inventories API
 
 ## Usage
 
 > List Inventories
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -23,11 +23,11 @@ func main() {
 }
 ```
 
-
 > Create Inventory
-```
+
+```go
 import (
-    "log" 
+    "log"
     awxGo "github.com/Colstuwjx/awx-go"
 )
 
@@ -52,7 +52,7 @@ fun main() {
 
 > Update Inventory
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -77,8 +77,10 @@ fun main() {
 
 }
 ```
+
 > Delete Inventory
-```
+
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -97,7 +99,8 @@ func main() {
 ```
 
 > GetInventory
-```
+
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
