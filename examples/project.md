@@ -1,10 +1,10 @@
- # Project API
+# Project API
 
 ## Usage
 
 > List Projects
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -23,11 +23,11 @@ func main() {
 }
 ```
 
-
 > Create Project
-```
+
+```go
 import (
-    "log" 
+    "log"
     awxGo "github.com/Colstuwjx/awx-go"
 )
 
@@ -46,6 +46,6 @@ fun main() {
         log.Fatalf("Create Projects err: %s", err)
     }
 
-    log.Printf("Project created. Project ID: %d", result.Project.ID")
+    log.Printf("Project created. Project ID: %d", result.Project.ID)
 }
 ```
