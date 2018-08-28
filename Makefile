@@ -35,6 +35,9 @@ vet:
 	@echo ">> vetting code"
 	@$(GO) vet $(pkgs)
 
+vendor-status:
+	@govendor status
+
 build:
 	@echo ">> building binaries"
 	@$(GO) build -o $(BINARY) $(BUILD_ENTRY)
