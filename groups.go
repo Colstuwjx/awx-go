@@ -64,6 +64,26 @@ func (g *GroupService) CreateGroup(data map[string]interface{}, params map[strin
 	return result, nil
 }
 
+// UpdateGroup update an awx group
+func (g *GroupService) UpdateGroup(id int, data map[string]interface{}, params map[string]string) (*Group, error) {
+	result := new(Group)
+	endpoint := fmt.Sprintf("/api/v2/groups/%d", id)
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := g.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
 // DeleteGroup delete an awx Group.
 func (g *GroupService) DeleteGroup(id int) (*Group, error) {
 	result := new(Group)
