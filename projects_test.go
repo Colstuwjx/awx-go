@@ -208,8 +208,10 @@ func TestCreateProject(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.ProjectService.CreateProject(map[string]interface{}{
-		"name":        "TestProject",
-		"description": "Test project",
+		"name":         "TestProject",
+		"description":  "Test project",
+		"organization": 1,
+		"scm_type":     "git",
 	}, map[string]string{})
 
 	if err != nil {

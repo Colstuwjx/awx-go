@@ -3,6 +3,7 @@ package awx
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // UserService implements awx Users apis.
@@ -34,6 +35,14 @@ func (u *UserService) ListUsers(params map[string]string) ([]*User, *ListUsersRe
 
 // CreateUser creates an awx User.
 func (u *UserService) CreateUser(data map[string]interface{}, params map[string]string) (*User, error) {
+	mandatoryFields = []string{"username", "password", "first_name", "last_name", "email"}
+	validate, status := ValidateParams(data, mandatoryFields)
+
+	if !status {
+		err := fmt.Errorf("Mandatory input arguments are absent: %s", validate)
+		return nil, err
+	}
+
 	result := new(User)
 	endpoint := "/api/v2/users/"
 	payload, err := json.Marshal(data)
