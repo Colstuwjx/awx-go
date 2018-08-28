@@ -3,6 +3,7 @@ package awx
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // GroupService implements awx Groups apis.
@@ -44,6 +45,25 @@ func (g *GroupService) CreateGroup(data map[string]interface{}, params map[strin
 	// Add check if Group exists and return proper error
 
 	resp, err := g.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+// DeleteGroup delete an awx Group.
+func (g *GroupService) DeleteGroup(id int) (*Group, error) {
+	result := new(Group)
+	endpoint := fmt.Sprintf("/api/v2/groups/%d", id)
+
+	// Add check if Group exists and return proper error
+
+	resp, err := g.client.Requester.Delete(endpoint, result, nil)
 	if err != nil {
 		return nil, err
 	}

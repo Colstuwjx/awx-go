@@ -5,6 +5,8 @@
 > List Groups
 
 ```
+package main
+
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -26,6 +28,8 @@ func main() {
 
 > Create Group
 ```
+package main
+
 import (
     "log" 
     awxGo "github.com/Colstuwjx/awx-go"
@@ -44,4 +48,27 @@ fun main() {
 
     log.Printf("Group created. Group ID: %d", result.Group.ID")
 }
+```
+
+> Delete Group
+```
+package main
+
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.GroupService.DeleteGroup(12)
+
+    if err != nil {
+        log.Fatalf("Delete Group err: %s", err)
+    }
+
+    log.Printf("Group deleted. Group ID: %d", 12)
+}
+```
+
 ```
