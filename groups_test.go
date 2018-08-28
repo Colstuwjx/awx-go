@@ -166,7 +166,7 @@ func TestCreateGroup(t *testing.T) {
 	result, err := awx.GroupService.CreateGroup(map[string]interface{}{
 		"name":        "Test Group",
 		"description": "for testing CreateGroup api",
-		"inventory":   "test",
+		"inventory":   1,
 		"variables":   "",
 	}, map[string]string{})
 
