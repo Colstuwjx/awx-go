@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// This variable is to be populated for creating services
+// This variable is to be populated for creating services API
 var mandatoryFields = []string{}
 
 // AWX represents awx api endpoints with services, and using
