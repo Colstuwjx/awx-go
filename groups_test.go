@@ -180,3 +180,22 @@ func TestCreateGroup(t *testing.T) {
 		t.Log("CreateGroup passed!")
 	}
 }
+
+func TestDeleteGroup(t *testing.T) {
+	var (
+		expectDeleteGroupResponse = &Group{}
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.GroupService.DeleteGroup(21)
+
+	if err != nil {
+		t.Fatalf("DeleteGroup by ID err: %s", err)
+	}
+
+	if !reflect.DeepEqual(result, expectDeleteGroupResponse) {
+		t.Fatalf("DeleteGroup resp not as expected, expected: %v, resp result: %v", expectDeleteGroupResponse, result)
+	}
+
+	t.Log("DeleteGroup passed!")
+}
