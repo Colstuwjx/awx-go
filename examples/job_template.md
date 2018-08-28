@@ -4,7 +4,7 @@
 
 > List Job Templates
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -23,7 +23,7 @@ fun main() {
 
 > Launch Job Template
 
-```
+```go
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"

@@ -592,7 +592,7 @@ type User struct {
 // Group represents a group
 type Group struct {
 	ID                       int       `json:"id"`
-	Type                     int       `json:"type"`
+	Type                     string    `json:"type"`
 	URL                      string    `json:"url"`
 	Related                  *Related  `json:"related"`
 	SummaryFields            *Summary  `json:"summary_fields"`

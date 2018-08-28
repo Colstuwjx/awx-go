@@ -1,10 +1,10 @@
- # Group API
+# Group API
 
 ## Usage
 
 > List Groups
 
-```
+```go
 package main
 
 import (
@@ -25,13 +25,13 @@ func main() {
 }
 ```
 
-
 > Create Group
-```
+
+```go
 package main
 
 import (
-    "log" 
+    "log"
     awxGo "github.com/Colstuwjx/awx-go"
 )
 
@@ -50,8 +50,33 @@ fun main() {
 }
 ```
 
-> Delete Group
+> Update Group
+
+```go
+package main
+
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.GroupService.UpdateGroup(21, map[string]interface{}{
+        "description": "Add description here",
+    }, map[string]string{})
+
+    if err != nil {
+        log.Fatalf("Update Group err: %s", err)
+    }
+
+    log.Printf("Updated Group ID: %d", 21)
+}
 ```
+
+> Delete Group
+
+```go
 package main
 
 import (
@@ -69,6 +94,4 @@ fun main() {
 
     log.Printf("Group deleted. Group ID: %d", 12)
 }
-```
-
 ```
