@@ -155,6 +155,18 @@ func (s *mockServer) GroupsHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func (s *mockServer) HostsHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.Method == "GET":
+		result := mockdata.MockedListHostsResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListHostsResponse
+		rw.Write(result)
+	}
+}
+
 var server *mockServer
 
 // Run mock server
@@ -173,6 +185,7 @@ func initServer() {
 	mux.Handle("/api/v2/projects/", http.HandlerFunc(server.ProjectsHandler))
 	mux.Handle("/api/v2/users/", http.HandlerFunc(server.UsersHandler))
 	mux.Handle("/api/v2/groups/", http.HandlerFunc(server.GroupsHandler))
+	mux.Handle("/api/v2/hosts/", http.HandlerFunc(server.HostsHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
