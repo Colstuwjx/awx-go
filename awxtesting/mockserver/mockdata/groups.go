@@ -10,7 +10,7 @@ var (
         "results": [
             {
                 "id": 21,
-                "type": 0,
+                "type": "group",
                 "url": "/api/v2/groups/21/",
                 "related": {
                     "created_by": "/api/v2/users/11/",
@@ -74,7 +74,7 @@ var (
 	MockedCreateGroupResponse = []byte(`
     {
         "id": 21,
-        "type": 0,
+        "type": "group",
         "url": "/api/v2/groups/21/",
         "related": {
             "created_by": "/api/v2/users/11/",
@@ -136,7 +136,7 @@ var (
 	MockedUpdateGroupResponse = []byte(`
     {
         "id": 21,
-        "type": 0,
+        "type": "group",
         "url": "/api/v2/groups/21/",
         "related": {
             "created_by": "/api/v2/users/11/",

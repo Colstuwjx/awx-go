@@ -3,15 +3,7 @@ package awx
 import (
 	"testing"
 	"time"
-
-	"github.com/kylelemons/godebug/pretty"
 )
-
-func checkAPICallResult(t *testing.T, expected interface{}, got interface{}) {
-	if diff := pretty.Compare(expected, got); diff != "" {
-		t.Fatalf("Diff: (-got +want)\n%s", diff)
-	}
-}
 
 func TestListHosts(t *testing.T) {
 	var (
@@ -322,6 +314,206 @@ func TestUpdateHost(t *testing.T) {
 	}
 }
 
+func TestAssociateHostGroup(t *testing.T) {
+	var (
+		expectAssociateHostGroupResponse = &Host{
+			ID:   3,
+			Type: "host",
+			URL:  "/api/v2/hosts/3/",
+			Related: &Related{
+				NamedURL:           "/api/v2/hosts/testUpdate++Demo Inventory++Default/",
+				CreatedBy:          "/api/v2/users/2/",
+				ModifiedBy:         "/api/v2/users/2/",
+				JobHostSummaries:   "/api/v2/hosts/3/job_host_summaries/",
+				VariableData:       "/api/v2/hosts/3/variable_data/",
+				JobEvents:          "/api/v2/hosts/3/job_events/",
+				AdHocCommands:      "/api/v2/hosts/3/ad_hoc_commands/",
+				InventorySources:   "/api/v2/hosts/3/inventory_sources/",
+				FactVersions:       "/api/v2/hosts/3/fact_versions/",
+				SmartInventories:   "/api/v2/hosts/3/smart_inventories/",
+				Groups:             "/api/v2/hosts/3/groups/",
+				AllGroups:          "/api/v2/hosts/3/all_groups/",
+				ActivityStream:     "/api/v2/hosts/3/activity_stream/",
+				AdHocCommandEvents: "/api/v2/hosts/3/ad_hoc_command_events/",
+				Insights:           "/api/v2/hosts/3/insights/",
+				Inventory:          "/api/v2/inventories/1/",
+				AnsibleFacts:       "/api/v2/hosts/3/ansible_facts/",
+			},
+			SummaryFields: &Summary{
+				Inventory: &Inventory{
+					ID:                           1,
+					Name:                         "Demo Inventory",
+					Description:                  "",
+					HasActiveFailures:            false,
+					TotalHosts:                   1,
+					HostsWithActiveFailures:      0,
+					TotalGroups:                  3,
+					GroupsWithActiveFailures:     0,
+					HasInventorySources:          false,
+					TotalInventorySources:        0,
+					InventorySourcesWithFailures: 0,
+					OrganizationID:               1,
+					Kind:                         "",
+				},
+				CreatedBy: &ByUserSummary{
+					ID:        2,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+				ModifiedBy: &ByUserSummary{
+					ID:        2,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+				UserCapabilities: &UserCapabilities{
+					Edit:   true,
+					Delete: true,
+				},
+				Groups: &Groups{
+					Count: 1,
+					Results: []Result{
+						{ID: 10,
+							Name: "testGroup"},
+					},
+				},
+				RecentJobs: []interface{}{},
+			},
+			Created: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-09-01T11:18:16.456501Z")
+				return t
+			}(),
+			Modified: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-09-01T11:18:16.456512Z")
+				return t
+			}(),
+			Name:                 "testUpdate",
+			Description:          "test create host",
+			Inventory:            1,
+			Enabled:              true,
+			InstanceID:           "",
+			Variables:            "ansible_host: localhost",
+			HasActiveFailures:    false,
+			HasInventorySources:  false,
+			LastJob:              nil,
+			LastJobHostSummary:   nil,
+			InsightsSystemID:     nil,
+			AnsibleFactsModified: nil,
+		}
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.HostService.AssociateGroup(3, map[string]interface{}{
+		"id": 10,
+	}, map[string]string{})
+
+	if err != nil {
+		t.Fatalf("AssociateGroup err: %s", err)
+	} else {
+		checkAPICallResult(t, expectAssociateHostGroupResponse, result)
+		t.Log("AssociateGroup passed!")
+	}
+}
+
+func TestDisAssociateHostGroup(t *testing.T) {
+	var (
+		expectDisAssociateHostGroupResponse = &Host{
+			ID:   3,
+			Type: "host",
+			URL:  "/api/v2/hosts/3/",
+			Related: &Related{
+				NamedURL:           "/api/v2/hosts/testUpdate++Demo Inventory++Default/",
+				CreatedBy:          "/api/v2/users/2/",
+				ModifiedBy:         "/api/v2/users/2/",
+				JobHostSummaries:   "/api/v2/hosts/3/job_host_summaries/",
+				VariableData:       "/api/v2/hosts/3/variable_data/",
+				JobEvents:          "/api/v2/hosts/3/job_events/",
+				AdHocCommands:      "/api/v2/hosts/3/ad_hoc_commands/",
+				InventorySources:   "/api/v2/hosts/3/inventory_sources/",
+				FactVersions:       "/api/v2/hosts/3/fact_versions/",
+				SmartInventories:   "/api/v2/hosts/3/smart_inventories/",
+				Groups:             "/api/v2/hosts/3/groups/",
+				AllGroups:          "/api/v2/hosts/3/all_groups/",
+				ActivityStream:     "/api/v2/hosts/3/activity_stream/",
+				AdHocCommandEvents: "/api/v2/hosts/3/ad_hoc_command_events/",
+				Insights:           "/api/v2/hosts/3/insights/",
+				Inventory:          "/api/v2/inventories/1/",
+				AnsibleFacts:       "/api/v2/hosts/3/ansible_facts/",
+			},
+			SummaryFields: &Summary{
+				Inventory: &Inventory{
+					ID:                           1,
+					Name:                         "Demo Inventory",
+					Description:                  "",
+					HasActiveFailures:            false,
+					TotalHosts:                   1,
+					HostsWithActiveFailures:      0,
+					TotalGroups:                  3,
+					GroupsWithActiveFailures:     0,
+					HasInventorySources:          false,
+					TotalInventorySources:        0,
+					InventorySourcesWithFailures: 0,
+					OrganizationID:               1,
+					Kind:                         "",
+				},
+				CreatedBy: &ByUserSummary{
+					ID:        2,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+				ModifiedBy: &ByUserSummary{
+					ID:        2,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+				UserCapabilities: &UserCapabilities{
+					Edit:   true,
+					Delete: true,
+				},
+				Groups: &Groups{
+					Count:   0,
+					Results: []Result{},
+				},
+				RecentJobs: []interface{}{},
+			},
+			Created: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-09-01T11:18:16.456501Z")
+				return t
+			}(),
+			Modified: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-09-01T11:18:16.456512Z")
+				return t
+			}(),
+			Name:                 "testUpdate",
+			Description:          "test create host",
+			Inventory:            1,
+			Enabled:              true,
+			InstanceID:           "",
+			Variables:            "ansible_host: localhost",
+			HasActiveFailures:    false,
+			HasInventorySources:  false,
+			LastJob:              nil,
+			LastJobHostSummary:   nil,
+			InsightsSystemID:     nil,
+			AnsibleFactsModified: nil,
+		}
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.HostService.DisAssociateGroup(3, map[string]interface{}{
+		"id": 10,
+	}, map[string]string{})
+
+	if err != nil {
+		t.Fatalf("DisAssociateGroup err: %s", err)
+	} else {
+		checkAPICallResult(t, expectDisAssociateHostGroupResponse, result)
+		t.Log("DisAssociateGroup passed!")
+	}
+}
 func TestDeleteHost(t *testing.T) {
 	var (
 		expectDeleteHostResponse = &Host{}

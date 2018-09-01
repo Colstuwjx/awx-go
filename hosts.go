@@ -11,6 +11,12 @@ type HostService struct {
 	client *Client
 }
 
+// AssociateGroup implement the awx group association request
+type AssociateGroup struct {
+	ID        int  `json:"id"`
+	Associate bool `json:"associate"`
+}
+
 // ListHostsResponse represents `ListHosts` endpoint response.
 type ListHostsResponse struct {
 	Pagination

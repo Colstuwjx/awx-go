@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"reflect"
 	"testing"
 	"time"
 )
@@ -38,11 +37,8 @@ func TestPing(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("Ping err: %s", err)
-	} else if !reflect.DeepEqual(*result, *expectPingResponse) {
-		t.Logf("expected: %v", *expectPingResponse)
-		t.Logf("result: %v", *result)
-		t.Fatal("Ping resp not as expected")
 	} else {
+		checkAPICallResult(t, *expectPingResponse, *result)
 		t.Log("Ping passed!")
 	}
 }

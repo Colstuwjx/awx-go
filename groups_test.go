@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"reflect"
 	"testing"
 	"time"
 )
@@ -84,11 +83,8 @@ func TestListGroups(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("ListGroups err: %s", err)
-	} else if !reflect.DeepEqual(result, expectListGroupsResponse) {
-		t.Logf("expected: %v", expectListGroupsResponse[0])
-		t.Logf("result: %v", result[0])
-		t.Fatal("ListGroups resp not as expected")
 	} else {
+		checkAPICallResult(t, expectListGroupsResponse, result)
 		t.Log("ListGroups passed!")
 	}
 }
@@ -172,11 +168,8 @@ func TestCreateGroup(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("CreateGroup err: %s", err)
-	} else if !reflect.DeepEqual(result, expectCreateGroupResponse) {
-		t.Logf("expected: %v", expectCreateGroupResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("CreateGroup response not as expected")
 	} else {
+		checkAPICallResult(t, expectCreateGroupResponse, result)
 		t.Log("CreateGroup passed!")
 	}
 }
@@ -257,11 +250,8 @@ func TestUpdateGroup(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("UpdateGroup err: %s", err)
-	} else if !reflect.DeepEqual(result, expectUpdateGroupResponse) {
-		t.Logf("expected: %v", expectUpdateGroupResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("UpdateGroup response not as expected")
 	} else {
+		checkAPICallResult(t, expectUpdateGroupResponse, result)
 		t.Log("UpdateGroup passed!")
 	}
 }
@@ -274,12 +264,9 @@ func TestDeleteGroup(t *testing.T) {
 	result, err := awx.GroupService.DeleteGroup(21)
 
 	if err != nil {
-		t.Fatalf("DeleteGroup by ID err: %s", err)
+		t.Fatalf("DeleteGroup err: %s", err)
+	} else {
+		checkAPICallResult(t, expectDeleteGroupResponse, result)
+		t.Log("DeleteGroup passed!")
 	}
-
-	if !reflect.DeepEqual(result, expectDeleteGroupResponse) {
-		t.Fatalf("DeleteGroup resp not as expected, expected: %v, resp result: %v", expectDeleteGroupResponse, result)
-	}
-
-	t.Log("DeleteGroup passed!")
 }

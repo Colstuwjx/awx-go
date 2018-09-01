@@ -2,6 +2,8 @@ package mockserver
 
 import (
 	"context"
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"regexp"
 	"time"
@@ -158,6 +160,29 @@ func (s *mockServer) GroupsHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 func (s *mockServer) HostsHandler(rw http.ResponseWriter, req *http.Request) {
+	type associateGroup struct {
+		ID        int  `json:"id"`
+		Associate bool `json:"associate"`
+	}
+
+	groupAssociation := "/api/v2/hosts/[0-9]+/groups/"
+	var data associateGroup
+
+	if matched, _ := regexp.MatchString(groupAssociation, req.URL.String()); matched {
+		b, _ := ioutil.ReadAll(req.Body)
+		defer req.Body.Close()
+		err := json.Unmarshal(b, &data)
+		if err != nil {
+			return
+		}
+		if data.Associate {
+			result := mockdata.MockedAssociateGroupResponse
+			rw.Write(result)
+		} else if !data.Associate {
+			result := mockdata.MockedDisAssociateGroupResponse
+			rw.Write(result)
+		}
+	}
 	switch {
 	case req.Method == "GET":
 		result := mockdata.MockedListHostsResponse

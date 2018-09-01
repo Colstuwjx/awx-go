@@ -78,6 +78,54 @@ fun main() {
 }
 ```
 
+> Associate Host to Group
+
+```go
+package main
+
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.HostService.AssociateHostGroup(3, map[string]interface{}{
+        "id": 10,
+    }, map[string]string{})
+
+    if err != nil {
+        log.Fatalf("Associate Host err: %s", err)
+    }
+
+    log.Printf("Associate Host ID: %d", 3)
+}
+```
+
+> Disassociate Host from Group
+
+```go
+package main
+
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.HostService.DisAssociateHostGroup(3, map[string]interface{}{
+        "id": 10,
+    }, map[string]string{})
+
+    if err != nil {
+        log.Fatalf("Disassociate Host err: %s", err)
+    }
+
+    log.Printf("Disassociate Host ID: %d", 3)
+}
+```
+
 > Delete Host
 
 ```go
