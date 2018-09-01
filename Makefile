@@ -5,7 +5,7 @@ pkgs          = $(shell $(GO) list ./... | grep -v /vendor/ )
 BUILD_ENTRY             ?= ./*.go
 BINARY                  ?= awx-go
 
-all: format build test
+all: format vendor-status build test
 
 style:
 	@echo ">> checking code style"
@@ -39,8 +39,12 @@ vet:
 	@echo ">> vetting code"
 	@$(GO) vet $(pkgs)
 
+vendor-status:
+	@echo ">> vendor status"
+	@govendor status
+
 build:
 	@echo ">> building binaries"
 	@$(GO) build -o $(BINARY) $(BUILD_ENTRY)
 
-.PHONY: all style format build test test-short vet
+.PHONY: all style format build test test-short vet vendor-status

@@ -2,7 +2,9 @@ package awx
 
 import (
 	"fmt"
+	"github.com/kylelemons/godebug/pretty"
 	"net/http"
+	"testing"
 )
 
 // This variable is mandatory and to be populated for creating services API
@@ -20,6 +22,7 @@ type AWX struct {
 	ProjectService     *ProjectService
 	UserService        *UserService
 	GroupService       *GroupService
+	HostService        *HostService
 }
 
 // Client implement http client.
@@ -35,6 +38,13 @@ func CheckResponse(resp *http.Response) error {
 	}
 
 	return fmt.Errorf("responsed with %d, resp: %v", resp.StatusCode, resp)
+}
+
+// CheckAPICallResult compare API calls results
+func checkAPICallResult(t *testing.T, expected interface{}, got interface{}) {
+	if diff := pretty.Compare(expected, got); diff != "" {
+		t.Fatalf("diff: (-got +want)\n%s", diff)
+	}
 }
 
 // ValidateParams is to validate the input to use the services.
@@ -86,6 +96,9 @@ func NewAWX(baseURL, userName, passwd string, client *http.Client) *AWX {
 			client: awxClient,
 		},
 		GroupService: &GroupService{
+			client: awxClient,
+		},
+		HostService: &HostService{
 			client: awxClient,
 		},
 	}

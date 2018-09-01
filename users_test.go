@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"reflect"
 	"testing"
 	"time"
 )
@@ -52,11 +51,8 @@ func TestListUsers(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("ListUsers err: %s", err)
-	} else if !reflect.DeepEqual(result, expectListUsersResponse) {
-		t.Logf("expected: %v", expectListUsersResponse[0])
-		t.Logf("result: %v", result[0])
-		t.Fatal("ListUsers resp not as expected")
 	} else {
+		checkAPICallResult(t, expectListUsersResponse, result)
 		t.Log("ListUsers passed!")
 	}
 }
@@ -110,11 +106,8 @@ func TestCreateUser(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("CreateUser err: %s", err)
-	} else if !reflect.DeepEqual(result, expectCreateUserResponse) {
-		t.Logf("expected: %v", expectCreateUserResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("CreateUser response not as expected")
 	} else {
+		checkAPICallResult(t, expectCreateUserResponse, result)
 		t.Log("CreateUser passed!")
 	}
 }

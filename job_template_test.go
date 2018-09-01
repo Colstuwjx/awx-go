@@ -3,15 +3,7 @@ package awx
 import (
 	"testing"
 	"time"
-
-	"github.com/kylelemons/godebug/pretty"
 )
-
-func checkAPICallResult(t *testing.T, expected interface{}, got interface{}) {
-	if diff := pretty.Compare(expected, got); diff != "" {
-		t.Fatalf("CreateJobTemplate diff: (-got +want)\n%s", diff)
-	}
-}
 
 func TestListJobTemplates(t *testing.T) {
 	var (

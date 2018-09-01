@@ -23,8 +23,8 @@
 - [ ] Support InventoryScripts endpoints;
 - [ ] Support InventorySources endpoints;
 - [ ] Support InventoryUpdates endpoints;
-- [ ] Support Groups endpoints;
-- [ ] Support Hosts endpoints;
+- [x] Support Groups endpoints;
+- [x] Support Hosts endpoints;
 - [ ] Support JobTemplates endpoints(**partial**);
 - [ ] Support Jobs endpoints(**partial**);
 - [ ] Support JobEvents endpoints(**partial**);

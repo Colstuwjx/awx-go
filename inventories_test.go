@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"reflect"
 	"testing"
 	"time"
 )
@@ -131,11 +130,8 @@ func TestListInventories(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("ListInventories err: %s", err)
-	} else if !reflect.DeepEqual(result, expectListInventoriesResponse) {
-		t.Logf("expected: %v", expectListInventoriesResponse[0])
-		t.Logf("result: %v", result[0])
-		t.Fatal("ListInventories resp not as expected")
 	} else {
+		checkAPICallResult(t, expectListInventoriesResponse, result)
 		t.Log("ListInventories passed!")
 	}
 }
@@ -269,11 +265,8 @@ func TestCreateInventory(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("CreateInventory err: %s", err)
-	} else if !reflect.DeepEqual(result, expectCreateInventoryResponse) {
-		t.Logf("expected: %v", expectCreateInventoryResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("CreateInventory response not as expected")
 	} else {
+		checkAPICallResult(t, expectCreateInventoryResponse, result)
 		t.Log("CreateInventory passed!")
 	}
 }
@@ -407,11 +400,8 @@ func TestUpdateInventory(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("UpdateInventory err: %s", err)
-	} else if !reflect.DeepEqual(result, expectUpdateInventoryResponse) {
-		t.Logf("expected: %v", expectUpdateInventoryResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("UpdateInventory resp not as expected")
 	} else {
+		checkAPICallResult(t, expectUpdateInventoryResponse, result)
 		t.Log("UpdateInventory passed!")
 	}
 }
@@ -535,13 +525,10 @@ func TestGetInventory(t *testing.T) {
 	result, err := awx.InventoriesService.GetInventory(1, map[string]string{})
 
 	if err != nil {
-		t.Fatalf("GetInventory by ID err: %s", err)
-	} else if !reflect.DeepEqual(result, expectGetInventoryResponse) {
-		t.Logf("expected: %v", expectGetInventoryResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("GetInventory by ID resp not as expected")
+		t.Fatalf("GetInventory err: %s", err)
 	} else {
-		t.Log("GetInventory by ID passed!")
+		checkAPICallResult(t, expectGetInventoryResponse, result)
+		t.Log("GetInventory passed!")
 	}
 }
 
@@ -552,13 +539,11 @@ func TestDeleteInventory(t *testing.T) {
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	result, err := awx.InventoriesService.DeleteInventory(1)
+
 	if err != nil {
-		t.Fatalf("DeleteInventory by ID err: %s", err)
-	} else if !reflect.DeepEqual(result, expectDeleteInventoryResponse) {
-		t.Logf("expected: %v", expectDeleteInventoryResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("DeleteInventory resp not as expected")
+		t.Fatalf("DeleteInventory err: %s", err)
 	} else {
+		checkAPICallResult(t, expectDeleteInventoryResponse, result)
 		t.Log("DeleteInventory passed!")
 	}
 }

@@ -2,6 +2,8 @@ package mockserver
 
 import (
 	"context"
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"regexp"
 	"time"
@@ -157,6 +159,53 @@ func (s *mockServer) GroupsHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func (s *mockServer) HostsHandler(rw http.ResponseWriter, req *http.Request) {
+	type associateGroup struct {
+		ID        int  `json:"id"`
+		Associate bool `json:"associate"`
+	}
+
+	groupAssociation := "/api/v2/hosts/[0-9]+/groups/"
+	var data associateGroup
+
+	if matched, _ := regexp.MatchString(groupAssociation, req.URL.String()); matched {
+		b, _ := ioutil.ReadAll(req.Body)
+		defer req.Body.Close()
+		err := json.Unmarshal(b, &data)
+		if err != nil {
+			return
+		}
+		if data.Associate {
+			result := mockdata.MockedAssociateGroupResponse
+			rw.Write(result)
+		} else if !data.Associate {
+			result := mockdata.MockedDisAssociateGroupResponse
+			rw.Write(result)
+		}
+	}
+	switch {
+	case req.Method == "GET":
+		result := mockdata.MockedListHostsResponse
+		rw.Write(result)
+		return
+	case req.Method == "POST":
+		result := mockdata.MockedCreateHostResponse
+		rw.Write(result)
+		return
+	case req.Method == "PATCH":
+		result := mockdata.MockedUpdateHostResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteHostResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListHostsResponse
+		rw.Write(result)
+	}
+}
+
 var server *mockServer
 
 // Run mock server
@@ -175,6 +224,7 @@ func initServer() {
 	mux.Handle("/api/v2/projects/", http.HandlerFunc(server.ProjectsHandler))
 	mux.Handle("/api/v2/users/", http.HandlerFunc(server.UsersHandler))
 	mux.Handle("/api/v2/groups/", http.HandlerFunc(server.GroupsHandler))
+	mux.Handle("/api/v2/hosts/", http.HandlerFunc(server.HostsHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }
