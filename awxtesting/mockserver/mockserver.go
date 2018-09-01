@@ -161,6 +161,18 @@ func (s *mockServer) HostsHandler(rw http.ResponseWriter, req *http.Request) {
 		result := mockdata.MockedListHostsResponse
 		rw.Write(result)
 		return
+	case req.Method == "POST":
+		result := mockdata.MockedCreateHostResponse
+		rw.Write(result)
+		return
+	case req.Method == "PATCH":
+		result := mockdata.MockedUpdateHostResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteHostResponse
+		rw.Write(result)
+		return
 	default:
 		result := mockdata.MockedListHostsResponse
 		rw.Write(result)

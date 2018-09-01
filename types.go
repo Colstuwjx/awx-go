@@ -74,7 +74,7 @@ type Related struct {
 	AllGroups                    string `json:"all_groups"`
 	AdHocCommandEvents           string `json:"ad_hoc_command_events"`
 	Children                     string `json:"children"`
-	AnsibleFacts                 string `json:"ansible_facts`
+	AnsibleFacts                 string `json:"ansible_facts"`
 }
 
 // OrgnizationSummary represents the awx api orgnization summary fields.
@@ -629,111 +629,25 @@ type Group struct {
 	HasInventorySources      bool      `json:"has_inventory_sources"`
 }
 
-// Hosts response of the ListHosts api
-type Hosts struct {
-	Count    int         `json:"count"`
-	Next     interface{} `json:"next"`
-	Previous interface{} `json:"previous"`
-	Results  []struct {
-		ID      int    `json:"id"`
-		Type    int    `json:"type"`
-		URL     string `json:"url"`
-		Related struct {
-			CreatedBy          string `json:"created_by"`
-			ModifiedBy         string `json:"modified_by"`
-			JobHostSummaries   string `json:"job_host_summaries"`
-			VariableData       string `json:"variable_data"`
-			JobEvents          string `json:"job_events"`
-			AdHocCommands      string `json:"ad_hoc_commands"`
-			InventorySources   string `json:"inventory_sources"`
-			FactVersions       string `json:"fact_versions"`
-			SmartInventories   string `json:"smart_inventories"`
-			Groups             string `json:"groups"`
-			ActivityStream     string `json:"activity_stream"`
-			AllGroups          string `json:"all_groups"`
-			AdHocCommandEvents string `json:"ad_hoc_command_events"`
-			Insights           string `json:"insights"`
-			Inventory          string `json:"inventory"`
-			AnsibleFacts       string `json:"ansible_facts"`
-		} `json:"related"`
-		SummaryFields struct {
-			Inventory struct {
-				ID                           int    `json:"id"`
-				Name                         string `json:"name"`
-				Description                  string `json:"description"`
-				HasActiveFailures            bool   `json:"has_active_failures"`
-				TotalHosts                   int    `json:"total_hosts"`
-				HostsWithActiveFailures      int    `json:"hosts_with_active_failures"`
-				TotalGroups                  int    `json:"total_groups"`
-				GroupsWithActiveFailures     int    `json:"groups_with_active_failures"`
-				HasInventorySources          bool   `json:"has_inventory_sources"`
-				TotalInventorySources        int    `json:"total_inventory_sources"`
-				InventorySourcesWithFailures int    `json:"inventory_sources_with_failures"`
-				OrganizationID               int    `json:"organization_id"`
-				Kind                         string `json:"kind"`
-			} `json:"inventory"`
-			CreatedBy struct {
-				ID        int    `json:"id"`
-				Username  string `json:"username"`
-				FirstName string `json:"first_name"`
-				LastName  string `json:"last_name"`
-			} `json:"created_by"`
-			ModifiedBy struct {
-				ID        int    `json:"id"`
-				Username  string `json:"username"`
-				FirstName string `json:"first_name"`
-				LastName  string `json:"last_name"`
-			} `json:"modified_by"`
-			UserCapabilities struct {
-				Edit   bool `json:"edit"`
-				Delete bool `json:"delete"`
-			} `json:"user_capabilities"`
-			Groups struct {
-				Count   int `json:"count"`
-				Results []struct {
-					ID   int    `json:"id"`
-					Name string `json:"name"`
-				} `json:"results"`
-			} `json:"groups"`
-			RecentJobs []interface{} `json:"recent_jobs"`
-		} `json:"summary_fields"`
-		Created              time.Time   `json:"created"`
-		Modified             time.Time   `json:"modified"`
-		Name                 string      `json:"name"`
-		Description          string      `json:"description"`
-		Inventory            int         `json:"inventory"`
-		Enabled              bool        `json:"enabled"`
-		InstanceID           string      `json:"instance_id"`
-		Variables            string      `json:"variables"`
-		HasActiveFailures    bool        `json:"has_active_failures"`
-		HasInventorySources  bool        `json:"has_inventory_sources"`
-		LastJob              interface{} `json:"last_job"`
-		LastJobHostSummary   interface{} `json:"last_job_host_summary"`
-		InsightsSystemID     interface{} `json:"insights_system_id"`
-		AnsibleFactsModified interface{} `json:"ansible_facts_modified"`
-	} `json:"results"`
-}
-
 // Host represents a host
 type Host struct {
-	ID                   int                 `json:"id"`
-	Type                 int                 `json:"type"`
-	URL                  string              `json:"url"`
-	Related              *Related            `json:"related"`
-	SummaryFields        *Summary            `json:"summary_fields"`
-	Created              time.Time           `json:"created"`
-	Modified             time.Time           `json:"modified"`
-	Name                 string              `json:"name"`
-	Description          string              `json:"description"`
-	Inventory            int                 `json:"inventory"`
-	Enabled              bool                `json:"enabled"`
-	InstanceID           string              `json:"instance_id"`
-	Variables            string              `json:"variables"`
-	HasActiveFailures    bool                `json:"has_active_failures"`
-	HasInventorySources  bool                `json:"has_inventory_sources"`
-	LastJob              *Job                `json:"last_job"`
-	LastJobHostSummary   *JobTemplateSummary `json:"last_job_host_summary"`
-	InsightsSystemID     interface{}         `json:"insights_system_id"`
-	AnsibleFactsModified interface{}         `json:"ansible_facts_modified"`
-	RecentJobs           interface{}         `json:"recent_jobs"`
+	ID                   int          `json:"id"`
+	Type                 string       `json:"type"`
+	URL                  string       `json:"url"`
+	Related              *Related     `json:"related"`
+	SummaryFields        *Summary     `json:"summary_fields"`
+	Created              time.Time    `json:"created"`
+	Modified             time.Time    `json:"modified"`
+	Name                 string       `json:"name"`
+	Description          string       `json:"description"`
+	Inventory            int          `json:"inventory"`
+	Enabled              bool         `json:"enabled"`
+	InstanceID           string       `json:"instance_id"`
+	Variables            string       `json:"variables"`
+	HasActiveFailures    bool         `json:"has_active_failures"`
+	HasInventorySources  bool         `json:"has_inventory_sources"`
+	LastJob              *Job         `json:"last_job"`
+	LastJobHostSummary   *HostSummary `json:"last_job_host_summary"`
+	InsightsSystemID     interface{}  `json:"insights_system_id"`
+	AnsibleFactsModified interface{}  `json:"ansible_facts_modified"`
 }
