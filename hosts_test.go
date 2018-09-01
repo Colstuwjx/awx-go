@@ -36,9 +36,7 @@ func TestListHosts(t *testing.T) {
 					AdHocCommandEvents: "/api/v2/hosts/1/ad_hoc_command_events/",
 					Insights:           "/api/v2/hosts/1/insights/",
 					Inventory:          "/api/v2/inventories/1/",
-
-					// FIXME: why this line could NOT be unmarshaled in json？
-					// AnsibleFacts: "/api/v2/hosts/1/ansible_facts/",
+					AnsibleFacts:       "/api/v2/hosts/1/ansible_facts/",
 				},
 				SummaryFields: &Summary{
 					Inventory: &Inventory{

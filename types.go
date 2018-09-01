@@ -74,7 +74,7 @@ type Related struct {
 	AllGroups                    string `json:"all_groups"`
 	AdHocCommandEvents           string `json:"ad_hoc_command_events"`
 	Children                     string `json:"children"`
-	AnsibleFacts                 string `json:"ansible_facts`
+	AnsibleFacts                 string `json:"ansible_facts"`
 }
 
 // OrgnizationSummary represents the awx api orgnization summary fields.
