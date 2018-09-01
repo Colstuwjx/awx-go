@@ -6,93 +6,115 @@ import (
 	"time"
 )
 
-func TestListGroups(t *testing.T) {
+func TestListHosts(t *testing.T) {
 	var (
-		expectListGroupsResponse = []*Group{
+		expectListHostsResponse = []*Host{
 			{
-				ID:   21,
+				ID:   1,
 				Type: 0,
-				URL:  "/api/v2/groups/21/",
+				URL:  "/api/v2/hosts/1/",
 				Related: &Related{
-					CreatedBy:         "/api/v2/users/11/",
-					JobHostSummaries:  "/api/v2/groups/21/job_host_summaries/",
-					VariableData:      "/api/v2/groups/21/variable_data/",
-					JobEvents:         "/api/v2/groups/21/job_events/",
-					PotentialChildren: "/api/v2/groups/21/potential_children/",
-					AdHocCommands:     "/api/v2/groups/21/ad_hoc_commands/",
-					AllHosts:          "/api/v2/groups/21/all_hosts/",
-					ActivityStream:    "/api/v2/groups/21/activity_stream/",
-					Hosts:             "/api/v2/groups/21/hosts/",
-					Children:          "/api/v2/groups/21/children/",
-					InventorySources:  "/api/v2/groups/21/inventory_sources/",
-					Inventory:         "/api/v2/inventories/9/",
+					CreatedBy:          "/api/v2/users/2/",
+					ModifiedBy:         "/api/v2/users/2/",
+					JobHostSummaries:   "/api/v2/hosts/1/job_host_summaries/",
+					VariableData:       "/api/v2/hosts/1/variable_data/",
+					JobEvents:          "/api/v2/hosts/1/job_events/",
+					AdHocCommands:      "/api/v2/hosts/1/ad_hoc_commands/",
+					InventorySources:   "/api/v2/hosts/1/inventory_sources/",
+					FactVersions:       "/api/v2/hosts/1/fact_versions/",
+					SmartInventories:   "/api/v2/hosts/1/smart_inventories/",
+					Groups:             "/api/v2/hosts/1/groups/",
+					ActivityStream:     "/api/v2/hosts/1/activity_stream/",
+					AllGroups:          "/api/v2/hosts/1/all_groups/",
+					AdHocCommandEvents: "/api/v2/hosts/1/ad_hoc_command_events/",
+					Insights:           "/api/v2/hosts/1/insights/",
+					Inventory:          "/api/v2/inventories/1/",
+					AnsibleFacts:       "/api/v2/hosts/1/ansible_facts/",
 				},
 				SummaryFields: &Summary{
 					Inventory: &Inventory{
-						ID:                           9,
-						Name:                         "test",
+						ID:                           1,
+						Name:                         "Demo Inventory",
 						Description:                  "",
 						HasActiveFailures:            false,
-						TotalHosts:                   8,
+						TotalHosts:                   1,
 						HostsWithActiveFailures:      0,
-						TotalGroups:                  4,
+						TotalGroups:                  3,
 						GroupsWithActiveFailures:     0,
 						HasInventorySources:          false,
 						TotalInventorySources:        0,
 						InventorySourcesWithFailures: 0,
-						OrganizationID:               16,
+						OrganizationID:               1,
 						Kind:                         "",
 					},
 					CreatedBy: &ByUserSummary{
-						ID:        11,
-						Username:  "demouser",
-						FirstName: "Demo",
-						LastName:  "User",
+						ID:        2,
+						Username:  "admin",
+						FirstName: "",
+						LastName:  "",
+					},
+					ModifiedBy: &ByUserSummary{
+						ID:        1,
+						Username:  "admin",
+						FirstName: "",
+						LastName:  "",
 					},
 					UserCapabilities: &UserCapabilities{
 						Edit:   true,
-						Copy:   true,
 						Delete: true,
 					},
+					Groups: &Groups{
+						Count: 2,
+						Results: []Result{
+							{ID: 19,
+								Name: "ciao"},
+							{ID: 21,
+								Name: "test"},
+						},
+					},
+					RecentJobs: []interface{}{},
 				},
 				Created: func() time.Time {
-					t, _ := time.Parse(time.RFC3339, "2018-07-17T13:27:46.686176Z")
+					t, _ := time.Parse(time.RFC3339, "2018-08-27T13:47:11.145028Z")
 					return t
 				}(),
+
 				Modified: func() time.Time {
-					t, _ := time.Parse(time.RFC3339, "2018-07-17T13:28:07.127040Z")
+					t, _ := time.Parse(time.RFC3339, "2018-08-27T13:47:11.145042Z")
 					return t
 				}(),
-				Name:                     "Demo Group",
-				Description:              "",
-				Inventory:                9,
-				Variables:                "",
-				HasActiveFailures:        false,
-				TotalHosts:               3,
-				HostsWithActiveFailures:  0,
-				TotalGroups:              0,
-				GroupsWithActiveFailures: 0,
-				HasInventorySources:      false,
+				Name:                 "localhost",
+				Description:          "",
+				Inventory:            1,
+				Enabled:              true,
+				InstanceID:           "",
+				Variables:            "ansible_connection: local",
+				HasActiveFailures:    false,
+				HasInventorySources:  false,
+				LastJob:              nil,
+				LastJobHostSummary:   nil,
+				InsightsSystemID:     nil,
+				AnsibleFactsModified: nil,
 			},
 		}
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, _, err := awx.GroupService.ListGroups(map[string]string{
-		"name": "Demo Group",
+	result, _, err := awx.HostService.ListHosts(map[string]string{
+		"name": "localhost",
 	})
-
 	if err != nil {
-		t.Fatalf("ListGroups err: %s", err)
-	} else if !reflect.DeepEqual(result, expectListGroupsResponse) {
-		t.Logf("expected: %v", expectListGroupsResponse[0])
-		t.Logf("result: %v", result[0])
-		t.Fatal("ListGroups resp not as expected")
+		t.Fatalf("ListHosts err: %s", err)
+	} else if !reflect.DeepEqual(result, expectListHostsResponse) {
+		t.Logf("expected: %v\n", expectListHostsResponse[0])
+		t.Logf("result: %v\n", result[0])
+		t.Fatal("ListHosts resp not as expected")
 	} else {
-		t.Log("ListGroups passed!")
+		t.Log("ListHost passed!")
 	}
 }
 
+/*
 func TestCreateGroup(t *testing.T) {
 	var (
 		expectCreateGroupResponse = &Group{
@@ -283,3 +305,4 @@ func TestDeleteGroup(t *testing.T) {
 
 	t.Log("DeleteGroup passed!")
 }
+*/
