@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"reflect"
 	"testing"
 	"time"
 )
@@ -177,11 +176,8 @@ func TestGetJob(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("GetJob err: %s", err)
-	} else if !reflect.DeepEqual(*result, *expectGetJobResponse) {
-		t.Logf("expected: %v", *expectGetJobResponse)
-		t.Logf("result: %v", *result)
-		t.Fatal("GetJob resp not as expected")
 	} else {
+		checkAPICallResult(t, *expectGetJobResponse, *result)
 		t.Log("GetJob passed!")
 	}
 }
@@ -200,11 +196,8 @@ func TestCancelJob(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("CancelJob err: %s", err)
-	} else if !reflect.DeepEqual(*result, *expectCancelJobResponse) {
-		t.Logf("expected: %v", *expectCancelJobResponse)
-		t.Logf("result: %v", *result)
-		t.Fatal("CancelJob resp not as expected")
 	} else {
+		checkAPICallResult(t, *expectCancelJobResponse, *result)
 		t.Log("CancelJob passed!")
 	}
 }
@@ -388,11 +381,8 @@ func TestRelaunchJob(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("RelaunchJob err: %s", err)
-	} else if !reflect.DeepEqual(*result, *expectLaunchJobResponse) {
-		t.Logf("expected: %v", *expectLaunchJobResponse)
-		t.Logf("result: %v", *result)
-		t.Fatal("RelaunchJob resp not as expected")
 	} else {
+		checkAPICallResult(t, *expectLaunchJobResponse, *result)
 		t.Log("RelaunchJob passed!")
 	}
 }
@@ -459,11 +449,8 @@ func TestGetHostSummaries(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("GetHostSummaries err: %s", err)
-	} else if !reflect.DeepEqual(result, expectHostSummariesResponse) {
-		t.Logf("expected: %v", expectHostSummariesResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("GetHostSummaries resp not as expected")
 	} else {
+		checkAPICallResult(t, expectHostSummariesResponse, result)
 		t.Log("GetHostSummaries passed!")
 	}
 }
@@ -536,11 +523,8 @@ func TestGetJobEvents(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("GetJobEvents err: %s", err)
-	} else if !reflect.DeepEqual(result, expectJobEventsResponse) {
-		t.Logf("expected: %v", expectJobEventsResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("GetJobEvents resp not as expected")
 	} else {
+		checkAPICallResult(t, expectJobEventsResponse, result)
 		t.Log("GetJobEvents passed!")
 	}
 }

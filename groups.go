@@ -89,8 +89,6 @@ func (g *GroupService) DeleteGroup(id int) (*Group, error) {
 	result := new(Group)
 	endpoint := fmt.Sprintf("/api/v2/groups/%d", id)
 
-	// Add check if Group exists and return proper error
-
 	resp, err := g.client.Requester.Delete(endpoint, result, nil)
 	if err != nil {
 		return nil, err

@@ -1,7 +1,6 @@
 package awx
 
 import (
-	"reflect"
 	"testing"
 	"time"
 )
@@ -106,11 +105,8 @@ func TestListProjects(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("ListProjects err: %s", err)
-	} else if !reflect.DeepEqual(result[0], expectListProjectsResponse[0]) {
-		t.Logf("expected: %v", expectListProjectsResponse[0])
-		t.Logf("result: %v", result[0])
-		t.Fatal("ListProjects response is not as expected")
 	} else {
+		checkAPICallResult(t, expectListProjectsResponse, result)
 		t.Log("ListProjects passed!")
 	}
 }
@@ -216,11 +212,8 @@ func TestCreateProject(t *testing.T) {
 
 	if err != nil {
 		t.Fatalf("CreateProject err: %s", err)
-	} else if !reflect.DeepEqual(result, expectCreateProjectResponse) {
-		t.Logf("expected: %v", expectCreateProjectResponse)
-		t.Logf("result: %v", result)
-		t.Fatal("CreateProject resp not as expected")
 	} else {
+		checkAPICallResult(t, expectCreateProjectResponse, result)
 		t.Log("CreateProject passed!")
 	}
 }

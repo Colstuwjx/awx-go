@@ -6,6 +6,8 @@
 
 AWX SDK for the Go programming language.
 
+![AWX-GO-ROBOT](images/awx-go-robot.png)
+
 ## Installing
 
 If you are using Go 1.5 with the GO15VENDOREXPERIMENT=1 vendoring flag, or 1.6 and higher you can use the following command to retrieve the SDK. The SDK will be included.

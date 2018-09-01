@@ -37,6 +37,9 @@ type Related struct {
 	Copy                         string `json:"copy"`
 	UpdateInventorySources       string `json:"update_inventory_sources"`
 	InventorySources             string `json:"inventory_sources"`
+	FactVersions                 string `json:"fact_versions"`
+	SmartInventories             string `json:"smart_inventories"`
+	Insights                     string `json:"insights"`
 	Organization                 string `json:"organization"`
 	Labels                       string `json:"labels"`
 	Inventory                    string `json:"inventory"`
@@ -68,7 +71,10 @@ type Related struct {
 	Projects                     string `json:"projects"`
 	PotentialChildren            string `json:"potential_children"`
 	AllHosts                     string `json:"all_hosts"`
+	AllGroups                    string `json:"all_groups"`
+	AdHocCommandEvents           string `json:"ad_hoc_command_events"`
 	Children                     string `json:"children"`
+	AnsibleFacts                 string `json:"ansible_facts"`
 }
 
 // OrgnizationSummary represents the awx api orgnization summary fields.
@@ -144,6 +150,7 @@ type Summary struct {
 	Project            *Project              `json:"project"`
 	Inventory          *Inventory            `json:"inventory"`
 	RecentJobs         []interface{}         `json:"recent_jobs"`
+	Groups             *Groups               `json:"groups"`
 	Credentials        []Credential          `json:"credentials"`
 	Credential         *Credential           `json:"credential"`
 	Labels             *Labels               `json:"labels"`
@@ -244,6 +251,18 @@ type InstanceGroup struct {
 	Instances []string `json:"instances"`
 	Capacity  int      `json:"capacity"`
 	Name      string   `json:"name"`
+}
+
+// Result data type
+type Result struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+// Groups represents the awx api hosts group list
+type Groups struct {
+	Count   int      `json:"count"`
+	Results []Result `json:"results"`
 }
 
 // Instance represents the awx api instance.
@@ -592,7 +611,7 @@ type User struct {
 // Group represents a group
 type Group struct {
 	ID                       int       `json:"id"`
-	Type                     string    `json:"type"`
+	Type                     int       `json:"type"`
 	URL                      string    `json:"url"`
 	Related                  *Related  `json:"related"`
 	SummaryFields            *Summary  `json:"summary_fields"`
@@ -608,4 +627,27 @@ type Group struct {
 	TotalGroups              int       `json:"total_groups"`
 	GroupsWithActiveFailures int       `json:"groups_with_active_failures"`
 	HasInventorySources      bool      `json:"has_inventory_sources"`
+}
+
+// Host represents a host
+type Host struct {
+	ID                   int          `json:"id"`
+	Type                 string       `json:"type"`
+	URL                  string       `json:"url"`
+	Related              *Related     `json:"related"`
+	SummaryFields        *Summary     `json:"summary_fields"`
+	Created              time.Time    `json:"created"`
+	Modified             time.Time    `json:"modified"`
+	Name                 string       `json:"name"`
+	Description          string       `json:"description"`
+	Inventory            int          `json:"inventory"`
+	Enabled              bool         `json:"enabled"`
+	InstanceID           string       `json:"instance_id"`
+	Variables            string       `json:"variables"`
+	HasActiveFailures    bool         `json:"has_active_failures"`
+	HasInventorySources  bool         `json:"has_inventory_sources"`
+	LastJob              *Job         `json:"last_job"`
+	LastJobHostSummary   *HostSummary `json:"last_job_host_summary"`
+	InsightsSystemID     interface{}  `json:"insights_system_id"`
+	AnsibleFactsModified interface{}  `json:"ansible_facts_modified"`
 }
