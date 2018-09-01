@@ -46,3 +46,33 @@ fun main() {
     log.Println("Launch Job Template: ", result)
 }
 ```
+
+> Create Job Template
+
+```go
+import (
+	"log"
+
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+func main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+	
+    result, err := awx.JobTemplateService.CreateJobTemplate(map[string]interface{}{
+		"name":        "Example Create Job Template",
+		"description": "Created from awx-go Example",
+		"job_type":    "run",
+		"inventory":   1,
+		"project":     1,
+		"playbook":    "playbook.yml",
+		"verbosity":   0,
+	}, map[string]string{})
+
+	if err != nil {
+		log.Fatalf("Create job template err: %s", err)
+	}
+
+	log.Printf("Job template created. JobTemplate ID: %d", result.ID)
+}
+```
