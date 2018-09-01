@@ -10,7 +10,7 @@ var (
             "results": [
                 {
                     "id": 1,
-                    "type": 0,
+                    "type": "host",
                     "url": "/api/v2/hosts/1/",
                     "related": {
                         "created_by": "/api/v2/users/2/",
@@ -38,7 +38,7 @@ var (
                             "has_active_failures": false,
                             "total_hosts": 1,
                             "hosts_with_active_failures": 0,
-                            "total_groups": 3,
+                            "total_groups": 2,
                             "groups_with_active_failures": 0,
                             "has_inventory_sources": false,
                             "total_inventory_sources": 0,
