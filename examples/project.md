@@ -23,6 +23,7 @@ func main() {
 }
 ```
 
+
 > Create Project
 
 ```go
@@ -47,5 +48,47 @@ fun main() {
     }
 
     log.Printf("Project created. Project ID: %d", result.Project.ID)
+}
+```
+
+> Update Project
+
+```go
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.ProjectService.UpdateProject(4, map[string]interface{}{
+       "description":  "Update Example",
+    }, map[string]string{})
+
+    if err != nil {
+        log.Fatalf("Update Projects err: %s", err)
+    }
+
+    log.Printf("Project Updated. Project ID: %d", result.Project.ID)
+}
+```
+
+> Delete Project
+
+```go
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.ProjectService.DeleteProject(4)
+
+    if err != nil {
+        log.Fatalf("Delete Projects err: %s", err)
+    }
+
+    log.Printf("Project Deleted. Project ID: %d", result.Project.ID)
 }
 ```

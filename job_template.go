@@ -63,8 +63,6 @@ func (jt *JobTemplateService) CreateJobTemplate(data map[string]interface{}, par
 		return nil, err
 	}
 
-	// Add check if project exists and return proper error
-
 	resp, err := jt.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
@@ -72,5 +70,41 @@ func (jt *JobTemplateService) CreateJobTemplate(data map[string]interface{}, par
 	if err := CheckResponse(resp); err != nil {
 		return nil, err
 	}
+	return result, nil
+}
+
+// UpdateJobTemplate creates a job template
+func (jt *JobTemplateService) UpdateJobTemplate(id int, data map[string]interface{}, params map[string]string) (*JobTemplate, error) {
+	result := new(JobTemplate)
+	endpoint := fmt.Sprintf("/api/v2/job_templates/%d", id)
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := jt.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
+	if err != nil {
+		return nil, err
+	}
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// DeleteJobTemplate creates a job template
+func (jt *JobTemplateService) DeleteJobTemplate(id int) (*JobTemplate, error) {
+	result := new(JobTemplate)
+	endpoint := fmt.Sprintf("/api/v2/job_templates/%d", id)
+
+	resp, err := jt.client.Requester.Delete(endpoint, result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
 	return result, nil
 }
