@@ -529,3 +529,19 @@ func TestCreateJobTemplate(t *testing.T) {
 	}
 	t.Log("CreateJobTemplate passed!")
 }
+
+func TestDeleteJobTemplate(t *testing.T) {
+	var (
+		expectDeleteJobTempleteResponse = &JobTemplate{}
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.JobTemplateService.DeleteJobTemplate(5)
+
+	if err != nil {
+		t.Fatalf("DeleteJobTemplate err: %s", err)
+	} else {
+		checkAPICallResult(t, expectDeleteJobTempleteResponse, result)
+		t.Log("DeleteJobTemplate passed!")
+	}
+}

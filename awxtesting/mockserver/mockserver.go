@@ -54,6 +54,12 @@ func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Reque
 			return
 		}
 	}
+	if req.Method == "DELETE" {
+		result := mockdata.MockedDeleteJobTemplateResponse
+		rw.Write(result)
+		return
+	}
+
 	if req.Method == "POST" {
 		if matched, _ := regexp.MatchString("/api/v2/job_templates/[0-9]+/launch/", req.URL.String()); matched {
 			result := mockdata.MockedLaunchJobTemplateResponse

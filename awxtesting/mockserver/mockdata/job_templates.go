@@ -447,4 +447,7 @@ var (
     "credential": 1,
     "vault_credential": null
 }`)
+
+	// MockedDeleteJobTemplateResponse mocked `Delete` endpoint response
+	MockedDeleteJobTemplateResponse = []byte(`{}`)
 )
