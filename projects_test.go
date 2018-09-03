@@ -217,3 +217,122 @@ func TestCreateProject(t *testing.T) {
 		t.Log("CreateProject passed!")
 	}
 }
+
+func TestUpdateProject(t *testing.T) {
+	var (
+		expectUpdateProjectResponse = &Project{
+			ID:   4,
+			Type: "project",
+			URL:  "/api/v2/projects/4/",
+			Related: &Related{
+				CreatedBy:    "/api/v2/users/1/",
+				ModifiedBy:   "/api/v2/users/1/",
+				ObjectRoles:  "/api/v2/projects/4/object_roles/",
+				Copy:         "/api/v2/projects/4/copy/",
+				AccessList:   "/api/v2/projects/4/access_list/",
+				Schedules:    "/api/v2/projects/4/schedules/",
+				Organization: "/api/v2/organizations/1/",
+			},
+			SummaryFields: &Summary{
+				Organization: &OrgnizationSummary{
+					ID:          1,
+					Name:        "Default",
+					Description: "",
+				},
+				CreatedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "admin",
+					LastName:  "admin",
+				},
+				ModifiedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "admin",
+					LastName:  "admin",
+				},
+				ObjectRoles: &ObjectRoles{
+					AdminRole: &ApplyRole{
+						ID:          14,
+						Description: "Can manage all aspects of the project",
+						Name:        "Admin",
+					},
+
+					UseRole: &ApplyRole{
+						ID:          16,
+						Description: "Can manage all aspects of the project",
+						Name:        "Use",
+					},
+
+					UpdateRole: &ApplyRole{
+						ID:          17,
+						Description: "May update project or inventory or group using the configured source update system",
+						Name:        "Update",
+					},
+
+					ReadRole: &ApplyRole{
+						ID:          15,
+						Description: "May view settings for the project",
+						Name:        "Read",
+					},
+				},
+
+				UserCapabilities: &UserCapabilities{
+					Edit:     true,
+					Start:    true,
+					Copy:     true,
+					Schedule: true,
+					Delete:   true,
+				},
+			},
+			Created: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-06-28T16:31:15.809617Z")
+				return t
+			}(),
+
+			Modified: func() time.Time {
+				t, _ := time.Parse(time.RFC3339, "2018-06-28T16:31:15.923732Z")
+				return t
+			}(),
+			Name:                  "Demo Project",
+			Description:           "Test Update",
+			LocalPath:             "",
+			ScmType:               "git",
+			ScmURL:                "https://github.com/ansible/ansible-tower-samples",
+			ScmClean:              false,
+			ScmDeleteOnUpdate:     false,
+			Status:                "never updated",
+			ScmDeleteOnNextUpdate: false,
+			ScmUpdateOnLaunch:     true,
+			ScmUpdateCacheTimeout: 0,
+			LastUpdateFailed:      false,
+		}
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.ProjectService.UpdateProject(4, map[string]interface{}{
+		"description": "Test Update",
+	}, map[string]string{})
+
+	if err != nil {
+		t.Fatalf("UpdateProject err: %s", err)
+	} else {
+		checkAPICallResult(t, expectUpdateProjectResponse, result)
+		t.Log("UpdateProject passed!")
+	}
+}
+
+func TestDeleteProject(t *testing.T) {
+	var (
+		expectDeleteProjectResponse = &Project{}
+	)
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.ProjectService.DeleteProject(4)
+
+	if err != nil {
+		t.Fatalf("DeleteProject err: %s", err)
+	} else {
+		checkAPICallResult(t, expectDeleteProjectResponse, result)
+		t.Log("DeleteProject passed!")
+	}
+}

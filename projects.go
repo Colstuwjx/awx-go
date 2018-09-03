@@ -63,3 +63,40 @@ func (p *ProjectService) CreateProject(data map[string]interface{}, params map[s
 
 	return result, nil
 }
+
+// UpdateProject update an awx Project.
+func (p *ProjectService) UpdateProject(id int, data map[string]interface{}, params map[string]string) (*Project, error) {
+	result := new(Project)
+	endpoint := fmt.Sprintf("/api/v2/projects/%d", id)
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := p.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+// DeleteProject delete an awx Project.
+func (p *ProjectService) DeleteProject(id int) (*Project, error) {
+	result := new(Project)
+	endpoint := fmt.Sprintf("/api/v2/projects/%d", id)
+
+	resp, err := p.client.Requester.Delete(endpoint, result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}

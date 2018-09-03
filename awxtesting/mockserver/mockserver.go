@@ -54,6 +54,17 @@ func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Reque
 			return
 		}
 	}
+	if req.Method == "DELETE" {
+		result := mockdata.MockedDeleteJobTemplateResponse
+		rw.Write(result)
+		return
+	}
+
+	if req.Method == "PATCH" {
+		result := mockdata.MockedUpdateJobTemplateResponse
+		rw.Write(result)
+		return
+	}
 	if req.Method == "POST" {
 		if matched, _ := regexp.MatchString("/api/v2/job_templates/[0-9]+/launch/", req.URL.String()); matched {
 			result := mockdata.MockedLaunchJobTemplateResponse
@@ -119,6 +130,14 @@ func (s *mockServer) ProjectsHandler(rw http.ResponseWriter, req *http.Request) 
 	switch {
 	case req.Method == "POST":
 		result := mockdata.MockedCreateProjectResponse
+		rw.Write(result)
+		return
+	case req.Method == "PATCH":
+		result := mockdata.MockedUpdateProjectResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteProjectResponse
 		rw.Write(result)
 		return
 	default:
