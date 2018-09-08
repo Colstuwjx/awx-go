@@ -12,8 +12,8 @@
 - [ ] Support Dashboard endpoints;
 - [ ] Support Orgnizations endpoints;
 - [ ] Support Users endpoints;
-- [ ] Support Projects endpoints;
-- [ ] Support ProjectUpdates endpoints;
+- [x] Support Projects endpoints;
+- [x] Support ProjectUpdates endpoints;
 - [ ] Support Teams endpoints;
 - [ ] Support Credentials endpoints;
 - [ ] Support CredentialTypes endpoints;

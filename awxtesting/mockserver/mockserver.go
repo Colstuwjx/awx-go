@@ -121,6 +121,14 @@ func (s *mockServer) ProjectsHandler(rw http.ResponseWriter, req *http.Request) 
 		result := mockdata.MockedCreateProjectResponse
 		rw.Write(result)
 		return
+	case req.Method == "PATCH":
+		result := mockdata.MockedUpdateProjectResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteProjectResponse
+		rw.Write(result)
+		return
 	default:
 		result := mockdata.MockedListProjectsResponse
 		rw.Write(result)
