@@ -13,7 +13,7 @@
 - [ ] Support Orgnizations endpoints;
 - [ ] Support Users endpoints;
 - [x] Support Projects endpoints;
-- [ ] Support ProjectUpdates endpoints;
+- [x] Support ProjectUpdates endpoints;
 - [ ] Support Teams endpoints;
 - [ ] Support Credentials endpoints;
 - [ ] Support CredentialTypes endpoints;
