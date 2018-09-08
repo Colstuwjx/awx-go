@@ -100,3 +100,33 @@ func (p *ProjectService) DeleteProject(id int) (*Project, error) {
 
 	return result, nil
 }
+
+// CancelUpdate cancel of awx projects update.
+func (p *ProjectService) CancelUpdate(id int) (*ProjectUpdateCancel, error) {
+	result := new(ProjectUpdateCancel)
+	endpoint := fmt.Sprintf("/api/v2/project_updates/%d/cancel", id)
+	resp, err := p.client.Requester.GetJSON(endpoint, result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// GetUpdate get of awx projects update.
+func (p *ProjectService) GetUpdate(id int) (*Job, error) {
+	result := new(Job)
+	endpoint := fmt.Sprintf("/api/v2/project_updates/%d", id)
+	resp, err := p.client.Requester.GetJSON(endpoint, result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+	return result, nil
+}

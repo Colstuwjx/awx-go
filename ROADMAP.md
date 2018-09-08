@@ -25,7 +25,7 @@
 - [ ] Support InventoryUpdates endpoints;
 - [x] Support Groups endpoints;
 - [x] Support Hosts endpoints;
-- [ ] Support JobTemplates endpoints(**partial**);
+- [x] Support JobTemplates endpoints;
 - [ ] Support Jobs endpoints(**partial**);
 - [ ] Support JobEvents endpoints(**partial**);
 - [ ] Support AdHocCommands endpoints;

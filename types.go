@@ -15,6 +15,11 @@ type Pagination struct {
 	Previous interface{} `json:"previous"`
 }
 
+// ProjectUpdateCancel represents the awx project update cancel api response.
+type ProjectUpdateCancel struct {
+	CanCancel bool `json:"can_cancel"`
+}
+
 // Related represents the awx api related field.
 type Related struct {
 	NamedURL                     string `json:"named_url"`
@@ -141,23 +146,26 @@ type Labels struct {
 
 // Summary represents the awx api summary fields.
 type Summary struct {
-	InstanceGroup      *InstanceGroupSummary `json:"instance_group"`
-	Organization       *OrgnizationSummary   `json:"organization"`
-	CreatedBy          *ByUserSummary        `json:"created_by"`
-	ModifiedBy         *ByUserSummary        `json:"modified_by"`
-	ObjectRoles        *ObjectRoles          `json:"object_roles"`
-	UserCapabilities   *UserCapabilities     `json:"user_capabilities"`
-	Project            *Project              `json:"project"`
-	Inventory          *Inventory            `json:"inventory"`
-	RecentJobs         []interface{}         `json:"recent_jobs"`
-	Groups             *Groups               `json:"groups"`
-	Credentials        []Credential          `json:"credentials"`
-	Credential         *Credential           `json:"credential"`
-	Labels             *Labels               `json:"labels"`
-	JobTemplate        *JobTemplateSummary   `json:"job_template"`
-	UnifiedJobTemplate *UnifiedJobTemplate   `json:"unified_job_template"`
-	ExtraCredentials   []interface{}         `json:"extra_credentials"`
-	ProjectUpdate      *ProjectUpdate        `json:"project_update"`
+	InstanceGroup      *InstanceGroupSummary  `json:"instance_group"`
+	Organization       *OrgnizationSummary    `json:"organization"`
+	CreatedBy          *ByUserSummary         `json:"created_by"`
+	ModifiedBy         *ByUserSummary         `json:"modified_by"`
+	ObjectRoles        *ObjectRoles           `json:"object_roles"`
+	UserCapabilities   *UserCapabilities      `json:"user_capabilities"`
+	Project            *Project               `json:"project"`
+	LastJob            map[string]interface{} `json:"last_job"`
+	CurrentJob         map[string]interface{} `json:"current_job"`
+	LastUpdate         map[string]interface{} `json:"last_update"`
+	Inventory          *Inventory             `json:"inventory"`
+	RecentJobs         []interface{}          `json:"recent_jobs"`
+	Groups             *Groups                `json:"groups"`
+	Credentials        []Credential           `json:"credentials"`
+	Credential         *Credential            `json:"credential"`
+	Labels             *Labels                `json:"labels"`
+	JobTemplate        *JobTemplateSummary    `json:"job_template"`
+	UnifiedJobTemplate *UnifiedJobTemplate    `json:"unified_job_template"`
+	ExtraCredentials   []interface{}          `json:"extra_credentials"`
+	ProjectUpdate      *ProjectUpdate         `json:"project_update"`
 }
 
 // ProjectUpdate represents the awx api project update.

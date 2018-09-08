@@ -24,7 +24,6 @@ func main() {
 }
 ```
 
-
 > Create Project
 
 ```go
@@ -94,5 +93,26 @@ func main() {
     }
 
     log.Printf("Project Deleted. Project ID: %d", result.ID)
+}
+```
+
+> Cancel Update Project
+
+```go
+package main
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+func main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    err := awx.ProjectService.CancelUpdate(4)
+
+    if err != nil {
+        log.Fatalf("Cancel Update Projects err: %s", err)
+    }
+
+    log.Printf("Update Project cancelled.")
 }
 ```
