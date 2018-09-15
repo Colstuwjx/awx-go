@@ -11,7 +11,7 @@
 - [ ] Support Me endpoints;
 - [ ] Support Dashboard endpoints;
 - [ ] Support Orgnizations endpoints;
-- [ ] Support Users endpoints;
+- [x] Support Users endpoints;
 - [x] Support Projects endpoints;
 - [x] Support ProjectUpdates endpoints;
 - [ ] Support Teams endpoints;
