@@ -166,6 +166,14 @@ func (s *mockServer) UsersHandler(rw http.ResponseWriter, req *http.Request) {
 		result := mockdata.MockedCreateUserResponse
 		rw.Write(result)
 		return
+	case req.Method == "PUT":
+		result := mockdata.MockedUpdateUserResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteUserResponse
+		rw.Write(result)
+		return
 	default:
 		result := mockdata.MockedListUsersResponse
 		rw.Write(result)

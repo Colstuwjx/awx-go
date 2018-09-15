@@ -27,7 +27,7 @@ func main() {
 
 ```go
 import (
-    "log" 
+    "log"
     awxGo "github.com/Colstuwjx/awx-go"
 )
 
@@ -43,5 +43,47 @@ fun main() {
     }
 
     log.Printf("User created. Username: %s", result.User.Username)
+}
+```
+
+> Update User
+
+```go
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.UserService.UpdateUser(1, map[string]interface{}{
+       "description":  "for testing Update api",
+    }, map[string]string{})
+
+    if err != nil {
+        log.Fatalf("Update User err: %s", err)
+    }
+
+    log.Printf("Update finised. Description: %s", result.User.Description)
+}
+```
+
+> Delete User
+
+```go
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+fun main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.UserService.DeleteUser(1)
+
+    if err != nil {
+        log.Fatalf("Delete user err: %s", err)
+    }
+
+    log.Printf("User Deleted")
 }
 ```
