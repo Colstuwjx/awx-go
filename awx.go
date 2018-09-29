@@ -2,9 +2,10 @@ package awx
 
 import (
 	"fmt"
-	"github.com/kylelemons/godebug/pretty"
 	"net/http"
 	"testing"
+
+	"github.com/kylelemons/godebug/pretty"
 )
 
 // This variable is mandatory and to be populated for creating services API
@@ -15,14 +16,15 @@ var mandatoryFields = []string{}
 type AWX struct {
 	client *Client
 
-	PingService        *PingService
-	InventoriesService *InventoriesService
-	JobService         *JobService
-	JobTemplateService *JobTemplateService
-	ProjectService     *ProjectService
-	UserService        *UserService
-	GroupService       *GroupService
-	HostService        *HostService
+	PingService           *PingService
+	InventoriesService    *InventoriesService
+	JobService            *JobService
+	JobTemplateService    *JobTemplateService
+	ProjectService        *ProjectService
+	ProjectUpdatesService *ProjectUpdatesService
+	UserService           *UserService
+	GroupService          *GroupService
+	HostService           *HostService
 }
 
 // Client implement http client.
@@ -90,6 +92,9 @@ func NewAWX(baseURL, userName, passwd string, client *http.Client) *AWX {
 			client: awxClient,
 		},
 		ProjectService: &ProjectService{
+			client: awxClient,
+		},
+		ProjectUpdatesService: &ProjectUpdatesService{
 			client: awxClient,
 		},
 		UserService: &UserService{
