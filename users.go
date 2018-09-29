@@ -63,3 +63,41 @@ func (u *UserService) CreateUser(data map[string]interface{}, params map[string]
 
 	return result, nil
 }
+
+// UpdateUser update an awx user.
+func (u *UserService) UpdateUser(id int, data map[string]interface{}, params map[string]string) (*User, error) {
+	result := new(User)
+	endpoint := fmt.Sprintf("/api/v2/users/%d", id)
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := u.client.Requester.PutJSON(endpoint, bytes.NewReader(payload), result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+// DeleteUser delete an awx User.
+func (u *UserService) DeleteUser(id int) (*User, error) {
+	result := new(User)
+	endpoint := fmt.Sprintf("/api/v2/users/%d", id)
+
+	resp, err := u.client.Requester.Delete(endpoint, result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}

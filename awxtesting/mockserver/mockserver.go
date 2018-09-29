@@ -127,6 +127,20 @@ func (s *mockServer) JobsHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 func (s *mockServer) ProjectsHandler(rw http.ResponseWriter, req *http.Request) {
+	var (
+		cancelJobUpdate = "/api/v2/project_updates/[0-9]+/cancel"
+		getJobUpdate    = "/api/v2/project_updates/[0-9]+"
+	)
+	if matched, _ := regexp.MatchString(cancelJobUpdate, req.URL.String()); matched {
+		result := mockdata.MockedCancelUpdateProjectResponse
+		rw.Write(result)
+		return
+	}
+	if matched, _ := regexp.MatchString(getJobUpdate, req.URL.String()); matched {
+		result := mockdata.MockedGetUpdateProjectResponse
+		rw.Write(result)
+		return
+	}
 	switch {
 	case req.Method == "POST":
 		result := mockdata.MockedCreateProjectResponse
@@ -150,6 +164,14 @@ func (s *mockServer) UsersHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
 	case req.Method == "POST":
 		result := mockdata.MockedCreateUserResponse
+		rw.Write(result)
+		return
+	case req.Method == "PUT":
+		result := mockdata.MockedUpdateUserResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteUserResponse
 		rw.Write(result)
 		return
 	default:
@@ -241,6 +263,7 @@ func initServer() {
 	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.JobTemplatesHandler))
 	mux.Handle("/api/v2/jobs/", http.HandlerFunc(server.JobsHandler))
 	mux.Handle("/api/v2/projects/", http.HandlerFunc(server.ProjectsHandler))
+	mux.Handle("/api/v2/project_updates/", http.HandlerFunc(server.ProjectsHandler))
 	mux.Handle("/api/v2/users/", http.HandlerFunc(server.UsersHandler))
 	mux.Handle("/api/v2/groups/", http.HandlerFunc(server.GroupsHandler))
 	mux.Handle("/api/v2/hosts/", http.HandlerFunc(server.HostsHandler))
