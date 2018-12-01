@@ -17,6 +17,12 @@ type ListInventoriesResponse struct {
 	Results []*Inventory `json:"results"`
 }
 
+// ListInventoryObjectRolesResponse represents `ListObjectRoles` endpoint response.
+type ListInventoryObjectRolesResponse struct {
+	Pagination
+	Results []*ApplyRole `json:"results"`
+}
+
 // ListInventories shows list of awx inventories.
 func (i *InventoriesService) ListInventories(params map[string]string) ([]*Inventory, *ListInventoriesResponse, error) {
 	result := new(ListInventoriesResponse)
@@ -116,4 +122,20 @@ func (i *InventoriesService) DeleteInventory(id int) (*Inventory, error) {
 	}
 
 	return result, nil
+}
+
+// ListObjectRoles list object roles for inventory
+func (i *InventoriesService) ListObjectRoles(id int, params map[string]string) ([]*ApplyRole, *ListInventoryObjectRolesResponse, error) {
+	result := new(ListInventoryObjectRolesResponse)
+	endpoint := fmt.Sprintf("/api/v2/inventories/%d", id)
+	resp, err := i.client.Requester.GetJSON(endpoint, result, params)
+	if err != nil {
+		return nil, result, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, result, err
+	}
+
+	return result.Results, result, nil
 }
