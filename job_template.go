@@ -3,6 +3,7 @@ package awx
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 )
 
@@ -49,6 +50,11 @@ func (jt *JobTemplateService) Launch(id int, data map[string]interface{}, params
 
 	if err := CheckResponse(resp); err != nil {
 		return nil, err
+	}
+
+	// in case invalid job id return
+	if result.Job == 0 {
+		return nil, errors.New("invalid job id 0")
 	}
 
 	return result, nil
