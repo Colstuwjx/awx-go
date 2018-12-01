@@ -29,6 +29,9 @@ type Related struct {
 	VariableData                 string `json:"variable_data"`
 	RootGroups                   string `json:"root_groups"`
 	ObjectRoles                  string `json:"object_roles"`
+	Users                        string `json:"users"`
+	Teams                        string `json:"teams"`
+	Organization                 string `json:"organization"`
 	AdHocCommands                string `json:"ad_hoc_commands"`
 	Script                       string `json:"script"`
 	Tree                         string `json:"tree"`
@@ -45,7 +48,6 @@ type Related struct {
 	FactVersions                 string `json:"fact_versions"`
 	SmartInventories             string `json:"smart_inventories"`
 	Insights                     string `json:"insights"`
-	Organization                 string `json:"organization"`
 	Labels                       string `json:"labels"`
 	Inventory                    string `json:"inventory"`
 	Project                      string `json:"project"`
@@ -72,7 +74,6 @@ type Related struct {
 	AdminOfOrganizations         string `json:"admin_of_organizations"`
 	Organizations                string `json:"organizations"`
 	Roles                        string `json:"roles"`
-	Teams                        string `json:"teams"`
 	Projects                     string `json:"projects"`
 	PotentialChildren            string `json:"potential_children"`
 	AllHosts                     string `json:"all_hosts"`
@@ -116,6 +117,8 @@ type ApplyRole struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Type        string `json:"type"`
+	URL         string `json:"url"`
 }
 
 // ObjectRoles represents the awx api object roles.
@@ -136,6 +139,7 @@ type UserCapabilities struct {
 	Copy     bool `json:"copy"`
 	Adhoc    bool `json:"adhoc"`
 	Delete   bool `json:"delete"`
+	UnAttach bool `json:"un_attach"`
 }
 
 // Labels represents the awx api labels.
@@ -146,26 +150,29 @@ type Labels struct {
 
 // Summary represents the awx api summary fields.
 type Summary struct {
-	InstanceGroup      *InstanceGroupSummary  `json:"instance_group"`
-	Organization       *OrgnizationSummary    `json:"organization"`
-	CreatedBy          *ByUserSummary         `json:"created_by"`
-	ModifiedBy         *ByUserSummary         `json:"modified_by"`
-	ObjectRoles        *ObjectRoles           `json:"object_roles"`
-	UserCapabilities   *UserCapabilities      `json:"user_capabilities"`
-	Project            *Project               `json:"project"`
-	LastJob            map[string]interface{} `json:"last_job"`
-	CurrentJob         map[string]interface{} `json:"current_job"`
-	LastUpdate         map[string]interface{} `json:"last_update"`
-	Inventory          *Inventory             `json:"inventory"`
-	RecentJobs         []interface{}          `json:"recent_jobs"`
-	Groups             *Groups                `json:"groups"`
-	Credentials        []Credential           `json:"credentials"`
-	Credential         *Credential            `json:"credential"`
-	Labels             *Labels                `json:"labels"`
-	JobTemplate        *JobTemplateSummary    `json:"job_template"`
-	UnifiedJobTemplate *UnifiedJobTemplate    `json:"unified_job_template"`
-	ExtraCredentials   []interface{}          `json:"extra_credentials"`
-	ProjectUpdate      *ProjectUpdate         `json:"project_update"`
+	InstanceGroup           *InstanceGroupSummary  `json:"instance_group"`
+	Organization            *OrgnizationSummary    `json:"organization"`
+	CreatedBy               *ByUserSummary         `json:"created_by"`
+	ModifiedBy              *ByUserSummary         `json:"modified_by"`
+	ObjectRoles             *ObjectRoles           `json:"object_roles"`
+	UserCapabilities        *UserCapabilities      `json:"user_capabilities"`
+	ResourceName            string                 `json:"resource_name"`
+	ResourceType            string                 `json:"resource_type"`
+	ResourceTypeDisplayName string                 `json:"resource_type_display_name"`
+	Project                 *Project               `json:"project"`
+	LastJob                 map[string]interface{} `json:"last_job"`
+	CurrentJob              map[string]interface{} `json:"current_job"`
+	LastUpdate              map[string]interface{} `json:"last_update"`
+	Inventory               *Inventory             `json:"inventory"`
+	RecentJobs              []interface{}          `json:"recent_jobs"`
+	Groups                  *Groups                `json:"groups"`
+	Credentials             []Credential           `json:"credentials"`
+	Credential              *Credential            `json:"credential"`
+	Labels                  *Labels                `json:"labels"`
+	JobTemplate             *JobTemplateSummary    `json:"job_template"`
+	UnifiedJobTemplate      *UnifiedJobTemplate    `json:"unified_job_template"`
+	ExtraCredentials        []interface{}          `json:"extra_credentials"`
+	ProjectUpdate           *ProjectUpdate         `json:"project_update"`
 }
 
 // ProjectUpdate represents the awx api project update.

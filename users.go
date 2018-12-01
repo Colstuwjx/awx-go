@@ -17,6 +17,12 @@ type ListUsersResponse struct {
 	Results []*User `json:"results"`
 }
 
+// ListRolesResponse represents `ListUserRoles` endpoint response.
+type ListRolesResponse struct {
+	Pagination
+	Results []*ApplyRole `json:"roles"`
+}
+
 // ListUsers shows list of awx Users.
 func (u *UserService) ListUsers(params map[string]string) ([]*User, *ListUsersResponse, error) {
 	result := new(ListUsersResponse)
@@ -100,4 +106,44 @@ func (u *UserService) DeleteUser(id int) (*User, error) {
 	}
 
 	return result, nil
+}
+
+// ListRoles list user granted roles.
+func (u *UserService) ListRoles(id int, params map[string]string) ([]*ApplyRole, *ListRolesResponse, error) {
+	result := new(ListRolesResponse)
+	endpoint := fmt.Sprintf("/api/v2/users/%d/roles/", id)
+	resp, err := u.client.Requester.GetJSON(endpoint, result, params)
+	if err != nil {
+		return nil, result, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, result, err
+	}
+
+	return result.Results, result, nil
+}
+
+// GrantRole grants user role by id.
+func (u *UserService) GrantRole(id int, roleID int) error {
+	result := new(User)
+	endpoint := fmt.Sprintf("/api/v2/users/%d/roles/", id)
+	data := map[string]interface{}{
+		"id": roleID,
+	}
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	resp, err := u.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, nil)
+	if err != nil {
+		return err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return err
+	}
+
+	return nil
 }
