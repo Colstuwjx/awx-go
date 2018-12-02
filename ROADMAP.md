@@ -32,7 +32,8 @@
 - [ ] Support SystemJobTemplates endpoints;
 - [ ] Support SystemJobs endpoints;
 - [ ] Support Schedules endpoints;
-- [ ] Support Roles endpoints;
+- [-] Support Roles endpoints:
+  - [x] Support for User Grant and revoke roles
 - [ ] Support NotificationTemplates endpoints;
 - [ ] Support Notifications endpoints;
 - [ ] Support Labels endpoints;

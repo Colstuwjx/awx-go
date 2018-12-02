@@ -31,7 +31,7 @@ import (
     awxGo "github.com/Colstuwjx/awx-go"
 )
 
-fun main() {
+func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
     result, err := awx.UserService.CreateUser(map[string]interface{}{
        "username":     "test",
@@ -54,7 +54,7 @@ import (
     awxGo "github.com/Colstuwjx/awx-go"
 )
 
-fun main() {
+func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
     result, err := awx.UserService.UpdateUser(1, map[string]interface{}{
        "description":  "for testing Update api",
@@ -76,7 +76,7 @@ import (
     awxGo "github.com/Colstuwjx/awx-go"
 )
 
-fun main() {
+func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
     result, err := awx.UserService.DeleteUser(1)
 
@@ -85,5 +85,45 @@ fun main() {
     }
 
     log.Printf("User Deleted")
+}
+```
+
+> Grant User Role
+
+```go
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+func main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.UserService.GrantRole(1, 24)
+
+    if err != nil {
+        log.Fatalf("Grant user role err: %s", err)
+    }
+
+    log.Printf("User role granted")
+}
+```
+
+> Revoke User Role
+
+```go
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+func main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.UserService.RevokeRole(1, 24)
+
+    if err != nil {
+        log.Fatalf("Revoke user role err: %s", err)
+    }
+
+    log.Printf("User role revoked")
 }
 ```

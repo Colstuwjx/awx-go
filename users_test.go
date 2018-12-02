@@ -177,3 +177,29 @@ func TestDeleteUser(t *testing.T) {
 		t.Log("DeleteUser passed!")
 	}
 }
+
+func TestUserGrantRole(t *testing.T) {
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	err := awx.UserService.GrantRole(1, 24)
+
+	if err != nil {
+		t.Fatalf("TestUserGrantRole err: %s", err)
+	} else {
+		checkAPICallResult(t, nil, nil)
+		t.Log("TestUserGrantRole passed!")
+	}
+}
+
+func TestUserRevokeRole(t *testing.T) {
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	err := awx.UserService.RevokeRole(1, 24)
+
+	if err != nil {
+		t.Fatalf("TestUserRevokeRole err: %s", err)
+	} else {
+		checkAPICallResult(t, nil, nil)
+		t.Log("TestUserRevokeRole passed!")
+	}
+}

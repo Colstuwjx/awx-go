@@ -101,3 +101,52 @@ func (u *UserService) DeleteUser(id int) (*User, error) {
 
 	return result, nil
 }
+
+// GrantRole grant the provided role to the AWX User
+func (u *UserService) GrantRole(id int, roleID int) error {
+	result := new(User)
+	endpoint := fmt.Sprintf("/api/v2/users/%d/roles/", id)
+	data := map[string]interface{}{
+		"id": roleID,
+	}
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	resp, err := u.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, nil)
+	if err != nil {
+		return err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// RevokeRole revoke the provided role to the AWX User
+func (u *UserService) RevokeRole(id int, roleID int) error {
+	result := new(User)
+	endpoint := fmt.Sprintf("/api/v2/users/%d/roles/", id)
+	data := map[string]interface{}{
+		"id":           roleID,
+		"disassociate": "true",
+	}
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
+
+	resp, err := u.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, nil)
+	if err != nil {
+		return err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return err
+	}
+
+	return nil
+}

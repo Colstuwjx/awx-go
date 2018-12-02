@@ -178,6 +178,29 @@ func (s *mockServer) ProjectUpdatesHandler(rw http.ResponseWriter, req *http.Req
 }
 
 func (s *mockServer) UsersHandler(rw http.ResponseWriter, req *http.Request) {
+	type grantRole struct {
+		ID           int  `json:"id"`
+		Disassociate bool `json:"disassociate"`
+	}
+
+	userRoles := "/api/v2/users/[0-9]+/roles/"
+	var data grantRole
+
+	if matched, _ := regexp.MatchString(userRoles, req.URL.String()); matched {
+		b, _ := ioutil.ReadAll(req.Body)
+		defer req.Body.Close()
+		err := json.Unmarshal(b, &data)
+		if err != nil {
+			return
+		}
+		if data.Disassociate {
+			result := mockdata.MockedUserRevokeRoleResponse
+			rw.Write(result)
+		} else if !data.Disassociate {
+			result := mockdata.MockedUserGrantRoleResponse
+			rw.Write(result)
+		}
+	}
 	switch {
 	case req.Method == "POST":
 		result := mockdata.MockedCreateUserResponse

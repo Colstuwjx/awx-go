@@ -109,4 +109,8 @@ var (
 
 	// MockedDeleteUserResponse mocked `DeleteUser` endpoint response
 	MockedDeleteUserResponse = []byte(`{ }`)
+	// MockedUserGrantRoleResponse mocked `User Grant Role` endpoint response
+	MockedUserGrantRoleResponse = []byte(`{ }`)
+	// MockedUserRevokeRoleResponse mocked `User Revoke Role` endpoint response
+	MockedUserRevokeRoleResponse = []byte(`{ }`)
 )
