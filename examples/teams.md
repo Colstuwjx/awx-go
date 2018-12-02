@@ -1,8 +1,8 @@
-# User API
+# Teams API
 
 ## Usage
 
-> List Users
+> List Teams
 
 ```go
 import (
@@ -12,18 +12,18 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, _, err := awx.UserService.ListUsers(map[string]string{
-        "name": "Demo User",
+    result, _, err := awx.TeamService.ListTeams(map[string]string{
+    "name": "test-team",
     })
     if err != nil {
-        log.Fatalf("List Users err: %s", err)
+        log.Fatalf("List Teams err: %s", err)
     }
 
-    log.Println("List User: ", result)
+    log.Println("List Team: ", result)
 }
 ```
 
-> Create User
+> Create Team
 
 ```go
 import (
@@ -33,20 +33,43 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, err := awx.UserService.CreateUser(map[string]interface{}{
-       "username":     "test",
-       "description":  "for testing CreateUser api",
-    }, map[string]string{})
+    result, err := awx.TeamService.CreateTeam(map[string]interface{}{
+        "name":         "test-team",
+        "organization": 1,
+        }, map[string]string{})
+    if err != nil {
+        log.Fatalf("Create Team err: %s", err)
+    }
+
+    log.Printf("Team created")
+}
+```
+
+> Update Team
+
+```go
+import (
+    "log"
+    awxGo "github.com/Colstuwjx/awx-go"
+)
+
+func main() {
+    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
+    result, err := awx.TeamService.UpdateTeam(4, map[string]interface{}{
+        "name":         "test-team",
+        "organization": 1,
+        "description":  "Update test-team",
+        }, map[string]string{})
 
     if err != nil {
-        log.Fatalf("Create User err: %s", err)
+        log.Fatalf("Update Team err: %s", err)
     }
 
-    log.Printf("User created. Username: %s", result.User.Username)
+    log.Printf("Update finised.")
 }
 ```
 
-> Update User
+> Delete Team
 
 ```go
 import (
@@ -56,19 +79,17 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, err := awx.UserService.UpdateUser(1, map[string]interface{}{
-       "description":  "for testing Update api",
-    }, map[string]string{})
+    result, err := awx.TeamService.DeleteTeam(1)
 
     if err != nil {
-        log.Fatalf("Update User err: %s", err)
+        log.Fatalf("Delete Team err: %s", err)
     }
 
-    log.Printf("Update finised. Description: %s", result.User.Description)
+    log.Printf("Team Deleted")
 }
 ```
 
-> Delete User
+> Grant Team Role
 
 ```go
 import (
@@ -78,27 +99,7 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, err := awx.UserService.DeleteUser(1)
-
-    if err != nil {
-        log.Fatalf("Delete user err: %s", err)
-    }
-
-    log.Printf("User Deleted")
-}
-```
-
-> Grant User Role
-
-```go
-import (
-    "log"
-    awxGo "github.com/Colstuwjx/awx-go"
-)
-
-func main() {
-    awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    err := awx.UserService.GrantRole(1, 24)
+    err := awx.TeamService.GrantRole(1, 170)
 
     if err != nil {
         log.Fatalf("Grant user role err: %s", err)
@@ -118,7 +119,7 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    err := awx.UserService.RevokeRole(1, 24)
+    err := awx.TeamService.GrantRole(1, 170)
 
     if err != nil {
         log.Fatalf("Revoke user role err: %s", err)

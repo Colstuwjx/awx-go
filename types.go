@@ -25,6 +25,8 @@ type Related struct {
 	NamedURL                     string `json:"named_url"`
 	CreatedBy                    string `json:"created_by"`
 	ModifiedBy                   string `json:"modified_by"`
+	Users                        string `json:"users"`
+	Roles                        string `json:"roles"`
 	JobTemplates                 string `json:"job_templates"`
 	VariableData                 string `json:"variable_data"`
 	RootGroups                   string `json:"root_groups"`
@@ -71,7 +73,6 @@ type Related struct {
 	Relaunch                     string `json:"relaunch"`
 	AdminOfOrganizations         string `json:"admin_of_organizations"`
 	Organizations                string `json:"organizations"`
-	Roles                        string `json:"roles"`
 	Teams                        string `json:"teams"`
 	Projects                     string `json:"projects"`
 	PotentialChildren            string `json:"potential_children"`
@@ -126,6 +127,7 @@ type ObjectRoles struct {
 	UpdateRole  *ApplyRole `json:"update_role"`
 	ReadRole    *ApplyRole `json:"read_role"`
 	ExecuteRole *ApplyRole `json:"execute_role"`
+	MemberRole  *ApplyRole `json:"member_role"`
 }
 
 // UserCapabilities represents the awx api user capabilities.
@@ -207,6 +209,20 @@ type Project struct {
 	ScmRevision           string    `json:"scm_revision"`
 	LastUpdateFailed      bool      `json:"last_update_failed"`
 	LastUpdated           time.Time `json:"last_updated"`
+}
+
+// Team represent the awx api team.
+type Team struct {
+	ID            int       `json:"id"`
+	Type          string    `json:"type"`
+	URL           string    `json:"url"`
+	Related       *Related  `json:"related"`
+	SummaryFields *Summary  `json:"summary_fields"`
+	Created       time.Time `json:"created"`
+	Modified      time.Time `json:"modified"`
+	Name          string    `json:"name"`
+	Description   string    `json:"description"`
+	Organization  int       `json:"organization"`
 }
 
 // Inventory represents the awx api inventory.

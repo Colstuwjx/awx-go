@@ -287,6 +287,49 @@ func (s *mockServer) HostsHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func (s *mockServer) TeamsHandler(rw http.ResponseWriter, req *http.Request) {
+	type grantRole struct {
+		ID           int  `json:"id"`
+		Disassociate bool `json:"disassociate"`
+	}
+
+	teamRoles := "/api/v2/teams/[0-9]+/roles/"
+	var data grantRole
+
+	if matched, _ := regexp.MatchString(teamRoles, req.URL.String()); matched {
+		b, _ := ioutil.ReadAll(req.Body)
+		defer req.Body.Close()
+		err := json.Unmarshal(b, &data)
+		if err != nil {
+			return
+		}
+		if data.Disassociate {
+			result := mockdata.MockedTeamRevokeRoleResponse
+			rw.Write(result)
+		} else if !data.Disassociate {
+			result := mockdata.MockedTeamGrantRoleResponse
+			rw.Write(result)
+		}
+	}
+	switch {
+	case req.Method == "POST":
+		result := mockdata.MockedCreateTeamResponse
+		rw.Write(result)
+		return
+	case req.Method == "PUT":
+		result := mockdata.MockedUpdateTeamResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteTeamResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListTeamResponse
+		rw.Write(result)
+	}
+}
+
 var server *mockServer
 
 // Run mock server
@@ -307,6 +350,7 @@ func initServer() {
 	mux.Handle("/api/v2/users/", http.HandlerFunc(server.UsersHandler))
 	mux.Handle("/api/v2/groups/", http.HandlerFunc(server.GroupsHandler))
 	mux.Handle("/api/v2/hosts/", http.HandlerFunc(server.HostsHandler))
+	mux.Handle("/api/v2/teams/", http.HandlerFunc(server.TeamsHandler))
 	server.server.Handler = mux
 	server.server.Addr = ":8080"
 }

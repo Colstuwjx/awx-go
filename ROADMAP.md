@@ -14,7 +14,7 @@
 - [x] Support Users endpoints;
 - [x] Support Projects endpoints;
 - [x] Support ProjectUpdates endpoints;
-- [ ] Support Teams endpoints;
+- [x] Support Teams endpoints;
 - [ ] Support Credentials endpoints;
 - [ ] Support CredentialTypes endpoints;
 - [ ] Support Applications endpoints;
@@ -32,8 +32,9 @@
 - [ ] Support SystemJobTemplates endpoints;
 - [ ] Support SystemJobs endpoints;
 - [ ] Support Schedules endpoints;
-- [-] Support Roles endpoints:
+- [x] Support Roles endpoints:
   - [x] Support for User Grant and revoke roles
+  - [x] Support for Team Grant and revoke roles
 - [ ] Support NotificationTemplates endpoints;
 - [ ] Support Notifications endpoints;
 - [ ] Support Labels endpoints;
