@@ -10,7 +10,7 @@
 - [ ] Support Settings endpoints;
 - [ ] Support Me endpoints;
 - [ ] Support Dashboard endpoints;
-- [ ] Support Orgnizations endpoints;
+- [x] Support Orgnizations endpoints;
 - [x] Support Users endpoints;
 - [x] Support Projects endpoints;
 - [x] Support ProjectUpdates endpoints;

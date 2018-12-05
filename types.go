@@ -50,10 +50,14 @@ type Related struct {
 	Organization                 string `json:"organization"`
 	Labels                       string `json:"labels"`
 	Inventory                    string `json:"inventory"`
+	Inventories                  string `json:"inventories"`
+	WorkflowJobTemplate          string `json:"workflow_job_templates"`
+	Admins                       string `json:"admins"`
 	Project                      string `json:"project"`
 	Credential                   string `json:"credential"`
 	ExtraCredentials             string `json:"extra_credentials"`
 	Credentials                  string `json:"credentials"`
+	NotificationTemplates        string `json:"notification_templates"`
 	NotificationTemplatesError   string `json:"notification_templates_error"`
 	NotificationTemplatesSuccess string `json:"notification_templates_success"`
 	Jobs                         string `json:"jobs"`
@@ -68,6 +72,7 @@ type Related struct {
 	JobEvents                    string `json:"job_events"`
 	JobTemplate                  string `json:"job_template"`
 	Cancel                       string `json:"cancel"`
+	Applications                 string `json:"applications"`
 	ProjectUpdate                string `json:"project_update"`
 	CreateSchedule               string `json:"create_schedule"`
 	Relaunch                     string `json:"relaunch"`
@@ -81,6 +86,15 @@ type Related struct {
 	AdHocCommandEvents           string `json:"ad_hoc_command_events"`
 	Children                     string `json:"children"`
 	AnsibleFacts                 string `json:"ansible_facts"`
+}
+
+type RelatedFieldCount struct {
+	JobTemplates int `json:"job_templates"`
+	Users        int `json:"users"`
+	Teams        int `json:"teams"`
+	Admins       int `json:"admins"`
+	Inventories  int `json:"inventories"`
+	Projects     int `json:"projects"`
 }
 
 // OrgnizationSummary represents the awx api orgnization summary fields.
@@ -121,13 +135,20 @@ type ApplyRole struct {
 
 // ObjectRoles represents the awx api object roles.
 type ObjectRoles struct {
-	UseRole     *ApplyRole `json:"use_role"`
-	AdminRole   *ApplyRole `json:"admin_role"`
-	AdhocRole   *ApplyRole `json:"adhoc_role"`
-	UpdateRole  *ApplyRole `json:"update_role"`
-	ReadRole    *ApplyRole `json:"read_role"`
-	ExecuteRole *ApplyRole `json:"execute_role"`
-	MemberRole  *ApplyRole `json:"member_role"`
+	UseRole               *ApplyRole `json:"use_role"`
+	AdminRole             *ApplyRole `json:"admin_role"`
+	AdhocRole             *ApplyRole `json:"adhoc_role"`
+	UpdateRole            *ApplyRole `json:"update_role"`
+	ReadRole              *ApplyRole `json:"read_role"`
+	ExecuteRole           *ApplyRole `json:"execute_role"`
+	MemberRole            *ApplyRole `json:"member_role"`
+	NotificationAdminRole *ApplyRole `json:"notification_admin_role"`
+	WorkflowAdminRole     *ApplyRole `json:"workflow_admin_role"`
+	CredentialAdminRole   *ApplyRole `json:"credential_admin_role"`
+	JobTemplateAdminRole  *ApplyRole `json:"job_template_admin_role"`
+	ProjectAdminRole      *ApplyRole `json:"project_admin_role"`
+	AuditorRole           *ApplyRole `json:"auditor_role"`
+	InventoryAdminRole    *ApplyRole `json:"inventory_admin_role"`
 }
 
 // UserCapabilities represents the awx api user capabilities.
@@ -154,6 +175,7 @@ type Summary struct {
 	ModifiedBy         *ByUserSummary         `json:"modified_by"`
 	ObjectRoles        *ObjectRoles           `json:"object_roles"`
 	UserCapabilities   *UserCapabilities      `json:"user_capabilities"`
+	RelatedFieldCounts *RelatedFieldCount     `json:"related_field_counts"`
 	Project            *Project               `json:"project"`
 	LastJob            map[string]interface{} `json:"last_job"`
 	CurrentJob         map[string]interface{} `json:"current_job"`
@@ -223,6 +245,20 @@ type Team struct {
 	Name          string    `json:"name"`
 	Description   string    `json:"description"`
 	Organization  int       `json:"organization"`
+}
+
+// Organization repesent the awx api organization
+type Organization struct {
+	ID               int       `json:"id"`
+	Type             string    `json:"type"`
+	URL              string    `json:"url"`
+	Related          *Related  `json:"related"`
+	SummaryFields    *Summary  `json:"summary_fields"`
+	Created          time.Time `json:"created"`
+	Modified         time.Time `json:"modified"`
+	Name             string    `json:"name"`
+	Description      string    `json:"description"`
+	CustomVirtualEnv string    `json:"custom_virtualenv"`
 }
 
 // Inventory represents the awx api inventory.
