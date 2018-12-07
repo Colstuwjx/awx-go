@@ -260,6 +260,26 @@ func (s *mockServer) OrganizationsHandler(rw http.ResponseWriter, req *http.Requ
 	}
 }
 
+func (s *mockServer) CredentialsHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.Method == "POST":
+		result := mockdata.MockedCreateCredentialResponse
+		rw.Write(result)
+		return
+	case req.Method == "PATCH", req.Method == "PUT":
+		result := mockdata.MockedUpdateCredentialResponse
+		rw.Write(result)
+		return
+	case req.Method == "DELETE":
+		result := mockdata.MockedDeleteCredentialResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedListCredentialResponse
+		rw.Write(result)
+	}
+}
+
 func (s *mockServer) HostsHandler(rw http.ResponseWriter, req *http.Request) {
 	type associateGroup struct {
 		ID        int  `json:"id"`
@@ -372,6 +392,7 @@ func initServer() {
 	mux.Handle("/api/v2/hosts/", http.HandlerFunc(server.HostsHandler))
 	mux.Handle("/api/v2/teams/", http.HandlerFunc(server.TeamsHandler))
 	mux.Handle("/api/v2/organizations/", http.HandlerFunc(server.OrganizationsHandler))
+	mux.Handle("/api/v2/credentials/", http.HandlerFunc(server.CredentialsHandler))
 
 	server.server.Handler = mux
 	server.server.Addr = ":8080"

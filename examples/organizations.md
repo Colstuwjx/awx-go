@@ -1,8 +1,8 @@
-# Teams API
+# Organizations API
 
 ## Usage
 
-> List Teams
+> List Organizations
 
 ```go
 package main
@@ -13,18 +13,18 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, _, err := awx.TeamService.ListTeams(map[string]string{
-    "name": "test-team",
+    result, _, err := awx.OrganizationService.ListOrganizations(map[string]string{
+    "name": "test-organization",
     })
     if err != nil {
-        log.Fatalf("List Teams err: %s", err)
+        log.Fatalf("List Organizations err: %s", err)
     }
 
-    log.Println("List Team: ", result)
+    log.Println("List Organization: ", result)
 }
 ```
 
-> Create Team
+> Create Organization
 
 ```go
 package main
@@ -35,22 +35,21 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, err := awx.TeamService.CreateTeam(map[string]interface{}{
-        "name":         "test-team",
-        "organization": 1,
+    result, err := awx.OrganizationService.CreateOrganization(map[string]interface{}{
+        "name":         "test-organization",
+        "description": "test organization",
         }, map[string]string{})
     if err != nil {
-        log.Fatalf("Create Team err: %s", err)
+        log.Fatalf("Create Organization err: %s", err)
     }
 
-    log.Printf("Team created")
+    log.Printf("Organization created")
 }
 ```
 
-> Update Team
+> Update Organization
 
 ```go
-package main
 import (
     "log"
     awxGo "github.com/Colstuwjx/awx-go"
@@ -58,21 +57,19 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, err := awx.TeamService.UpdateTeam(4, map[string]interface{}{
-        "name":         "test-team",
-        "organization": 1,
-        "description":  "Update test-team",
+    result, err := awx.OrganizationService.UpdateOrganization(4, map[string]interface{}{
+        "description":  "Update test-organization",
         }, map[string]string{})
 
     if err != nil {
-        log.Fatalf("Update Team err: %s", err)
+        log.Fatalf("Update Organization err: %s", err)
     }
 
     log.Printf("Update finised.")
 }
 ```
 
-> Delete Team
+> Delete Organization
 
 ```go
 package main
@@ -83,17 +80,17 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    result, err := awx.TeamService.DeleteTeam(1)
+    result, err := awx.OrganizationService.DeleteOrganization(1)
 
     if err != nil {
-        log.Fatalf("Delete Team err: %s", err)
+        log.Fatalf("Delete Organization err: %s", err)
     }
 
-    log.Printf("Team Deleted")
+    log.Printf("Organization Deleted")
 }
 ```
 
-> Grant Team Role
+> Grant Organization Role
 
 ```go
 package main
@@ -104,7 +101,7 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    err := awx.TeamService.GrantRole(1, 170)
+    err := awx.OrganizationService.GrantRole(1, 170)
 
     if err != nil {
         log.Fatalf("Grant user role err: %s", err)
@@ -125,7 +122,7 @@ import (
 
 func main() {
     awx := awxGo.NewAWX("http://awx.your_server_host.com", "your_awx_username", "your_awx_passwd", nil)
-    err := awx.TeamService.GrantRole(1, 170)
+    err := awx.OrganizationService.GrantRole(1, 170)
 
     if err != nil {
         log.Fatalf("Revoke user role err: %s", err)

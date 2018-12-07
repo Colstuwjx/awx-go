@@ -86,8 +86,12 @@ type Related struct {
 	AdHocCommandEvents           string `json:"ad_hoc_command_events"`
 	Children                     string `json:"children"`
 	AnsibleFacts                 string `json:"ansible_facts"`
+	OwnerTeams                   string `json:"owner_teams"`
+	OwnerUsers                   string `json:"owner_users"`
+	CredentialType               string `json:"credential_type"`
 }
 
+// RelatedFieldCount represents the awx api organization related field count field.
 type RelatedFieldCount struct {
 	JobTemplates int `json:"job_templates"`
 	Users        int `json:"users"`
@@ -259,6 +263,7 @@ type Organization struct {
 	Name             string    `json:"name"`
 	Description      string    `json:"description"`
 	CustomVirtualEnv string    `json:"custom_virtualenv"`
+	FirstName        string    `json:"`
 }
 
 // Inventory represents the awx api inventory.
@@ -289,13 +294,22 @@ type Inventory struct {
 	PendingDeletion              bool        `json:"pending_deletion"`
 }
 
-// Credential represents the awx api credential.
+// Credential represent an AWX credential
 type Credential struct {
-	Description      string `json:"description"`
-	CredentialTypeID int    `json:"credential_type_id"`
-	ID               int    `json:"id"`
-	Kind             string `json:"kind"`
-	Name             string `json:"name"`
+	ID               int                    `json:"id"`
+	Type             string                 `json:"type"`
+	URL              string                 `json:"url"`
+	Related          *Related               `json:"related"`
+	SummaryFields    *Summary               `json:"summary_fields"`
+	Created          time.Time              `json:"created"`
+	Modified         time.Time              `json:"modified"`
+	Name             string                 `json:"name"`
+	CredentialTypeID int                    `json:"credential_type_id"`
+	Kind             string                 `json:"kind"`
+	Description      string                 `json:"description"`
+	Organization     int                    `json:"organization"`
+	CredentialType   int                    `json:"credential_type"`
+	Inputs           map[string]interface{} `json:"inputs"`
 }
 
 // UnifiedJobTemplate represents the awx api unified job template.
