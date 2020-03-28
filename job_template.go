@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/twinj/uuid"
 	"strconv"
+
+	"github.com/twinj/uuid"
 )
 
 // JobTemplateService implements awx job template apis.
