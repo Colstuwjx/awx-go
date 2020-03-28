@@ -161,7 +161,7 @@ func (jt *JobTemplateService) GetJobTemplate(id int) (*JobTemplate, error) {
 	resp, err := jt.client.Requester.Get(endpoint, result, map[string]string{})
 	if err != nil {
 		return nil, err
-	}https://github.com/Colstuwjx/awx-go.git
+	}
 
 	if err := CheckResponse(resp); err != nil {
 		return nil, err
