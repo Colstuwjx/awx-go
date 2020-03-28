@@ -64,7 +64,7 @@ func (jt *JobTemplateService) CreateJobTemplateCallBack(template *JobTemplate) (
 		return nil, fmt.Errorf("Job template ID must be passed")
 	}
 
-	endpoint := "/api/v2/job_templates/" + strconv.Itoa(template.ID)
+	endpoint := fmt.Sprintf("/api/v2/job_templates/%d", template.ID)
 	template.AllowCallbacks = true
 	template.HostConfigKey = uuid.NewV4().String()
 
