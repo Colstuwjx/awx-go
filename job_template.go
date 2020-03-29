@@ -3,9 +3,7 @@ package awx
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"strconv"
 
 	"github.com/twinj/uuid"
 )
