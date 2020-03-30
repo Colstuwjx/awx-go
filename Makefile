@@ -23,6 +23,10 @@ test: install-test-reqs
 	@echo ">> running all tests"
 	@$(GO) test $(pkgs)
 
+test-integration: install-test-reqs
+	@echo ">> running integration tests"
+	@$(GO) test -tags=integration $(pkgs)
+
 lint: install-test-reqs
 	@gometalinter --vendor --disable-all --enable=gosimple --enable=golint --enable=vet --enable=ineffassign --enable=unconvert \
     --exclude="by other packages, and that stutters; consider calling this" \
