@@ -33,58 +33,50 @@ func TestListInventories(t *testing.T) {
 					Organization:           "/api/v2/organizations/1/",
 				},
 				SummaryFields: &Summary{
-					Organization: &OrgnizationSummary{
+					Organization: &OrganizationSummary{
 						ID:          1,
 						Name:        "Default",
 						Description: "",
 					},
-
 					CreatedBy: &ByUserSummary{
 						ID:        1,
 						Username:  "admin",
 						FirstName: "",
 						LastName:  "",
 					},
-
 					ModifiedBy: &ByUserSummary{
 						ID:        1,
 						Username:  "admin",
 						FirstName: "",
 						LastName:  "",
 					},
-
 					ObjectRoles: &ObjectRoles{
-						UseRole: &ApplyRole{
-							ID:          23,
-							Description: "Can use the inventory in a job template",
-							Name:        "Use",
-						},
-
-						AdminRole: &ApplyRole{
+						AdminRole: &ObjectRole{
 							ID:          21,
 							Description: "Can manage all aspects of the inventory",
 							Name:        "Admin",
 						},
-
-						AdhocRole: &ApplyRole{
-							ID:          20,
-							Description: "May run ad hoc commands on an inventory",
-							Name:        "Ad Hoc",
-						},
-
-						UpdateRole: &ApplyRole{
+						UpdateRole: &ObjectRole{
 							ID:          24,
 							Description: "May update project or inventory or group using the configured source update system",
 							Name:        "Update",
 						},
-
-						ReadRole: &ApplyRole{
+						AdhocRole: &ObjectRole{
+							ID:          20,
+							Description: "May run ad hoc commands on an inventory",
+							Name:        "Ad Hoc",
+						},
+						UseRole: &ObjectRole{
+							ID:          23,
+							Description: "Can use the inventory in a job template",
+							Name:        "Use",
+						},
+						ReadRole: &ObjectRole{
 							ID:          22,
 							Description: "May view settings for the inventory",
 							Name:        "Read",
 						},
 					},
-
 					UserCapabilities: &UserCapabilities{
 						Edit:   true,
 						Copy:   true,
@@ -164,58 +156,50 @@ func TestCreateInventory(t *testing.T) {
 				Organization:           "/api/v2/organizations/1/",
 			},
 			SummaryFields: &Summary{
-				Organization: &OrgnizationSummary{
+				Organization: &OrganizationSummary{
 					ID:          1,
 					Name:        "Default",
 					Description: "",
 				},
-
 				CreatedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				ModifiedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				ObjectRoles: &ObjectRoles{
-					UseRole: &ApplyRole{
+					UseRole: &ObjectRole{
 						ID:          80,
 						Description: "Can use the inventory in a job template",
 						Name:        "Use",
 					},
-
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          78,
 						Description: "Can manage all aspects of the inventory",
 						Name:        "Admin",
 					},
-
-					AdhocRole: &ApplyRole{
+					AdhocRole: &ObjectRole{
 						ID:          77,
 						Description: "May run ad hoc commands on an inventory",
 						Name:        "Ad Hoc",
 					},
-
-					UpdateRole: &ApplyRole{
+					UpdateRole: &ObjectRole{
 						ID:          81,
 						Description: "May update project or inventory or group using the configured source update system",
 						Name:        "Update",
 					},
-
-					ReadRole: &ApplyRole{
+					ReadRole: &ObjectRole{
 						ID:          79,
 						Description: "May view settings for the inventory",
 						Name:        "Read",
 					},
 				},
-
 				UserCapabilities: &UserCapabilities{
 					Edit:   true,
 					Copy:   true,
@@ -299,58 +283,50 @@ func TestUpdateInventory(t *testing.T) {
 				Organization:           "/api/v2/organizations/1/",
 			},
 			SummaryFields: &Summary{
-				Organization: &OrgnizationSummary{
+				Organization: &OrganizationSummary{
 					ID:          1,
 					Name:        "Default",
 					Description: "",
 				},
-
 				CreatedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				ModifiedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				ObjectRoles: &ObjectRoles{
-					UseRole: &ApplyRole{
+					UseRole: &ObjectRole{
 						ID:          80,
 						Description: "Can use the inventory in a job template",
 						Name:        "Use",
 					},
-
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          78,
 						Description: "Can manage all aspects of the inventory",
 						Name:        "Admin",
 					},
-
-					AdhocRole: &ApplyRole{
+					AdhocRole: &ObjectRole{
 						ID:          77,
 						Description: "May run ad hoc commands on an inventory",
 						Name:        "Ad Hoc",
 					},
-
-					UpdateRole: &ApplyRole{
+					UpdateRole: &ObjectRole{
 						ID:          81,
 						Description: "May update project or inventory or group using the configured source update system",
 						Name:        "Update",
 					},
-
-					ReadRole: &ApplyRole{
+					ReadRole: &ObjectRole{
 						ID:          79,
 						Description: "May view settings for the inventory",
 						Name:        "Read",
 					},
 				},
-
 				UserCapabilities: &UserCapabilities{
 					Edit:   true,
 					Copy:   true,
@@ -433,58 +409,50 @@ func TestGetInventory(t *testing.T) {
 				Organization:           "/api/v2/organizations/1/",
 			},
 			SummaryFields: &Summary{
-				Organization: &OrgnizationSummary{
+				Organization: &OrganizationSummary{
 					ID:          1,
 					Name:        "Default",
 					Description: "",
 				},
-
 				CreatedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				ModifiedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				ObjectRoles: &ObjectRoles{
-					UseRole: &ApplyRole{
+					UseRole: &ObjectRole{
 						ID:          80,
 						Description: "Can use the inventory in a job template",
 						Name:        "Use",
 					},
-
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          78,
 						Description: "Can manage all aspects of the inventory",
 						Name:        "Admin",
 					},
-
-					AdhocRole: &ApplyRole{
+					AdhocRole: &ObjectRole{
 						ID:          77,
 						Description: "May run ad hoc commands on an inventory",
 						Name:        "Ad Hoc",
 					},
-
-					UpdateRole: &ApplyRole{
+					UpdateRole: &ObjectRole{
 						ID:          81,
 						Description: "May update project or inventory or group using the configured source update system",
 						Name:        "Update",
 					},
-
-					ReadRole: &ApplyRole{
+					ReadRole: &ObjectRole{
 						ID:          79,
 						Description: "May view settings for the inventory",
 						Name:        "Read",
 					},
 				},
-
 				UserCapabilities: &UserCapabilities{
 					Edit:   true,
 					Copy:   true,

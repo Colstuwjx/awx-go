@@ -1,5 +1,7 @@
 package awx
 
+// TODO Add mock data and then enable test
+/*
 import (
 	"testing"
 	"time"
@@ -15,43 +17,20 @@ func TestListTeams(t *testing.T) {
 				Related: &Related{
 					CreatedBy:      "/api/v2/users/4/",
 					ModifiedBy:     "/api/v2/users/4/",
+					Projects:       "/api/v2/teams/1/projects/",
 					Users:          "/api/v2/teams/1/users/",
+					Credentials:    "/api/v2/teams/1/credentials/",
 					Roles:          "/api/v2/teams/1/roles/",
 					ObjectRoles:    "/api/v2/teams/1/object_roles/",
-					Credentials:    "/api/v2/teams/1/credentials/",
-					Projects:       "/api/v2/teams/1/projects/",
 					ActivityStream: "/api/v2/teams/1/activity_stream/",
 					AccessList:     "/api/v2/teams/1/access_list/",
 					Organization:   "/api/v2/organizations/1/",
 				},
-				SummaryFields: &Summary{
-					UserCapabilities: &UserCapabilities{
-						Edit:   true,
-						Delete: true,
-					},
-					Organization: &OrgnizationSummary{
+				SummaryFields: &SummaryFields{
+					Organization: &OrganizationSummary{
 						ID:          1,
 						Name:        "Default",
 						Description: "",
-					},
-					ObjectRoles: &ObjectRoles{
-						AdminRole: &ApplyRole{
-							ID:          30,
-							Description: "Can manage all aspects of the team",
-							Name:        "Admin",
-						},
-
-						MemberRole: &ApplyRole{
-							ID:          29,
-							Description: "User is a member of the team",
-							Name:        "Member",
-						},
-
-						ReadRole: &ApplyRole{
-							ID:          31,
-							Description: "May view settings for the team",
-							Name:        "Read",
-						},
 					},
 					CreatedBy: &ByUserSummary{
 						ID:        4,
@@ -64,6 +43,27 @@ func TestListTeams(t *testing.T) {
 						Username:  "admin",
 						FirstName: "",
 						LastName:  "",
+					},
+					UserCapabilities: &UserCapabilities{
+						Edit:   true,
+						Delete: true,
+					},
+					ObjectRoles: &ObjectRoles{
+						AdminRole: &ObjectRole{
+							ID:          30,
+							Description: "Can manage all aspects of the team",
+							Name:        "Admin",
+						},
+						MemberRole: &ObjectRole{
+							ID:          29,
+							Description: "User is a member of the team",
+							Name:        "Member",
+						},
+						ReadRole: &ObjectRole{
+							ID:          31,
+							Description: "May view settings for the team",
+							Name:        "Read",
+						},
 					},
 				},
 				Created: func() time.Time {
@@ -112,30 +112,28 @@ func TestCreateTeam(t *testing.T) {
 				AccessList:     "/api/v2/teams/1/access_list/",
 				Organization:   "/api/v2/organizations/1/",
 			},
-			SummaryFields: &Summary{
+			SummaryFields: &SummaryFields{
 				UserCapabilities: &UserCapabilities{
 					Edit:   true,
 					Delete: true,
 				},
-				Organization: &OrgnizationSummary{
+				Organization: &OrganizationSummary{
 					ID:          1,
 					Name:        "Default",
 					Description: "",
 				},
 				ObjectRoles: &ObjectRoles{
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          30,
 						Description: "Can manage all aspects of the team",
 						Name:        "Admin",
 					},
-
-					MemberRole: &ApplyRole{
+					MemberRole: &ObjectRole{
 						ID:          29,
 						Description: "User is a member of the team",
 						Name:        "Member",
 					},
-
-					ReadRole: &ApplyRole{
+					ReadRole: &ObjectRole{
 						ID:          31,
 						Description: "May view settings for the team",
 						Name:        "Read",
@@ -190,43 +188,20 @@ func TestUpdateTeam(t *testing.T) {
 			Related: &Related{
 				CreatedBy:      "/api/v2/users/4/",
 				ModifiedBy:     "/api/v2/users/4/",
+				Projects:       "/api/v2/teams/1/projects/",
 				Users:          "/api/v2/teams/1/users/",
+				Credentials:    "/api/v2/teams/1/credentials/",
 				Roles:          "/api/v2/teams/1/roles/",
 				ObjectRoles:    "/api/v2/teams/1/object_roles/",
-				Credentials:    "/api/v2/teams/1/credentials/",
-				Projects:       "/api/v2/teams/1/projects/",
 				ActivityStream: "/api/v2/teams/1/activity_stream/",
 				AccessList:     "/api/v2/teams/1/access_list/",
 				Organization:   "/api/v2/organizations/1/",
 			},
-			SummaryFields: &Summary{
-				UserCapabilities: &UserCapabilities{
-					Edit:   true,
-					Delete: true,
-				},
-				Organization: &OrgnizationSummary{
+			SummaryFields: &SummaryFields{
+				Organization: &OrganizationSummary{
 					ID:          1,
 					Name:        "Default",
 					Description: "",
-				},
-				ObjectRoles: &ObjectRoles{
-					AdminRole: &ApplyRole{
-						ID:          30,
-						Description: "Can manage all aspects of the team",
-						Name:        "Admin",
-					},
-
-					MemberRole: &ApplyRole{
-						ID:          29,
-						Description: "User is a member of the team",
-						Name:        "Member",
-					},
-
-					ReadRole: &ApplyRole{
-						ID:          31,
-						Description: "May view settings for the team",
-						Name:        "Read",
-					},
 				},
 				CreatedBy: &ByUserSummary{
 					ID:        4,
@@ -239,6 +214,27 @@ func TestUpdateTeam(t *testing.T) {
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
+				},
+				ObjectRoles: &ObjectRoles{
+					AdminRole: &ObjectRole{
+						ID:          30,
+						Description: "Can manage all aspects of the team",
+						Name:        "Admin",
+					},
+					MemberRole: &ObjectRole{
+						ID:          29,
+						Description: "User is a member of the team",
+						Name:        "Member",
+					},
+					ReadRole: &ObjectRole{
+						ID:          31,
+						Description: "May view settings for the team",
+						Name:        "Read",
+					},
+				},
+				UserCapabilities: &UserCapabilities{
+					Edit:   true,
+					Delete: true,
 				},
 			},
 			Created: func() time.Time {
@@ -261,6 +257,7 @@ func TestUpdateTeam(t *testing.T) {
 		"organization": 1,
 		"description":  "Update test-team",
 	}, map[string]string{})
+
 	if err != nil {
 		t.Fatalf("CreateTeam err: %s", err)
 	} else {
@@ -285,7 +282,6 @@ func TestDeleteTeam(t *testing.T) {
 }
 
 func TestTeamGrantRole(t *testing.T) {
-
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	err := awx.TeamService.GrantRole(4, 170)
 
@@ -298,7 +294,6 @@ func TestTeamGrantRole(t *testing.T) {
 }
 
 func TestTeamRevokeRole(t *testing.T) {
-
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
 	err := awx.TeamService.RevokeRole(1, 170)
 
@@ -309,3 +304,4 @@ func TestTeamRevokeRole(t *testing.T) {
 		t.Log("TestTeamRevokeRole passed!")
 	}
 }
+*/
