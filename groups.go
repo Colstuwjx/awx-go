@@ -72,7 +72,7 @@ func (g *GroupService) UpdateGroup(id int, data map[string]interface{}, params m
 	if err != nil {
 		return nil, err
 	}
-	resp, err := g.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := g.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
