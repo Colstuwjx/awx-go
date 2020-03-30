@@ -112,29 +112,28 @@ type InstanceGroupSummary struct {
 	Description string `json:"description"`
 }
 
-// ApplyRole represents the awx api apply role.
-type ApplyRole struct {
+// ObjectRoles represents the awx api object roles.
+type ObjectRoles struct {
+	UseRole               *ObjectRole `json:"use_role"`
+	AdminRole             *ObjectRole `json:"admin_role"`
+	AdhocRole             *ObjectRole `json:"adhoc_role"`
+	UpdateRole            *ObjectRole `json:"update_role"`
+	ReadRole              *ObjectRole `json:"read_role"`
+	ExecuteRole           *ObjectRole `json:"execute_role"`
+	MemberRole            *ObjectRole `json:"member_role"`
+	NotificationAdminRole *ObjectRole `json:"notification_admin_role"`
+	WorkflowAdminRole     *ObjectRole `json:"workflow_admin_role"`
+	CredentialAdminRole   *ObjectRole `json:"credential_admin_role"`
+	JobTemplateAdminRole  *ObjectRole `json:"job_template_admin_role"`
+	ProjectAdminRole      *ObjectRole `json:"project_admin_role"`
+	AuditorRole           *ObjectRole `json:"auditor_role"`
+	InventoryAdminRole    *ObjectRole `json:"inventory_admin_role"`
+}
+
+type ObjectRole struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-}
-
-// ObjectRoles represents the awx api object roles.
-type ObjectRoles struct {
-	UseRole               *ApplyRole             `json:"use_role"`
-	AdminRole             *ApplyRole             `json:"admin_role"`
-	AdhocRole             *ApplyRole             `json:"adhoc_role"`
-	UpdateRole            *ApplyRole             `json:"update_role"`
-	ReadRole              *ApplyRole             `json:"read_role"`
-	ExecuteRole           *ApplyRole             `json:"execute_role"`
-	MemberRole            *MemberRole            `json:"member_role"`
-	NotificationAdminRole *NotificationAdminRole `json:"notification_admin_role"`
-	WorkflowAdminRole     *WorkflowAdminRole     `json:"workflow_admin_role"`
-	CredentialAdminRole   *CredentialAdminRole   `json:"credential_admin_role"`
-	JobTemplateAdminRole  *JobTemplateAdminRole  `json:"job_template_admin_role"`
-	ProjectAdminRole      *ProjectAdminRole      `json:"project_admin_role"`
-	AuditorRole           *AuditorRole           `json:"auditor_role"`
-	InventoryAdminRole    *InventoryAdminRole    `json:"inventory_admin_role"`
 }
 
 // UserCapabilities represents the awx api user capabilities.
@@ -156,7 +155,7 @@ type Labels struct {
 // Summary represents the awx api summary fields.
 type Summary struct {
 	InstanceGroup      *InstanceGroupSummary  `json:"instance_group"`
-	Organization       *OrgnizationSummary    `json:"organization"`
+	Organization       *OrganizationSummary   `json:"organization"`
 	CreatedBy          *ByUserSummary         `json:"created_by"`
 	ModifiedBy         *ByUserSummary         `json:"modified_by"`
 	ObjectRoles        *ObjectRoles           `json:"object_roles"`
@@ -709,74 +708,6 @@ type Team struct {
 	Organization  int           `json:"organization"`
 }
 
-type CreatedBy struct {
-	ID        int    `json:"id"`
-	Username  string `json:"username"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-}
-type ModifiedBy struct {
-	ID        int    `json:"id"`
-	Username  string `json:"username"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-}
-type AdminRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type ReadRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type MemberRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type ExecuteRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type NotificationAdminRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type WorkflowAdminRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type CredentialAdminRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type JobTemplateAdminRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type ProjectAdminRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type AuditorRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-type InventoryAdminRole struct {
-	ID          int    `json:"id"`
-	Description string `json:"description"`
-	Name        string `json:"name"`
-}
-
 type RelatedFieldCounts struct {
 	JobTemplates int `json:"job_templates"`
 	Users        int `json:"users"`
@@ -785,9 +716,10 @@ type RelatedFieldCounts struct {
 	Inventories  int `json:"inventories"`
 	Projects     int `json:"projects"`
 }
+
 type SummaryFields struct {
-	CreatedBy          CreatedBy          `json:"created_by"`
-	ModifiedBy         ModifiedBy         `json:"modified_by"`
+	CreatedBy          ByUserSummary      `json:"created_by"`
+	ModifiedBy         ByUserSummary      `json:"modified_by"`
 	ObjectRoles        ObjectRoles        `json:"object_roles"`
 	UserCapabilities   UserCapabilities   `json:"user_capabilities"`
 	RelatedFieldCounts RelatedFieldCounts `json:"related_field_counts"`
