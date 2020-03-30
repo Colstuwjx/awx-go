@@ -1,48 +1,62 @@
 package awx
 
 import (
-	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
+	"fmt"
+	"math/rand"
 	"net/http"
 	"testing"
+	"time"
+
+	"github.com/stretchr/testify/suite"
 )
 
 type OrganizationsTestSuite struct {
 	suite.Suite
-	testOrg *Organization
 	client  *AWX
+	service *OrganizationService
 }
 
 func TestProviders(t *testing.T) {
 	suite.Run(t, &OrganizationsTestSuite{})
 }
 
-func (o *OrganizationsTestSuite) SetupTest() {
-	awxUser := "admin"
-	awxPassword := "password"
-	c := &http.Client{}
-	o.client = NewAWX("http://localhost", awxUser, awxPassword, c)
-	o.T().Logf("AWX: %+v", o.client)
+func (suite *OrganizationsTestSuite) SetupAllSuite() {
+	rand.Seed(time.Now().UnixNano())
 }
 
-func (o *OrganizationsTestSuite) TestCreateOrganization() {
-	oc := o.client.OrganizationService
-
-	data := map[string]interface{}{"name": "Testing", "description": "A Test organization"}
-
-	org, err := oc.CreateOrganization(data, map[string]string{})
-	require.Nil(o.T(), err)
-	// Make sure that the org was created by making sure an ID was set
-	require.NotNil(o.T(), org.ID)
-	o.testOrg = org
+func (suite *OrganizationsTestSuite) SetupTest() {
+	suite.client = NewAWX("http://localhost", "admin", "password", &http.Client{})
+	suite.service = suite.client.OrganizationService
+	suite.T().Logf("AWX: %+v", suite.client)
 }
 
-func (o *OrganizationsTestSuite) TestListOrganizations() {
-	oc := o.client.OrganizationService
+func (suite *OrganizationsTestSuite) TestCreateDeleteOrganization() {
+	name := fmt.Sprintf("Testing-%v", rand.Int())
+	org, err := suite.service.CreateOrganization(map[string]interface{}{
+		"name": name,
+		"description": "A Test organization",
+	}, map[string]string{})
+	suite.Nil(err)
+	suite.NotNil(org.ID) // Make sure that the org was created by making sure an ID was set
+	suite.Equal(org.Name, name)
+	org, err = suite.client.OrganizationService.DeleteOrganization(org.ID)
+	suite.Nil(err)
+}
 
-	org, _, err := oc.ListOrganizations(map[string]string{})
-	require.Nil(o.T(), err)
-	// Make sure we get a non nil list back
-	require.NotEmpty(o.T(), org)
-	o.T().Logf("%+v", org)
+func (suite *OrganizationsTestSuite) TestUpdateOrganization() {
+	description := fmt.Sprintf("This is a test %v", time.Now().String())
+	org, err := suite.service.UpdateOrganization(1, map[string]interface{}{
+		"description": description,
+	}, map[string]string{})
+	suite.Nil(err)
+	suite.Equal(org.Description, description)
+}
+
+func (suite *OrganizationsTestSuite) TestListOrganizations() {
+	org, _, err := suite.service.ListOrganizations(map[string]string{})
+	suite.Nil(err)
+	suite.NotEmpty(org)
+	suite.Equal(org[0].Type, "organization")
+	suite.Equal(org[0].Name, "Default")
+	suite.T().Logf("%+v", org)
 }
