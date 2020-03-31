@@ -59,8 +59,7 @@ func (s *mockServer) JobTemplatesHandler(rw http.ResponseWriter, req *http.Reque
 		rw.Write(result)
 		return
 	}
-
-	if req.Method == "PATCH" {
+	if req.Method == "PATCH" || req.Method == "PUT" {
 		result := mockdata.MockedUpdateJobTemplateResponse
 		rw.Write(result)
 		return
@@ -132,7 +131,7 @@ func (s *mockServer) ProjectsHandler(rw http.ResponseWriter, req *http.Request) 
 		result := mockdata.MockedCreateProjectResponse
 		rw.Write(result)
 		return
-	case req.Method == "PATCH":
+	case req.Method == "PATCH", req.Method == "PUT":
 		result := mockdata.MockedUpdateProjectResponse
 		rw.Write(result)
 		return
@@ -169,7 +168,7 @@ func (s *mockServer) UsersHandler(rw http.ResponseWriter, req *http.Request) {
 		result := mockdata.MockedCreateUserResponse
 		rw.Write(result)
 		return
-	case req.Method == "PUT":
+	case req.Method == "PATCH", req.Method == "PUT":
 		result := mockdata.MockedUpdateUserResponse
 		rw.Write(result)
 		return
@@ -236,7 +235,7 @@ func (s *mockServer) HostsHandler(rw http.ResponseWriter, req *http.Request) {
 		result := mockdata.MockedCreateHostResponse
 		rw.Write(result)
 		return
-	case req.Method == "PATCH":
+	case req.Method == "PATCH", req.Method == "PUT":
 		result := mockdata.MockedUpdateHostResponse
 		rw.Write(result)
 		return

@@ -72,7 +72,7 @@ func (p *ProjectService) UpdateProject(id int, data map[string]interface{}, para
 	if err != nil {
 		return nil, err
 	}
-	resp, err := p.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := p.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}

@@ -72,7 +72,7 @@ func (i *InventoriesService) UpdateInventory(id int, data map[string]interface{}
 	if err != nil {
 		return nil, err
 	}
-	resp, err := i.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := i.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (i *InventoriesService) UpdateInventory(id int, data map[string]interface{}
 func (i *InventoriesService) GetInventory(id int, params map[string]string) (*Inventory, error) {
 	endpoint := fmt.Sprintf("/api/v2/inventories/%d", id)
 	result := new(Inventory)
-	resp, err := i.client.Requester.GetJSON(endpoint, result, map[string]string{})
+	resp, err := i.client.Requester.GetJSON(endpoint, result, params)
 	if err != nil {
 		return nil, err
 	}

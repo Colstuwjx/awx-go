@@ -73,7 +73,7 @@ func (u *UserService) UpdateUser(id int, data map[string]interface{}, params map
 		return nil, err
 	}
 
-	resp, err := u.client.Requester.PutJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := u.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
