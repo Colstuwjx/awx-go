@@ -73,7 +73,7 @@ func (t *OrganizationService) UpdateOrganization(id int, data map[string]interfa
 		return nil, err
 	}
 
-	resp, err := t.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := t.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
