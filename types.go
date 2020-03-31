@@ -80,10 +80,11 @@ type Related struct {
 	AdHocCommandEvents           string `json:"ad_hoc_command_events"`
 	Children                     string `json:"children"`
 	AnsibleFacts                 string `json:"ansible_facts"`
+	Callback                     string `json:"callback"`
 }
 
-// OrgnizationSummary represents the awx api orgnization summary fields.
-type OrgnizationSummary struct {
+// OrganizationSummary represents the awx api organization summary fields.
+type OrganizationSummary struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -111,21 +112,28 @@ type InstanceGroupSummary struct {
 	Description string `json:"description"`
 }
 
-// ApplyRole represents the awx api apply role.
-type ApplyRole struct {
+// ObjectRoles represents the awx api object roles.
+type ObjectRoles struct {
+	UseRole               *ObjectRole `json:"use_role"`
+	AdminRole             *ObjectRole `json:"admin_role"`
+	AdhocRole             *ObjectRole `json:"adhoc_role"`
+	UpdateRole            *ObjectRole `json:"update_role"`
+	ReadRole              *ObjectRole `json:"read_role"`
+	ExecuteRole           *ObjectRole `json:"execute_role"`
+	MemberRole            *ObjectRole `json:"member_role"`
+	NotificationAdminRole *ObjectRole `json:"notification_admin_role"`
+	WorkflowAdminRole     *ObjectRole `json:"workflow_admin_role"`
+	CredentialAdminRole   *ObjectRole `json:"credential_admin_role"`
+	JobTemplateAdminRole  *ObjectRole `json:"job_template_admin_role"`
+	ProjectAdminRole      *ObjectRole `json:"project_admin_role"`
+	AuditorRole           *ObjectRole `json:"auditor_role"`
+	InventoryAdminRole    *ObjectRole `json:"inventory_admin_role"`
+}
+
+type ObjectRole struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-}
-
-// ObjectRoles represents the awx api object roles.
-type ObjectRoles struct {
-	UseRole     *ApplyRole `json:"use_role"`
-	AdminRole   *ApplyRole `json:"admin_role"`
-	AdhocRole   *ApplyRole `json:"adhoc_role"`
-	UpdateRole  *ApplyRole `json:"update_role"`
-	ReadRole    *ApplyRole `json:"read_role"`
-	ExecuteRole *ApplyRole `json:"execute_role"`
 }
 
 // UserCapabilities represents the awx api user capabilities.
@@ -147,7 +155,7 @@ type Labels struct {
 // Summary represents the awx api summary fields.
 type Summary struct {
 	InstanceGroup      *InstanceGroupSummary  `json:"instance_group"`
-	Organization       *OrgnizationSummary    `json:"organization"`
+	Organization       *OrganizationSummary   `json:"organization"`
 	CreatedBy          *ByUserSummary         `json:"created_by"`
 	ModifiedBy         *ByUserSummary         `json:"modified_by"`
 	ObjectRoles        *ObjectRoles           `json:"object_roles"`
@@ -336,6 +344,7 @@ type JobTemplate struct {
 	CustomVirtualenv      interface{} `json:"custom_virtualenv"`
 	Credential            int         `json:"credential"`
 	VaultCredential       interface{} `json:"vault_credential"`
+	AllowCallbacks        bool        `json:"allow_callbacks"`
 }
 
 // JobLaunch represents the awx api job launch.
@@ -397,6 +406,19 @@ type JobLaunch struct {
 	DiffMode                bool              `json:"diff_mode"`
 	Credential              int               `json:"credential"`
 	VaultCredential         interface{}       `json:"vault_credential"`
+}
+
+type JobLaunchOpts struct {
+	ExtraVars           map[string]interface{} `json:"extra_vars,omitempty"`
+	Inventory           int                    `json:"inventory,omitempty"`
+	Limit               string                 `json:"limit,omitempty"`
+	JobTags             string                 `json:"job_tags,omitempty"`
+	SkipTags            string                 `json:"skip_tags,omitempty"`
+	JobType             string                 `json:"job_type,omitempty"`
+	Verbosity           int                    `json:"verbosity,omitempty"`
+	DiffMode            interface{}            `json:"diff_mode,omitempty"`
+	Credentials         []int                  `json:"credentials,omitempty"`
+	CredentialPasswords []string               `json:"credential_passwords,omitempty"`
 }
 
 // Job represents the awx api job.
@@ -658,4 +680,66 @@ type Host struct {
 	LastJobHostSummary   *HostSummary `json:"last_job_host_summary"`
 	InsightsSystemID     interface{}  `json:"insights_system_id"`
 	AnsibleFactsModified interface{}  `json:"ansible_facts_modified"`
+}
+
+type Organization struct {
+	ID               int           `json:"id"`
+	Type             string        `json:"type"`
+	URL              string        `json:"url"`
+	Related          Related       `json:"related"`
+	SummaryFields    SummaryFields `json:"summary_fields"`
+	Created          time.Time     `json:"created"`
+	Modified         time.Time     `json:"modified"`
+	Name             string        `json:"name"`
+	Description      string        `json:"description"`
+	CustomVirtualEnv interface{}   `json:"custom_virtualenv"`
+}
+
+type Team struct {
+	ID            int           `json:"id"`
+	Type          string        `json:"type"`
+	URL           string        `json:"url"`
+	Related       Related       `json:"related"`
+	SummaryFields SummaryFields `json:"summary_fields"`
+	Created       time.Time     `json:"created"`
+	Modified      time.Time     `json:"modified"`
+	Name          string        `json:"name"`
+	Description   string        `json:"description"`
+	Organization  int           `json:"organization"`
+}
+
+type RelatedFieldCounts struct {
+	JobTemplates int `json:"job_templates"`
+	Users        int `json:"users"`
+	Teams        int `json:"teams"`
+	Admins       int `json:"admins"`
+	Inventories  int `json:"inventories"`
+	Projects     int `json:"projects"`
+}
+
+type SummaryFields struct {
+	CreatedBy          ByUserSummary      `json:"created_by"`
+	ModifiedBy         ByUserSummary      `json:"modified_by"`
+	ObjectRoles        ObjectRoles        `json:"object_roles"`
+	UserCapabilities   UserCapabilities   `json:"user_capabilities"`
+	RelatedFieldCounts RelatedFieldCounts `json:"related_field_counts"`
+}
+
+type SurveySpec struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Spec        []Spec `json:"spec"`
+}
+
+type Spec struct {
+	QuestionName        string `json:"question_name"`
+	QuestionDescription string `json:"question_description"`
+	Required            bool   `json:"required"`
+	Type                string `json:"type"`
+	Variable            string `json:"variable"`
+	Min                 int    `json:"min"`
+	Max                 int    `json:"max"`
+	Default             string `json:"default"`
+	Choices             string `json:"choices"`
+	NewQuestion         bool   `json:"new_question"`
 }

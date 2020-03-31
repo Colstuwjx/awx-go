@@ -101,3 +101,51 @@ func (u *UserService) DeleteUser(id int) (*User, error) {
 
 	return result, nil
 }
+
+func (u *UserService) RevokeRole(id, roleID string) error {
+	result := new(User)
+	endpoint := fmt.Sprintf("/api/v2/users/%s", id)
+	jsonPayload := map[string]string{
+		"disassociate": roleID,
+	}
+
+	j, err := json.Marshal(jsonPayload)
+
+	if err != nil {
+		return err
+	}
+
+	resp, err := u.client.Requester.PostJSON(endpoint, bytes.NewReader(j), result, jsonPayload)
+	if err != nil {
+		return err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UserService) GrantRole(id, roleID string) error {
+	result := new(User)
+	endpoint := fmt.Sprintf("/api/v2/users/%s", id)
+	jsonPayload := map[string]string{
+		"id": roleID,
+	}
+
+	j, err := json.Marshal(jsonPayload)
+
+	if err != nil {
+		return err
+	}
+
+	resp, err := u.client.Requester.PostJSON(endpoint, bytes.NewReader(j), result, jsonPayload)
+	if err != nil {
+		return err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return err
+	}
+	return nil
+}

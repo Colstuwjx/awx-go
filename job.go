@@ -23,6 +23,15 @@ type JobService struct {
 	client *Client
 }
 
+type JobStdoutResponse struct {
+	Range struct {
+		Start       int `json:"start"`
+		End         int `json:"end"`
+		AbsoluteEnd int `json:"absolute_end"`
+	} `json:"range"`
+	Content string `json:"content"`
+}
+
 // HostSummariesResponse represents `JobHostSummaries` endpoint response.
 type HostSummariesResponse struct {
 	Pagination
@@ -128,4 +137,23 @@ func (j *JobService) GetJobEvents(id int, params map[string]string) ([]JobEvent,
 	}
 
 	return result.Results, result, nil
+}
+
+func (j *JobService) GetJobStdOut(id int) (*JobStdoutResponse, error) {
+	result := new(JobStdoutResponse)
+	endpoint := fmt.Sprintf("/api/v2/jobs/%d/stdout/", id)
+
+	resp, err := j.client.Requester.GetJSON(endpoint, result, map[string]string{
+		"format": "json",
+	})
+
+	if err != nil {
+		return result, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return result, err
+	}
+
+	return result, nil
 }

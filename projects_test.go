@@ -22,7 +22,7 @@ func TestListProjects(t *testing.T) {
 					Organization: "/api/v2/organizations/1/",
 				},
 				SummaryFields: &Summary{
-					Organization: &OrgnizationSummary{
+					Organization: &OrganizationSummary{
 						ID:          1,
 						Name:        "Default",
 						Description: "",
@@ -40,31 +40,27 @@ func TestListProjects(t *testing.T) {
 						LastName:  "admin",
 					},
 					ObjectRoles: &ObjectRoles{
-						AdminRole: &ApplyRole{
+						AdminRole: &ObjectRole{
 							ID:          14,
 							Description: "Can manage all aspects of the project",
 							Name:        "Admin",
 						},
-
-						UseRole: &ApplyRole{
-							ID:          16,
-							Description: "Can manage all aspects of the project",
-							Name:        "Use",
-						},
-
-						UpdateRole: &ApplyRole{
+						UpdateRole: &ObjectRole{
 							ID:          17,
 							Description: "May update project or inventory or group using the configured source update system",
 							Name:        "Update",
 						},
-
-						ReadRole: &ApplyRole{
+						UseRole: &ObjectRole{
+							ID:          16,
+							Description: "Can manage all aspects of the project",
+							Name:        "Use",
+						},
+						ReadRole: &ObjectRole{
 							ID:          15,
 							Description: "May view settings for the project",
 							Name:        "Read",
 						},
 					},
-
 					UserCapabilities: &UserCapabilities{
 						Edit:     true,
 						Start:    true,
@@ -127,7 +123,7 @@ func TestCreateProject(t *testing.T) {
 				Organization: "/api/v2/organizations/1/",
 			},
 			SummaryFields: &Summary{
-				Organization: &OrgnizationSummary{
+				Organization: &OrganizationSummary{
 					ID:          1,
 					Name:        "Default",
 					Description: "",
@@ -145,31 +141,27 @@ func TestCreateProject(t *testing.T) {
 					LastName:  "admin",
 				},
 				ObjectRoles: &ObjectRoles{
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          14,
 						Description: "Can manage all aspects of the project",
 						Name:        "Admin",
 					},
-
-					UseRole: &ApplyRole{
-						ID:          16,
-						Description: "Can manage all aspects of the project",
-						Name:        "Use",
-					},
-
-					UpdateRole: &ApplyRole{
+					UpdateRole: &ObjectRole{
 						ID:          17,
 						Description: "May update project or inventory or group using the configured source update system",
 						Name:        "Update",
 					},
-
-					ReadRole: &ApplyRole{
+					UseRole: &ObjectRole{
+						ID:          16,
+						Description: "Can manage all aspects of the project",
+						Name:        "Use",
+					},
+					ReadRole: &ObjectRole{
 						ID:          15,
 						Description: "May view settings for the project",
 						Name:        "Read",
 					},
 				},
-
 				UserCapabilities: &UserCapabilities{
 					Edit:     true,
 					Start:    true,
@@ -234,7 +226,7 @@ func TestUpdateProject(t *testing.T) {
 				Organization: "/api/v2/organizations/1/",
 			},
 			SummaryFields: &Summary{
-				Organization: &OrgnizationSummary{
+				Organization: &OrganizationSummary{
 					ID:          1,
 					Name:        "Default",
 					Description: "",
@@ -252,31 +244,27 @@ func TestUpdateProject(t *testing.T) {
 					LastName:  "admin",
 				},
 				ObjectRoles: &ObjectRoles{
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          14,
 						Description: "Can manage all aspects of the project",
 						Name:        "Admin",
 					},
-
-					UseRole: &ApplyRole{
-						ID:          16,
-						Description: "Can manage all aspects of the project",
-						Name:        "Use",
-					},
-
-					UpdateRole: &ApplyRole{
+					UpdateRole: &ObjectRole{
 						ID:          17,
 						Description: "May update project or inventory or group using the configured source update system",
 						Name:        "Update",
 					},
-
-					ReadRole: &ApplyRole{
+					UseRole: &ObjectRole{
+						ID:          16,
+						Description: "Can manage all aspects of the project",
+						Name:        "Use",
+					},
+					ReadRole: &ObjectRole{
 						ID:          15,
 						Description: "May view settings for the project",
 						Name:        "Read",
 					},
 				},
-
 				UserCapabilities: &UserCapabilities{
 					Edit:     true,
 					Start:    true,

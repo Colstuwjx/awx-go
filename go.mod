@@ -2,4 +2,8 @@ module github.com/Colstuwjx/awx-go
 
 go 1.12
 
-require github.com/kylelemons/godebug v0.0.0-20170820004349-d65d576e9348
+require (
+	github.com/kylelemons/godebug v1.1.0
+	github.com/stretchr/testify v1.5.1
+	github.com/twinj/uuid v1.0.0
+)

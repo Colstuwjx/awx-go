@@ -52,13 +52,11 @@ func TestProjectUpdateGet(t *testing.T) {
 					ID:   1,
 					Name: "tower",
 				},
-
 				JobTemplate: &JobTemplateSummary{
 					ID:          8,
 					Name:        "Hello-world",
 					Description: "",
 				},
-
 				Inventory: &Inventory{
 					ID:                           1,
 					Name:                         "Demo Inventory",
@@ -74,7 +72,6 @@ func TestProjectUpdateGet(t *testing.T) {
 					OrganizationID:               1,
 					Kind:                         "",
 				},
-
 				ProjectUpdate: &ProjectUpdate{
 					ID:          303,
 					Name:        "DeployBook",
@@ -82,14 +79,12 @@ func TestProjectUpdateGet(t *testing.T) {
 					Status:      "successful",
 					Failed:      false,
 				},
-
 				UnifiedJobTemplate: &UnifiedJobTemplate{
 					ID:             8,
 					Description:    "",
 					Name:           "Hello-world",
 					UnifiedJobType: "job",
 				},
-
 				Project: &Project{
 					ID:          6,
 					Name:        "DeployBook",

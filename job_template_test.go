@@ -50,7 +50,6 @@ func TestListJobTemplates(t *testing.T) {
 						OrganizationID:               1,
 						Kind:                         "",
 					},
-
 					Project: &Project{
 						ID:          4,
 						Name:        "Demo Project",
@@ -58,41 +57,35 @@ func TestListJobTemplates(t *testing.T) {
 						Status:      "never updated",
 						ScmType:     "git",
 					},
-
 					CreatedBy: &ByUserSummary{
 						ID:        1,
 						Username:  "admin",
 						FirstName: "",
 						LastName:  "",
 					},
-
 					ModifiedBy: &ByUserSummary{
 						ID:        1,
 						Username:  "admin",
 						FirstName: "",
 						LastName:  "",
 					},
-
 					ObjectRoles: &ObjectRoles{
-						AdminRole: &ApplyRole{
+						AdminRole: &ObjectRole{
 							ID:          27,
 							Description: "Can manage all aspects of the job template",
 							Name:        "Admin",
 						},
-
-						ExecuteRole: &ApplyRole{
+						ExecuteRole: &ObjectRole{
 							ID:          26,
 							Description: "May run the job template",
 							Name:        "Execute",
 						},
-
-						ReadRole: &ApplyRole{
+						ReadRole: &ObjectRole{
 							ID:          25,
 							Description: "May view settings for the job template",
 							Name:        "Read",
 						},
 					},
-
 					UserCapabilities: &UserCapabilities{
 						Edit:     true,
 						Start:    true,
@@ -100,14 +93,11 @@ func TestListJobTemplates(t *testing.T) {
 						Schedule: true,
 						Delete:   true,
 					},
-
 					Labels: &Labels{
 						Count:   0,
 						Results: []interface{}{},
 					},
-
 					RecentJobs: []interface{}{},
-
 					Credentials: []Credential{
 						{
 							Description:      "",
@@ -211,14 +201,12 @@ func TestLauchJob(t *testing.T) {
 				CreateSchedule:     "/api/v2/jobs/499/create_schedule/",
 				Relaunch:           "/api/v2/jobs/499/relaunch/",
 			},
-
 			SummaryFields: &Summary{
 				JobTemplate: &JobTemplateSummary{
 					ID:          5,
 					Name:        "Demo Job Template",
 					Description: "",
 				},
-
 				Inventory: &Inventory{
 					ID:                           1,
 					Name:                         "Demo Inventory",
@@ -234,7 +222,6 @@ func TestLauchJob(t *testing.T) {
 					OrganizationID:               1,
 					Kind:                         "",
 				},
-
 				Credential: &Credential{
 					Description:      "",
 					CredentialTypeID: 1,
@@ -242,14 +229,12 @@ func TestLauchJob(t *testing.T) {
 					Kind:             "ssh",
 					Name:             "Demo Credential",
 				},
-
 				UnifiedJobTemplate: &UnifiedJobTemplate{
 					ID:             5,
 					Name:           "Demo Job Template",
 					Description:    "",
 					UnifiedJobType: "job",
 				},
-
 				Project: &Project{
 					ID:          4,
 					Name:        "Demo Project",
@@ -257,31 +242,26 @@ func TestLauchJob(t *testing.T) {
 					Status:      "successful",
 					ScmType:     "git",
 				},
-
 				CreatedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				ModifiedBy: &ByUserSummary{
 					ID:        1,
 					Username:  "admin",
 					FirstName: "",
 					LastName:  "",
 				},
-
 				UserCapabilities: &UserCapabilities{
 					Start:  true,
 					Delete: true,
 				},
-
 				Labels: &Labels{
 					Count:   0,
 					Results: []interface{}{},
 				},
-
 				ExtraCredentials: []interface{}{},
 				Credentials: []Credential{
 					{
@@ -356,8 +336,8 @@ func TestLauchJob(t *testing.T) {
 	)
 
 	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
-	result, err := awx.JobTemplateService.Launch(testJobTemplateID, map[string]interface{}{
-		"inventory": testInventoryID,
+	result, err := awx.JobTemplateService.Launch(testJobTemplateID, &JobLaunchOpts{
+		Inventory: testInventoryID,
 	}, map[string]string{})
 
 	if err != nil {
@@ -432,17 +412,17 @@ func TestCreateJobTemplate(t *testing.T) {
 					LastName:  "",
 				},
 				ObjectRoles: &ObjectRoles{
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          28,
 						Description: "Can manage all aspects of the job template",
 						Name:        "Admin",
 					},
-					ExecuteRole: &ApplyRole{
+					ExecuteRole: &ObjectRole{
 						ID:          27,
 						Description: "May run the job template",
 						Name:        "Execute",
 					},
-					ReadRole: &ApplyRole{
+					ReadRole: &ObjectRole{
 						ID:          26,
 						Description: "May view settings for the job template",
 						Name:        "Read",
@@ -595,17 +575,17 @@ func TestUpdateJobTemplate(t *testing.T) {
 					LastName:  "",
 				},
 				ObjectRoles: &ObjectRoles{
-					AdminRole: &ApplyRole{
+					AdminRole: &ObjectRole{
 						ID:          28,
 						Description: "Can manage all aspects of the job template",
 						Name:        "Admin",
 					},
-					ExecuteRole: &ApplyRole{
+					ExecuteRole: &ObjectRole{
 						ID:          27,
 						Description: "May run the job template",
 						Name:        "Execute",
 					},
-					ReadRole: &ApplyRole{
+					ReadRole: &ObjectRole{
 						ID:          26,
 						Description: "May view settings for the job template",
 						Name:        "Read",

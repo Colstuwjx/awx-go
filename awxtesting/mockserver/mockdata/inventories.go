@@ -15,21 +15,21 @@ var (
             "related": {
                 "created_by": "/api/v2/users/1/",
                 "modified_by": "/api/v2/users/1/",
-                "job_templates": "/api/v2/inventories/1/job_templates/",
-                "variable_data": "/api/v2/inventories/1/variable_data/",
-                "root_groups": "/api/v2/inventories/1/root_groups/",
-                "object_roles": "/api/v2/inventories/1/object_roles/",
-                "ad_hoc_commands": "/api/v2/inventories/1/ad_hoc_commands/",
-                "script": "/api/v2/inventories/1/script/",
-                "tree": "/api/v2/inventories/1/tree/",
-                "access_list": "/api/v2/inventories/1/access_list/",
-                "activity_stream": "/api/v2/inventories/1/activity_stream/",
-                "instance_groups": "/api/v2/inventories/1/instance_groups/",
                 "hosts": "/api/v2/inventories/1/hosts/",
                 "groups": "/api/v2/inventories/1/groups/",
-                "copy": "/api/v2/inventories/1/copy/",
-                "update_inventory_sources": "/api/v2/inventories/1/update_inventory_sources/",
+                "root_groups": "/api/v2/inventories/1/root_groups/",
+                "variable_data": "/api/v2/inventories/1/variable_data/",
+                "script": "/api/v2/inventories/1/script/",
+                "tree": "/api/v2/inventories/1/tree/",
                 "inventory_sources": "/api/v2/inventories/1/inventory_sources/",
+                "update_inventory_sources": "/api/v2/inventories/1/update_inventory_sources/",
+                "activity_stream": "/api/v2/inventories/1/activity_stream/",
+                "job_templates": "/api/v2/inventories/1/job_templates/",
+                "ad_hoc_commands": "/api/v2/inventories/1/ad_hoc_commands/",
+                "access_list": "/api/v2/inventories/1/access_list/",
+                "object_roles": "/api/v2/inventories/1/object_roles/",
+                "instance_groups": "/api/v2/inventories/1/instance_groups/",
+                "copy": "/api/v2/inventories/1/copy/",
                 "organization": "/api/v2/organizations/1/"
             },
             "summary_fields": {
@@ -51,37 +51,37 @@ var (
                     "last_name": ""
                 },
                 "object_roles": {
-                    "use_role": {
-                        "id": 23,
-                        "description": "Can use the inventory in a job template",
-                        "name": "Use"
-                    },
                     "admin_role": {
-                        "id": 21,
                         "description": "Can manage all aspects of the inventory",
-                        "name": "Admin"
-                    },
-                    "adhoc_role": {
-                        "id": 20,
-                        "description": "May run ad hoc commands on an inventory",
-                        "name": "Ad Hoc"
+                        "name": "Admin",
+                        "id": 21
                     },
                     "update_role": {
-                        "id": 24,
                         "description": "May update project or inventory or group using the configured source update system",
-                        "name": "Update"
+                        "name": "Update",
+                        "id": 24
+                    },
+                    "adhoc_role": {
+                        "description": "May run ad hoc commands on an inventory",
+                        "name": "Ad Hoc",
+                        "id": 20
+                    },
+                    "use_role": {
+                        "description": "Can use the inventory in a job template",
+                        "name": "Use",
+                        "id": 23
                     },
                     "read_role": {
-                        "id": 22,
                         "description": "May view settings for the inventory",
-                        "name": "Read"
+                        "name": "Read",
+                        "id": 22
                     }
                 },
                 "user_capabilities": {
                     "edit": true,
+                    "delete": true,
                     "copy": true,
-                    "adhoc": true,
-                    "delete": true
+                    "adhoc": true
                 }
             },
             "created": "2018-05-21T01:34:35.657185Z",
@@ -96,7 +96,6 @@ var (
             "total_hosts": 2,
             "hosts_with_active_failures": 0,
             "total_groups": 0,
-            "groups_with_active_failures": 0,
             "has_inventory_sources": false,
             "total_inventory_sources": 0,
             "inventory_sources_with_failures": 0,
