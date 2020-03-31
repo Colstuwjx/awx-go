@@ -83,8 +83,8 @@ type Related struct {
 	Callback                     string `json:"callback"`
 }
 
-// OrgnizationSummary represents the awx api orgnization summary fields.
-type OrgnizationSummary struct {
+// OrganizationSummary represents the awx api organization summary fields.
+type OrganizationSummary struct {
 	ID          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
