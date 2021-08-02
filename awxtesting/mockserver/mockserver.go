@@ -36,11 +36,11 @@ func (s *mockServer) InventoryUpdatesHandler(rw http.ResponseWriter, req *http.R
 
 func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
-	case req.RequestURI == "/api/v2/inventories/1/":
+	case req.RequestURI == "/api/v2/inventories/1/" && req.Method == "GET":
 		result := mockdata.MockedGetInventoryResponse
 		rw.Write(result)
 		return
-	case req.RequestURI == "/api/v2/inventories/1/update_inventory_sources/":
+	case req.RequestURI == "/api/v2/inventories/1/update_inventory_sources/" && req.Method == "POST":
 		result := mockdata.MockedInventoryUpdatesResponse
 		rw.Write(result)
 		return
