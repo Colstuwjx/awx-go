@@ -22,8 +22,28 @@ func (s *mockServer) PingHandler(rw http.ResponseWriter, req *http.Request) {
 	rw.Write(result)
 }
 
+func (s *mockServer) InventoryUpdatesHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.RequestURI == "/api/v2/inventory_updates/305/":
+		result := mockdata.MockedInventoryUpdateResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedInventoryUpdateResponse
+		rw.Write(result)
+	}
+}
+
 func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
+	case req.RequestURI == "/api/v2/inventories/1/" && req.Method == "GET":
+		result := mockdata.MockedGetInventoryResponse
+		rw.Write(result)
+		return
+	case req.RequestURI == "/api/v2/inventories/1/update_inventory_sources/" && req.Method == "POST":
+		result := mockdata.MockedInventoryUpdatesResponse
+		rw.Write(result)
+		return
 	case req.Method == "POST":
 		result := mockdata.MockedCreateInventoryResponse
 		rw.Write(result)
@@ -34,10 +54,6 @@ func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Reques
 		return
 	case req.Method == "DELETE":
 		result := mockdata.MockedDeleteInventoryResponse
-		rw.Write(result)
-		return
-	case req.RequestURI == "/api/v2/inventories/1/":
-		result := mockdata.MockedGetInventoryResponse
 		rw.Write(result)
 		return
 	default:
@@ -263,6 +279,7 @@ func initServer() {
 	mux := http.NewServeMux()
 	mux.Handle("/api/v2/ping/", http.HandlerFunc(server.PingHandler))
 	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.InventoriesHandler))
+	mux.Handle("/api/v2/inventory_updates/", http.HandlerFunc(server.InventoryUpdatesHandler))
 	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.JobTemplatesHandler))
 	mux.Handle("/api/v2/jobs/", http.HandlerFunc(server.JobsHandler))
 	mux.Handle("/api/v2/projects/", http.HandlerFunc(server.ProjectsHandler))
