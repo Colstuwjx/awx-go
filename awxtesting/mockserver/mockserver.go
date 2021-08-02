@@ -22,6 +22,18 @@ func (s *mockServer) PingHandler(rw http.ResponseWriter, req *http.Request) {
 	rw.Write(result)
 }
 
+func (s *mockServer) InventoryUpdatesHandler(rw http.ResponseWriter, req *http.Request) {
+	switch {
+	case req.RequestURI == "/api/v2/inventory_updates/305/":
+		result := mockdata.MockedInventoryUpdateResponse
+		rw.Write(result)
+		return
+	default:
+		result := mockdata.MockedInventoryUpdateResponse
+		rw.Write(result)
+	}
+}
+
 func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
 	case req.RequestURI == "/api/v2/inventories/1/":
@@ -29,7 +41,7 @@ func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Reques
 		rw.Write(result)
 		return
 	case req.RequestURI == "/api/v2/inventories/1/update_inventory_sources/":
-		result := mockdata.MockedInventoryUpdateResponse
+		result := mockdata.MockedInventoryUpdatesResponse
 		rw.Write(result)
 		return
 	case req.Method == "POST":
@@ -267,6 +279,7 @@ func initServer() {
 	mux := http.NewServeMux()
 	mux.Handle("/api/v2/ping/", http.HandlerFunc(server.PingHandler))
 	mux.Handle("/api/v2/inventories/", http.HandlerFunc(server.InventoriesHandler))
+	mux.Handle("/api/v2/inventory_updates/", http.HandlerFunc(server.InventoryUpdatesHandler))
 	mux.Handle("/api/v2/job_templates/", http.HandlerFunc(server.JobTemplatesHandler))
 	mux.Handle("/api/v2/jobs/", http.HandlerFunc(server.JobsHandler))
 	mux.Handle("/api/v2/projects/", http.HandlerFunc(server.ProjectsHandler))
