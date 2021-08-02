@@ -42,6 +42,7 @@ type Related struct {
 	Copy                         string `json:"copy"`
 	UpdateInventorySources       string `json:"update_inventory_sources"`
 	InventorySources             string `json:"inventory_sources"`
+	InventorySource              string `json:"inventory_source"`
 	FactVersions                 string `json:"fact_versions"`
 	SmartInventories             string `json:"smart_inventories"`
 	Insights                     string `json:"insights"`
@@ -80,6 +81,7 @@ type Related struct {
 	AdHocCommandEvents           string `json:"ad_hoc_command_events"`
 	Children                     string `json:"children"`
 	AnsibleFacts                 string `json:"ansible_facts"`
+	Events                       string `json:"events"`
 }
 
 // OrgnizationSummary represents the awx api orgnization summary fields.
@@ -166,6 +168,13 @@ type Summary struct {
 	UnifiedJobTemplate *UnifiedJobTemplate    `json:"unified_job_template"`
 	ExtraCredentials   []interface{}          `json:"extra_credentials"`
 	ProjectUpdate      *ProjectUpdate         `json:"project_update"`
+	InventorySource    *InventorySource       `json:"inventory_source"`
+}
+
+type InventorySource struct {
+	Source      string    `json:"source"`
+	LastUpdated time.Time `json:"last_updated"`
+	Status      string    `json:"status"`
 }
 
 // ProjectUpdate represents the awx api project update.
@@ -235,6 +244,54 @@ type Inventory struct {
 	InventorySourcesWithFailures int         `json:"inventory_sources_with_failures"`
 	InsightsCredential           interface{} `json:"insights_credential"`
 	PendingDeletion              bool        `json:"pending_deletion"`
+}
+
+// InventoryUpdate represents the awx api inventory update.
+type InventoryUpdate struct {
+	InventorySource         int         `json:"inventory_source"`
+	Status                  string      `json:"status"`
+	ID                      int         `json:"id"`
+	Type                    string      `json:"type"`
+	URL                     string      `json:"url"`
+	Related                 *Related    `json:"related"`
+	SummaryFields           *Summary    `json:"summary_fields"`
+	Created                 time.Time   `json:"created"`
+	Modified                time.Time   `json:"modified"`
+	Name                    string      `json:"name"`
+	Description             string      `json:"description"`
+	Source                  string      `json:"source"`
+	SourcePath              string      `json:"source_path"`
+	SourceScript            interface{} `json:"source_script"`
+	SourceVars              string      `json:"source_vars"`
+	Credential              interface{} `json:"credential"`
+	EnabledVar              string      `json:"enabled_var"`
+	EnabledValue            string      `json:"enabled_value"`
+	HostFilter              string      `json:"host_filter"`
+	Overwrite               bool        `json:"overwrite"`
+	OverwriteVars           bool        `json:"overwrite_vars"`
+	CustomVirtualenv        interface{} `json:"custom_virtualenv"`
+	Timeout                 int         `json:"timeout"`
+	Verbosity               int         `json:"verbosity"`
+	UnifiedJobTemplate      int         `json:"unified_job_template"`
+	LaunchType              string      `json:"launch_type"`
+	Failed                  bool        `json:"failed"`
+	Started                 interface{} `json:"started"`
+	Finished                interface{} `json:"finished"`
+	CanceledOn              interface{} `json:"canceled_on"`
+	Elapsed                 float64     `json:"elapsed"`
+	JobArgs                 string      `json:"job_args"`
+	JobCwd                  string      `json:"job_cwd"`
+	JobEnv                  interface{} `json:"job_env"`
+	JobExplanation          string      `json:"job_explanation"`
+	ExecutionNode           string      `json:"execution_node"`
+	ResultTraceback         string      `json:"result_traceback"`
+	EventProcessingFinished bool        `json:"event_processing_finished"`
+	Inventory               int         `json:"inventory"`
+	LicenseError            bool        `json:"license_error"`
+	OrgHostLimitError       bool        `json:"org_host_limit_error"`
+	SourceProjectUpdate     interface{} `json:"source_project_update"`
+	SourceProject           interface{} `json:"source_project"`
+	InventoryUpdate         int         `json:"inventory_update"`
 }
 
 // Credential represents the awx api credential.

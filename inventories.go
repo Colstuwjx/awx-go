@@ -117,3 +117,19 @@ func (i *InventoriesService) DeleteInventory(id int) (*Inventory, error) {
 
 	return result, nil
 }
+
+func (i *InventoriesService) SyncInventorySourcesByInventoryID(id int) ([]*InventoryUpdate, error) {
+	result := new([]*InventoryUpdate)
+
+	endpoint := fmt.Sprintf("/api/v2/inventories/%d/update_inventory_sources/", id)
+	resp, err := i.client.Requester.PostJSON(endpoint, nil, result, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return *result, nil
+}
