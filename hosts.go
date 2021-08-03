@@ -78,7 +78,7 @@ func (h *HostService) UpdateHost(id int, data map[string]interface{}, params map
 	if err != nil {
 		return nil, err
 	}
-	resp, err := h.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := h.client.Requester.PatchJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func (h *HostService) AssociateGroup(id int, data map[string]interface{}, params
 	if err != nil {
 		return nil, err
 	}
-	resp, err := h.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := h.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
@@ -132,7 +132,7 @@ func (h *HostService) DisAssociateGroup(id int, data map[string]interface{}, par
 	if err != nil {
 		return nil, err
 	}
-	resp, err := h.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, nil)
+	resp, err := h.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
 	if err != nil {
 		return nil, err
 	}
