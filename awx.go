@@ -16,16 +16,17 @@ var mandatoryFields = []string{}
 type AWX struct {
 	client *Client
 
-	PingService             *PingService
-	InventoriesService      *InventoriesService
-	InventoryUpdatesService *InventoryUpdatesService
-	JobService              *JobService
-	JobTemplateService      *JobTemplateService
-	ProjectService          *ProjectService
-	ProjectUpdatesService   *ProjectUpdatesService
-	UserService             *UserService
-	GroupService            *GroupService
-	HostService             *HostService
+	PingService                *PingService
+	InventoriesService         *InventoriesService
+	InventoryUpdatesService    *InventoryUpdatesService
+	JobService                 *JobService
+	JobTemplateService         *JobTemplateService
+	ProjectService             *ProjectService
+	ProjectUpdatesService      *ProjectUpdatesService
+	UserService                *UserService
+	GroupService               *GroupService
+	HostService                *HostService
+	WorkflowJobTemplateService *WorkflowJobTemplateService
 }
 
 // Client implement http client.
