@@ -177,24 +177,22 @@ func TestLauchWorkflowJob(t *testing.T) {
 				Credential:                 "/api/v2/credentials/1/",
 				ExtraCredentials:           "/api/v2/jobs/499/extra_credentials/",
 				Credentials:                "/api/v2/jobs/499/credentials/",
-				UnifiedWorkflowJobTemplate: "/api/v2/workflow_job_templates/5/",
 				Stdout:                     "/api/v2/jobs/499/stdout/",
 				Notifications:              "/api/v2/jobs/499/notifications/",
 				JobHostSummaries:           "/api/v2/jobs/499/job_host_summaries/",
 				JobEvents:                  "/api/v2/jobs/499/job_events/",
 				ActivityStream:             "/api/v2/jobs/499/activity_stream/",
-				WorkflowJobTemplate:        "/api/v2/workflow_job_templates/5/",
 				Cancel:                     "/api/v2/jobs/499/cancel/",
 				CreateSchedule:             "/api/v2/jobs/499/create_schedule/",
 				Relaunch:                   "/api/v2/jobs/499/relaunch/",
 			},
 
-			SummaryFields: &Summary{
-				WorkflowJobTemplate: &WorkflowJobTemplateSummary{
-					ID:          5,
-					Name:        "Demo Job Template",
-					Description: "",
-				},
+			// SummaryFields: &Summary{
+			// 	WorkflowJobTemplate: &WorkflowJobTemplateSummary{
+			// 		ID:          5,
+			// 		Name:        "Demo Job Template",
+			// 		Description: "",
+			// 	},
 
 				Inventory: &Inventory{
 					ID:                           1,
