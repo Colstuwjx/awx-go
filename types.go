@@ -717,7 +717,7 @@ type Host struct {
 	AnsibleFactsModified interface{}  `json:"ansible_facts_modified"`
 }
 
-// JobTemplate represents the awx api job template.
+// WorkflowJobTemplate represents the awx api workflow job template.
 type WorkflowJobTemplate struct {
 	ID                     int         `json:"id"`
 	Type                   string      `json:"type"`
