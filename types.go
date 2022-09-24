@@ -171,10 +171,41 @@ type Summary struct {
 	InventorySource    *InventorySource       `json:"inventory_source"`
 }
 
+// InventorySource represents the awx api inventory source fields.
 type InventorySource struct {
 	Source      string    `json:"source"`
 	LastUpdated time.Time `json:"last_updated"`
 	Status      string    `json:"status"`
+	Created              time.Time   `json:"created"`
+	Credential           interface{} `json:"credential"`
+	CustomVirtualenv     interface{} `json:"custom_virtualenv"`
+	Description          string      `json:"description"`
+	EnabledValue         string      `json:"enabled_value"`
+	EnabledVar           string      `json:"enabled_var"`
+	ExecutionEnvironment interface{} `json:"execution_environment"`
+	HostFilter           string      `json:"host_filter"`
+	ID                   int         `json:"id"`
+	Inventory            int         `json:"inventory"`
+	LastJobFailed        bool        `json:"last_job_failed"`
+	LastJobRun           interface{} `json:"last_job_run"`
+	LastUpdateFailed     bool        `json:"last_update_failed"`
+	Modified             time.Time   `json:"modified"`
+	Name                 string      `json:"name"`
+	NextJobRun           interface{} `json:"next_job_run"`
+	Overwrite            bool        `json:"overwrite"`
+	OverwriteVars        bool        `json:"overwrite_vars"`
+	Related               *Related  `json:"related"`
+	SourcePath    string `json:"source_path"`
+	SourceProject int    `json:"source_project"`
+	SourceVars    string `json:"source_vars"`
+	SummaryFields         *Summary  `json:"summary_fields"`
+	Timeout               int    `json:"timeout"`
+	Type                  string `json:"type"`
+	UpdateCacheTimeout    int    `json:"update_cache_timeout"`
+	UpdateOnLaunch        bool   `json:"update_on_launch"`
+	UpdateOnProjectUpdate bool   `json:"update_on_project_update"`
+	URL                   string `json:"url"`
+	Verbosity             int    `json:"verbosity"`
 }
 
 // ProjectUpdate represents the awx api project update.

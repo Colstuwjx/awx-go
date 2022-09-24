@@ -118,6 +118,8 @@ func (i *InventoriesService) DeleteInventory(id int) (*Inventory, error) {
 	return result, nil
 }
 
+// SyncInventorySourcesByInventoryID sends a sync request for a single inventory.
+// Accepts only ID, which is the inventory id, not the inventory source id
 func (i *InventoriesService) SyncInventorySourcesByInventoryID(id int) ([]*InventoryUpdate, error) {
 	result := new([]*InventoryUpdate)
 
@@ -132,4 +134,34 @@ func (i *InventoriesService) SyncInventorySourcesByInventoryID(id int) ([]*Inven
 	}
 
 	return *result, nil
+}
+
+func (i *InventoriesService) CreateInventorySource(id int, data map[string]interface{}, params map[string]string) (*InventorySource, error) {
+	mandatoryFields = []string{"name", "source"}
+	validate, status := ValidateParams(data, mandatoryFields)
+
+	if !status {
+		err := fmt.Errorf("Mandatory input arguments are absent: %s", validate)
+		return nil, err
+	}
+
+	result := new(InventorySource)
+	endpoint := fmt.Sprintf("/api/v2/inventories/%d/inventory_sources/", id)
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+
+	// Add check if inventory_source exists and return proper error
+
+	resp, err := i.client.Requester.PostJSON(endpoint, bytes.NewReader(payload), result, params)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := CheckResponse(resp); err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
