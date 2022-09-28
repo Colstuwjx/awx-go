@@ -271,6 +271,105 @@ func TestCreateInventory(t *testing.T) {
 	}
 }
 
+func TestCreateInventorySource(t *testing.T) {
+	var (
+		expectCreateInventorySourceResponse = &InventorySource{
+			Source: "somesource",
+			LastUpdated : func() time.Time {
+							t, _ := time.Parse(time.RFC3339, "2018-08-13T01:59:47.160127Z")
+							return t
+						}(),
+			Status: "somestatus",
+			Created: func() time.Time {
+							t, _ := time.Parse(time.RFC3339, "2018-08-13T01:59:47.160127Z")
+							return t
+						}(),
+			Credential: "totallylegitaccess",
+			CustomVirtualenv: "null",
+			Description: "somedescription",
+			EnabledValue: "A",
+			EnabledVar: "A",
+			ExecutionEnvironment: "A",
+			HostFilter: "A",
+			ID: 1,
+			Inventory: 1,
+			LastJobFailed: false,
+			LastJobRun: "yesterday..",
+			LastUpdateFailed: false,
+			Modified: func() time.Time {
+							t, _ := time.Parse(time.RFC3339, "2018-08-13T01:59:47.160127Z")
+							return t
+						}() ,
+			Name: "an inventory source",
+			NextJobRun: true,
+			Overwrite: true,
+			OverwriteVars: true,
+			Related: &Related{
+				NamedURL:               "/api/v2/inventories/TestInventory++Default/",
+				CreatedBy:              "/api/v2/users/1/",
+				ModifiedBy:             "/api/v2/users/1/",
+				JobTemplates:           "/api/v2/inventories/6/job_templates/",
+				VariableData:           "/api/v2/inventories/6/variable_data/",
+				RootGroups:             "/api/v2/inventories/6/root_groups/",
+				ObjectRoles:            "/api/v2/inventories/6/object_roles/",
+				AdHocCommands:          "/api/v2/inventories/6/ad_hoc_commands/",
+				Script:                 "/api/v2/inventories/6/script/",
+				Tree:                   "/api/v2/inventories/6/tree/",
+				AccessList:             "/api/v2/inventories/6/access_list/",
+				ActivityStream:         "/api/v2/inventories/6/activity_stream/",
+				InstanceGroups:         "/api/v2/inventories/6/instance_groups/",
+				Hosts:                  "/api/v2/inventories/6/hosts/",
+				Groups:                 "/api/v2/inventories/6/groups/",
+				Copy:                   "/api/v2/inventories/6/copy/",
+				UpdateInventorySources: "/api/v2/inventories/6/update_inventory_sources/",
+				InventorySources:       "/api/v2/inventories/6/inventory_sources/",
+				Organization:           "/api/v2/organizations/1/",
+			},
+			SourcePath: "somesourcepath",
+			SourceProject: 1,
+			SourceVars: "somesourcevars",
+			SummaryFields: &Summary{
+				Organization: &OrgnizationSummary{
+					ID:          1,
+					Name:        "default",
+					Description: "",
+				},
+				CreatedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+				ModifiedBy: &ByUserSummary{
+					ID:        1,
+					Username:  "admin",
+					FirstName: "",
+					LastName:  "",
+				},
+			},
+			Timeout: 1,
+			Type: "a",
+			UpdateCacheTimeout: 1,
+			UpdateOnLaunch: true,
+			UpdateOnProjectUpdate: true,
+			URL: "someurl",
+			Verbosity: 1,
+		}
+	)
+
+	awx := NewAWX(testAwxHost, testAwxUserName, testAwxPasswd, nil)
+	result, err := awx.InventoriesService.CreateInventorySource(1, map[string]interface{}{
+		"name": "Demo Inventory",
+	}, nil)
+
+	if err != nil {
+		t.Fatalf("CreateInventorySource err: %s", err)
+	} else {
+		checkAPICallResult(t, expectCreateInventorySourceResponse, result)
+		t.Log("ListInventories passed!")
+	}
+}
+
 func TestUpdateInventory(t *testing.T) {
 	var (
 		expectUpdateInventoryResponse = &Inventory{

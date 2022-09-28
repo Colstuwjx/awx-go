@@ -137,7 +137,7 @@ func (i *InventoriesService) SyncInventorySourcesByInventoryID(id int) ([]*Inven
 }
 
 func (i *InventoriesService) CreateInventorySource(id int, data map[string]interface{}, params map[string]string) (*InventorySource, error) {
-	mandatoryFields = []string{"name", "source"}
+	mandatoryFields = []string{"name"}
 	validate, status := ValidateParams(data, mandatoryFields)
 
 	if !status {

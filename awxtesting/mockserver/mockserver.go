@@ -44,6 +44,10 @@ func (s *mockServer) InventoriesHandler(rw http.ResponseWriter, req *http.Reques
 		result := mockdata.MockedInventoryUpdatesResponse
 		rw.Write(result)
 		return
+	case req.RequestURI == "/api/v2/inventories/1/inventory_sources/" && req.Method == "POST":
+		result := mockdata.MockedCreateInventorySourceResponse
+		rw.Write(result)
+		return
 	case req.Method == "POST":
 		result := mockdata.MockedCreateInventoryResponse
 		rw.Write(result)
