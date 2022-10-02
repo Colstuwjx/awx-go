@@ -584,6 +584,7 @@ type EventInvocation struct {
 // EventRes represents the awx api event response.
 type EventRes struct {
 	AnsibleParsed bool             `json:"_ansible_parsed"`
+	AnsibleFacts  interface{}      `json:"ansible_facts"`
 	StderrLines   []string         `json:"stderr_lines"`
 	Changed       bool             `json:"changed"`
 	End           string           `json:"end"`
